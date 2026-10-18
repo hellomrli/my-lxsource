@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-18T15:21:13.162Z",
+  "generatedAt": "2026-10-18T16:21:20.859Z",
   "quality": "320k",
   "probes": {
     "wy": {
@@ -62,11 +62,11 @@
   "results": [
     {
       "source": "pdone:changqing/latest.js",
-      "platform": "tx",
+      "platform": "wy",
       "l1": true,
       "l2": true,
       "l3": false,
-      "url": "http://yinyue.haitangw.net/qq/qq_kw.php?type=mp3&id=0039MnYb0qxYhV&level=exhigh",
+      "url": "http://yinyue.haitangw.net/wy/wy.php?type=mp3&id=2652820720&level=exhigh",
       "detail": "L2/L3 失败: HTTP 404 ct=text/html magic=-"
     },
     {
@@ -151,6 +151,15 @@
       "detail": "不支持该平台"
     },
     {
+      "source": "pdone:changqing/latest.js",
+      "platform": "kg",
+      "l1": true,
+      "l2": true,
+      "l3": false,
+      "url": "http://yinyue.haitangw.net/kg/kg_song_kw.php?type=mp3&id=undefined&level=exhigh",
+      "detail": "L2/L3 失败: HTTP 404 ct=text/html magic=-"
+    },
+    {
       "source": "pdone:huanyin/latest.js",
       "platform": "wy",
       "l1": true,
@@ -158,6 +167,96 @@
       "l3": false,
       "url": "https://music-dl.sayqz.com/api/?source=netease&id=2652820720&type=url&br=320k",
       "detail": "L2/L3 失败: HTTP 0 ct=- magic=- fetch failed"
+    },
+    {
+      "source": "pdone:huanyin/latest.js",
+      "platform": "kw",
+      "l1": true,
+      "l2": false,
+      "l3": false,
+      "url": "https://music-dl.sayqz.com/api/?source=kuwo&id=228908&type=url&br=320k",
+      "detail": "L2/L3 失败: HTTP 0 ct=- magic=- fetch failed"
+    },
+    {
+      "source": "pdone:huanyin/latest.js",
+      "platform": "kg",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "不支持该平台"
+    },
+    {
+      "source": "pdone:huibq/latest.js",
+      "platform": "wy",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "L1 失败: console.group is not a function"
+    },
+    {
+      "source": "pdone:huibq/latest.js",
+      "platform": "tx",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "L1 失败: console.group is not a function"
+    },
+    {
+      "source": "pdone:huibq/latest.js",
+      "platform": "kw",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "L1 失败: console.group is not a function"
+    },
+    {
+      "source": "pdone:huibq/latest.js",
+      "platform": "kg",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "L1 失败: console.group is not a function"
+    },
+    {
+      "source": "pdone:ikun/latest.js",
+      "platform": "wy",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "L1 失败: console.group is not a function"
+    },
+    {
+      "source": "pdone:ikun/latest.js",
+      "platform": "tx",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "不支持该平台"
+    },
+    {
+      "source": "pdone:ikun/latest.js",
+      "platform": "kw",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "L1 失败: console.group is not a function"
+    },
+    {
+      "source": "pdone:ikun/latest.js",
+      "platform": "kg",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "不支持该平台"
     },
     {
       "source": "pdone:huanyin/latest.js",
@@ -170,110 +269,11 @@
     },
     {
       "source": "pdone:changqing/latest.js",
-      "platform": "kg",
+      "platform": "tx",
       "l1": true,
       "l2": true,
       "l3": false,
-      "url": "http://yinyue.haitangw.net/kg/kg_song_kw.php?type=mp3&id=undefined&level=exhigh",
-      "detail": "L2/L3 失败: HTTP 404 ct=text/html magic=-"
-    },
-    {
-      "source": "pdone:huanyin/latest.js",
-      "platform": "kg",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "不支持该平台"
-    },
-    {
-      "source": "pdone:huibq/latest.js",
-      "platform": "wy",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "L1 失败: console.group is not a function"
-    },
-    {
-      "source": "pdone:huibq/latest.js",
-      "platform": "tx",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "L1 失败: console.group is not a function"
-    },
-    {
-      "source": "pdone:huibq/latest.js",
-      "platform": "kw",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "L1 失败: console.group is not a function"
-    },
-    {
-      "source": "pdone:huibq/latest.js",
-      "platform": "kg",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "L1 失败: console.group is not a function"
-    },
-    {
-      "source": "pdone:ikun/latest.js",
-      "platform": "wy",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "L1 失败: console.group is not a function"
-    },
-    {
-      "source": "pdone:ikun/latest.js",
-      "platform": "tx",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "不支持该平台"
-    },
-    {
-      "source": "pdone:ikun/latest.js",
-      "platform": "kw",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "L1 失败: console.group is not a function"
-    },
-    {
-      "source": "pdone:ikun/latest.js",
-      "platform": "kg",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "不支持该平台"
-    },
-    {
-      "source": "pdone:huanyin/latest.js",
-      "platform": "kw",
-      "l1": true,
-      "l2": false,
-      "l3": false,
-      "url": "https://music-dl.sayqz.com/api/?source=kuwo&id=228908&type=url&br=320k",
-      "detail": "L2/L3 失败: HTTP 0 ct=- magic=- fetch failed"
-    },
-    {
-      "source": "pdone:changqing/latest.js",
-      "platform": "wy",
-      "l1": true,
-      "l2": true,
-      "l3": false,
-      "url": "http://yinyue.haitangw.net/wy/wy.php?type=mp3&id=2652820720&level=exhigh",
+      "url": "http://yinyue.haitangw.net/qq/qq_kw.php?type=mp3&id=0039MnYb0qxYhV&level=exhigh",
       "detail": "L2/L3 失败: HTTP 404 ct=text/html magic=-"
     },
     {
@@ -305,6 +305,15 @@
     },
     {
       "source": "pdone:lx/latest.js",
+      "platform": "tx",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "L1 失败: fetch failed"
+    },
+    {
+      "source": "pdone:lx/latest.js",
       "platform": "wy",
       "l1": false,
       "l2": false,
@@ -315,15 +324,6 @@
     {
       "source": "pdone:lx/latest.js",
       "platform": "kw",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "L1 失败: fetch failed"
-    },
-    {
-      "source": "pdone:lx/latest.js",
-      "platform": "tx",
       "l1": false,
       "l2": false,
       "l3": false,
@@ -345,7 +345,7 @@
       "l1": true,
       "l2": true,
       "l3": true,
-      "url": "https://m701.music.126.net/20261018234333/c106d3791fe62ada06e1abbe42a4beb0/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
+      "url": "https://m701.music.126.net/20261019004400/bdcbf91f58480a94660409c13286e566/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
       "detail": "OK 206 mp3(ID3) 2048B"
     },
     {
@@ -480,17 +480,8 @@
       "l1": true,
       "l2": true,
       "l3": true,
-      "url": "http://m801.music.126.net/20261018234356/67458897fd18fc4c5949c3d8a9d91de2/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869966078/2350/1ee3/a3e5/a250ee753a91f455f02628d8a4b5b845.mp3?vuutv=Cir4nPZwhxCH31L7fVL8Z+8V12I2yUZr9QdazGfMlMIGcvIaxflFVLkl1OPK/G1+khiS+ZrUnGGxPS+LXdt7kfpx7b2+dVjei7ZkVdg9LcU=",
+      "url": "http://m801.music.126.net/20261019004420/f819a1888b5b42f2e98d5315b091b483/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869966078/2350/1ee3/a3e5/a250ee753a91f455f02628d8a4b5b845.mp3?vuutv=dvjeuEExZfJlQ3uP+znS6jCBBw+Or4lpLWY9yXVmANbU9TF6c6zO16Xxz8qwuwygEUdP+WWfLHJTCZ/UMHaweS/EWYzvj8Kwhj9N9JgZNCM=",
       "detail": "OK 206 mp3(ID3) 2048B"
-    },
-    {
-      "source": "pdone:juhe/latest.js",
-      "platform": "kg",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "L0 等待 inited 超时"
     },
     {
       "source": "lxs:lx-玉宁熙.js",
@@ -520,13 +511,13 @@
       "detail": "L1 失败: 酷狗歌曲ID不存在"
     },
     {
-      "source": "lxs:xinghai-music-source2.3.0.js",
-      "platform": "tx",
+      "source": "pdone:juhe/latest.js",
+      "platform": "kg",
       "l1": false,
       "l2": false,
       "l3": false,
       "url": null,
-      "detail": "L1 失败: 无法获取音频地址：所有关键词均未搜索到歌曲（可能接口异常或歌曲不存在）"
+      "detail": "L0 等待 inited 超时"
     },
     {
       "source": "lxs:xinghai-music-source2.3.0.js",
@@ -534,7 +525,7 @@
       "l1": true,
       "l2": true,
       "l3": true,
-      "url": "https://m801.music.126.net/20261018234402/44f19c1fe4f478ec7e345cd579c529df/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
+      "url": "https://m701.music.126.net/20261019004427/ff2c1e0b4ac615299129efafe45dc745/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
       "detail": "OK 206 mp3(ID3) 2048B"
     },
     {
@@ -548,7 +539,7 @@
     },
     {
       "source": "lxs:xinghai-music-source2.3.0.js",
-      "platform": "kg",
+      "platform": "tx",
       "l1": false,
       "l2": false,
       "l3": false,
@@ -561,8 +552,17 @@
       "l1": true,
       "l2": true,
       "l3": true,
-      "url": "https://m801.music.126.net/20261018234405/fba15cbb6afb754d0c5b0ddfeba0b039/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
+      "url": "https://m701.music.126.net/20261019004430/5ac5ac7d2d35da7cfcfa1d7cedd587ec/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
       "detail": "OK 206 mp3(ID3) 2048B"
+    },
+    {
+      "source": "lxs:xinghai-music-source2.3.0.js",
+      "platform": "kg",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "L1 失败: 无法获取音频地址：所有关键词均未搜索到歌曲（可能接口异常或歌曲不存在）"
     },
     {
       "source": "lxs:全豆要-聚合音源-V4.1.js",
@@ -620,21 +620,21 @@
     },
     {
       "source": "lxs:忆音音源 v1.js",
-      "platform": "wy",
-      "l1": true,
-      "l2": true,
-      "l3": true,
-      "url": "https://music.3e0.cn/?server=netease&type=url&id=2652820720",
-      "detail": "OK 206 mp3(ID3) 2048B"
-    },
-    {
-      "source": "lxs:忆音音源 v1.js",
       "platform": "tx",
       "l1": true,
       "l2": true,
       "l3": false,
       "url": "https://music.3e0.cn/?server=tencent&type=url&id=0039MnYb0qxYhV",
       "detail": "L2/L3 失败: HTTP 200 ct=text/html; charset=utf-8 magic=-"
+    },
+    {
+      "source": "lxs:忆音音源 v1.js",
+      "platform": "wy",
+      "l1": true,
+      "l2": true,
+      "l3": true,
+      "url": "https://music.3e0.cn/?server=netease&type=url&id=2652820720",
+      "detail": "OK 206 mp3(ID3) 2048B"
     },
     {
       "source": "lxs:念心音源-V1.0.1.js",
@@ -696,7 +696,7 @@
       "l1": true,
       "l2": true,
       "l3": true,
-      "url": "http://m801.music.126.net/20261018234422/f4fd3598c36ebb112f3bca24a9a084b7/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869966078/2350/1ee3/a3e5/a250ee753a91f455f02628d8a4b5b845.mp3?vuutv=vnyoUiQ1woL1m+ImJRxYrhn/tyOu5cSG/3OeUuzJWcDFjP5eHAm93KU89qkFfx7jMska5DVkV+Hti5saFBqRqkulayCm+sgEMAZSf6kNDu4=",
+      "url": "http://m801.music.126.net/20261019004448/7de96c7f51c17b7d3c7283e3c2baef25/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869966078/2350/1ee3/a3e5/a250ee753a91f455f02628d8a4b5b845.mp3?vuutv=Dpt3Iko6pJ8J3jfERcS0C0xpJJbw/TyMN0aNKQHPQ2pcqj8Oe66kIis0PpVOZs3525C8FJad6p3Gi5SUl7jXD+fAizeS2oyOWdIHbWc/Py0=",
       "detail": "OK 206 mp3(ID3) 2048B"
     },
     {
@@ -705,7 +705,7 @@
       "l1": true,
       "l2": true,
       "l3": true,
-      "url": "https://iot102.music.126.net/Yml6PWlvdCZjaGFubmVsPW5ldGVhc2Umc2NlbmU9YW5kcmNhcg/20261018234420/cbd9a30999402a0c439abc8d7ae5c5a6/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
+      "url": "https://iot202.music.126.net/Yml6PWlvdCZjaGFubmVsPW5ldGVhc2Umc2NlbmU9YW5kcmNhcg/20261019004446/c73810b57d73e8cba2f37db522a58b26/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
       "detail": "OK 206 mp3(ID3) 2048B"
     },
     {
@@ -714,7 +714,7 @@
       "l1": true,
       "l2": true,
       "l3": true,
-      "url": "http://kw-er.kuwo.cn/fb2816c342a42e5a3f5409af00ae451e/6ad4d10e/resource/30106/trackmedia/O600000bYDlc2XxKLs.ogg?bitrate$192&format$ogg&source$kwplayer_ar_5.1.0.0_B_jiakong_vh.apk&type$convert_url_with_sign&user$0&loginUid$",
+      "url": "http://kw-er.kuwo.cn/1929e8e92d7dbc8df484969e1a932e52/6ad4ecd3/resource/30106/trackmedia/O600000bYDlc2XxKLs.ogg?bitrate$192&format$ogg&source$kwplayer_ar_5.1.0.0_B_jiakong_vh.apk&type$convert_url_with_sign&user$0&loginUid$",
       "detail": "OK 206 ogg 2048B"
     },
     {
@@ -745,13 +745,13 @@
       "detail": "不支持该平台"
     },
     {
-      "source": "lxs:统一音乐源.js",
-      "platform": "wy",
+      "source": "lxs:念心音源-V1.0.1.js",
+      "platform": "kg",
       "l1": true,
       "l2": true,
-      "l3": true,
-      "url": "https://m801.music.126.net/20261018234425/6bf3f25e2afcf68cce5b7eb12ddbcb6c/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
-      "detail": "OK 206 mp3(ID3) 2048B"
+      "l3": false,
+      "url": "http://mcp.nianxinxz.com/share/ceshi/kg.php?id=undefined&level=exhigh&type=mp3",
+      "detail": "L2/L3 失败: HTTP 404 ct=text/html magic=-"
     },
     {
       "source": "lxs:统一音乐源.js",
@@ -772,13 +772,13 @@
       "detail": "L1 失败: 所有音质尝试均失败"
     },
     {
-      "source": "lxs:念心音源-V1.0.1.js",
-      "platform": "kg",
+      "source": "lxs:统一音乐源.js",
+      "platform": "wy",
       "l1": true,
       "l2": true,
-      "l3": false,
-      "url": "http://mcp.nianxinxz.com/share/ceshi/kg.php?id=undefined&level=exhigh&type=mp3",
-      "detail": "L2/L3 失败: HTTP 404 ct=text/html magic=-"
+      "l3": true,
+      "url": "https://m801.music.126.net/20261019004450/44758d893ed77f2339a2e55ae4e0442a/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
+      "detail": "OK 206 mp3(ID3) 2048B"
     },
     {
       "source": "lxs:聚合API.js",
@@ -840,7 +840,7 @@
       "l1": true,
       "l2": true,
       "l3": true,
-      "url": "http://m701.music.126.net/20261018234528/613121807456acca7eadc6d78fb4b16b/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869966078/2350/1ee3/a3e5/a250ee753a91f455f02628d8a4b5b845.mp3?vuutv=k7ZruF5ch85QS3VpZ71BSAf9p35Oj2neXiklVxB7QgHtlKx0iSBL2iJNp25bVVxI2WNgZI2g20ersylF8QTnx+ET3p2DgO6x2PWwTzGsRao=",
+      "url": "http://m701.music.126.net/20261019004552/3bbf35841f00dfb1c860e2998d7106ab/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869966078/2350/1ee3/a3e5/a250ee753a91f455f02628d8a4b5b845.mp3?vuutv=kuelidvkrbgfIxpi58SityBd/RodltYr5Kf6ynJptbteXMzwhBMtbEWWCqdGAd/eMyQBmRFhwrstPrXOJPImpIilzLO8UFcpe9Nzgp6Zh0s=",
       "detail": "OK 206 mp3(ID3) 2048B"
     },
     {
@@ -876,7 +876,7 @@
       "l1": true,
       "l2": true,
       "l3": true,
-      "url": "https://m801.music.126.net/20261018234537/b4d71ac9192195f867f36fc477f1270b/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
+      "url": "https://m801.music.126.net/20261019004600/49ddfb517e90ca774fb80a107a84826d/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
       "detail": "OK 206 mp3(ID3) 2048B"
     },
     {
@@ -886,16 +886,133 @@
       "l2": false,
       "l3": false,
       "url": null,
-      "detail": "L1 失败: 后端失败: This operation was aborted"
+      "detail": "L1 失败: 后端失败: 所有音质(128k)均获取失败"
     },
     {
       "source": "xinghai:xinghai-music-source.js",
+      "platform": "kw",
+      "l1": true,
+      "l2": true,
+      "l3": true,
+      "url": "http://car-er.kuwo.cn/2dccb2a622387454d75cb845dcde97b1/6ad4f0d5/resource/30106/trackmedia/M800000bYDlc2XxKLs.mp3?bitrate$320&format$mp3&source$kwplayercar_ar_6.0.0.9_B_jiakong_vh.apk&type$convert_url2&user$0&loginUid$",
+      "detail": "OK 206 mp3(ID3) 2048B"
+    },
+    {
+      "source": "xinghai:xinghai-music-source.js",
+      "platform": "kg",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "L1 失败: 后端失败: 缺少 songmid 或 hash"
+    },
+    {
+      "source": "xinghai:xinghai-music-sourcev2.3.12.js",
+      "platform": "wy",
+      "l1": true,
+      "l2": true,
+      "l3": true,
+      "url": "https://m701.music.126.net/20261019004605/2a543aaf330e91da4b043b56247a2347/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
+      "detail": "OK 206 mp3(ID3) 2048B"
+    },
+    {
+      "source": "xinghai:xinghai-music-sourcev2.3.12.js",
+      "platform": "tx",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "L1 失败: 后端失败: 所有音质(128k)均获取失败"
+    },
+    {
+      "source": "xinghai:xinghai-music-sourcev2.3.12.js",
+      "platform": "kw",
+      "l1": true,
+      "l2": true,
+      "l3": true,
+      "url": "http://car-er.kuwo.cn/2dccb2a622387454d75cb845dcde97b1/6ad4f0d5/resource/30106/trackmedia/M800000bYDlc2XxKLs.mp3?bitrate$320&format$mp3&source$kwplayercar_ar_6.0.0.9_B_jiakong_vh.apk&type$convert_url2&user$0&loginUid$",
+      "detail": "OK 206 mp3(ID3) 2048B"
+    },
+    {
+      "source": "xinghai:xinghai-music-sourcev2.3.12.js",
+      "platform": "kg",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "L1 失败: 后端失败: 缺少 songmid 或 hash"
+    },
+    {
+      "source": "xinghai:xinghai-music-sourcev2.3.8.js",
+      "platform": "wy",
+      "l1": true,
+      "l2": true,
+      "l3": true,
+      "url": "https://m701.music.126.net/20261019004607/66de56d02a81cdc361fb2eae9a611dfb/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
+      "detail": "OK 206 mp3(ID3) 2048B"
+    },
+    {
+      "source": "xinghai:xinghai-music-sourcev2.3.8.js",
+      "platform": "tx",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "不支持该平台"
+    },
+    {
+      "source": "xinghai:xinghai-music-sourcev2.3.8.js",
       "platform": "kw",
       "l1": false,
       "l2": false,
       "l3": false,
       "url": null,
-      "detail": "L1 失败: 后端失败: This operation was aborted"
+      "detail": "不支持该平台"
+    },
+    {
+      "source": "xinghai:xinghai-music-sourcev2.3.8.js",
+      "platform": "kg",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "不支持该平台"
+    },
+    {
+      "source": "sixyin-cc:sixyin-music-source-v1.0.7.js",
+      "platform": "wy",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "L0 脚本执行失败: document is not defined"
+    },
+    {
+      "source": "sixyin-cc:sixyin-music-source-v1.0.7.js",
+      "platform": "tx",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "L0 脚本执行失败: document is not defined"
+    },
+    {
+      "source": "sixyin-cc:sixyin-music-source-v1.0.7.js",
+      "platform": "kw",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "L0 脚本执行失败: document is not defined"
+    },
+    {
+      "source": "sixyin-cc:sixyin-music-source-v1.0.7.js",
+      "platform": "kg",
+      "l1": false,
+      "l2": false,
+      "l3": false,
+      "url": null,
+      "detail": "L0 脚本执行失败: document is not defined"
     },
     {
       "source": "lxs:长青SVIP音源-V1.1.1.js",
@@ -907,15 +1024,6 @@
       "detail": "L0 等待 inited 超时"
     },
     {
-      "source": "xinghai:xinghai-music-sourcev2.3.12.js",
-      "platform": "wy",
-      "l1": true,
-      "l2": true,
-      "l3": true,
-      "url": "https://m701.music.126.net/20261018234556/7e5315bbbaf61d7c32f95a8f5800e20b/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
-      "detail": "OK 206 mp3(ID3) 2048B"
-    },
-    {
       "source": "lxs:长青SVIP音源-V1.1.1.js",
       "platform": "kg",
       "l1": false,
@@ -923,114 +1031,6 @@
       "l3": false,
       "url": null,
       "detail": "L0 等待 inited 超时"
-    },
-    {
-      "source": "xinghai:xinghai-music-source.js",
-      "platform": "kg",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "L1 失败: 后端失败: This operation was aborted"
-    },
-    {
-      "source": "xinghai:xinghai-music-sourcev2.3.12.js",
-      "platform": "tx",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "L1 失败: 后端失败: This operation was aborted"
-    },
-    {
-      "source": "xinghai:xinghai-music-sourcev2.3.12.js",
-      "platform": "kw",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "L1 失败: 后端失败: This operation was aborted"
-    },
-    {
-      "source": "xinghai:xinghai-music-sourcev2.3.8.js",
-      "platform": "tx",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "不支持该平台"
-    },
-    {
-      "source": "xinghai:xinghai-music-sourcev2.3.12.js",
-      "platform": "kg",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "L1 失败: 后端失败: This operation was aborted"
-    },
-    {
-      "source": "xinghai:xinghai-music-sourcev2.3.8.js",
-      "platform": "wy",
-      "l1": true,
-      "l2": true,
-      "l3": true,
-      "url": "https://m701.music.126.net/20261018234609/071d4fc8082ee9fdbcc7bcdf1cd5d30e/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
-      "detail": "OK 206 mp3(ID3) 2048B"
-    },
-    {
-      "source": "sixyin-cc:sixyin-music-source-v1.0.7.js",
-      "platform": "wy",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "L0 脚本执行失败: document is not defined"
-    },
-    {
-      "source": "sixyin-cc:sixyin-music-source-v1.0.7.js",
-      "platform": "tx",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "L0 脚本执行失败: document is not defined"
-    },
-    {
-      "source": "sixyin-cc:sixyin-music-source-v1.0.7.js",
-      "platform": "kw",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "L0 脚本执行失败: document is not defined"
-    },
-    {
-      "source": "sixyin-cc:sixyin-music-source-v1.0.7.js",
-      "platform": "kg",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "L0 脚本执行失败: document is not defined"
-    },
-    {
-      "source": "xinghai:xinghai-music-sourcev2.3.8.js",
-      "platform": "kw",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "不支持该平台"
-    },
-    {
-      "source": "xinghai:xinghai-music-sourcev2.3.8.js",
-      "platform": "kg",
-      "l1": false,
-      "l2": false,
-      "l3": false,
-      "url": null,
-      "detail": "不支持该平台"
     }
   ],
   "summary": [
@@ -1085,7 +1085,7 @@
           "l1": true,
           "l2": true,
           "l3": true,
-          "url": "http://m801.music.126.net/20261018234422/f4fd3598c36ebb112f3bca24a9a084b7/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869966078/2350/1ee3/a3e5/a250ee753a91f455f02628d8a4b5b845.mp3?vuutv=vnyoUiQ1woL1m+ImJRxYrhn/tyOu5cSG/3OeUuzJWcDFjP5eHAm93KU89qkFfx7jMska5DVkV+Hti5saFBqRqkulayCm+sgEMAZSf6kNDu4=",
+          "url": "http://m801.music.126.net/20261019004448/7de96c7f51c17b7d3c7283e3c2baef25/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869966078/2350/1ee3/a3e5/a250ee753a91f455f02628d8a4b5b845.mp3?vuutv=Dpt3Iko6pJ8J3jfERcS0C0xpJJbw/TyMN0aNKQHPQ2pcqj8Oe66kIis0PpVOZs3525C8FJad6p3Gi5SUl7jXD+fAizeS2oyOWdIHbWc/Py0=",
           "detail": "OK 206 mp3(ID3) 2048B"
         },
         "kw": {
@@ -1094,7 +1094,7 @@
           "l1": true,
           "l2": true,
           "l3": true,
-          "url": "http://kw-er.kuwo.cn/fb2816c342a42e5a3f5409af00ae451e/6ad4d10e/resource/30106/trackmedia/O600000bYDlc2XxKLs.ogg?bitrate$192&format$ogg&source$kwplayer_ar_5.1.0.0_B_jiakong_vh.apk&type$convert_url_with_sign&user$0&loginUid$",
+          "url": "http://kw-er.kuwo.cn/1929e8e92d7dbc8df484969e1a932e52/6ad4ecd3/resource/30106/trackmedia/O600000bYDlc2XxKLs.ogg?bitrate$192&format$ogg&source$kwplayer_ar_5.1.0.0_B_jiakong_vh.apk&type$convert_url_with_sign&user$0&loginUid$",
           "detail": "OK 206 ogg 2048B"
         },
         "kg": {
@@ -1119,6 +1119,90 @@
       "l3Count": 2
     },
     {
+      "source": "xinghai:xinghai-music-source.js",
+      "platforms": {
+        "wy": {
+          "source": "xinghai:xinghai-music-source.js",
+          "platform": "wy",
+          "l1": true,
+          "l2": true,
+          "l3": true,
+          "url": "https://m801.music.126.net/20261019004600/49ddfb517e90ca774fb80a107a84826d/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
+          "detail": "OK 206 mp3(ID3) 2048B"
+        },
+        "tx": {
+          "source": "xinghai:xinghai-music-source.js",
+          "platform": "tx",
+          "l1": false,
+          "l2": false,
+          "l3": false,
+          "url": null,
+          "detail": "L1 失败: 后端失败: 所有音质(128k)均获取失败"
+        },
+        "kw": {
+          "source": "xinghai:xinghai-music-source.js",
+          "platform": "kw",
+          "l1": true,
+          "l2": true,
+          "l3": true,
+          "url": "http://car-er.kuwo.cn/2dccb2a622387454d75cb845dcde97b1/6ad4f0d5/resource/30106/trackmedia/M800000bYDlc2XxKLs.mp3?bitrate$320&format$mp3&source$kwplayercar_ar_6.0.0.9_B_jiakong_vh.apk&type$convert_url2&user$0&loginUid$",
+          "detail": "OK 206 mp3(ID3) 2048B"
+        },
+        "kg": {
+          "source": "xinghai:xinghai-music-source.js",
+          "platform": "kg",
+          "l1": false,
+          "l2": false,
+          "l3": false,
+          "url": null,
+          "detail": "L1 失败: 后端失败: 缺少 songmid 或 hash"
+        }
+      },
+      "l3Count": 2
+    },
+    {
+      "source": "xinghai:xinghai-music-sourcev2.3.12.js",
+      "platforms": {
+        "wy": {
+          "source": "xinghai:xinghai-music-sourcev2.3.12.js",
+          "platform": "wy",
+          "l1": true,
+          "l2": true,
+          "l3": true,
+          "url": "https://m701.music.126.net/20261019004605/2a543aaf330e91da4b043b56247a2347/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
+          "detail": "OK 206 mp3(ID3) 2048B"
+        },
+        "tx": {
+          "source": "xinghai:xinghai-music-sourcev2.3.12.js",
+          "platform": "tx",
+          "l1": false,
+          "l2": false,
+          "l3": false,
+          "url": null,
+          "detail": "L1 失败: 后端失败: 所有音质(128k)均获取失败"
+        },
+        "kw": {
+          "source": "xinghai:xinghai-music-sourcev2.3.12.js",
+          "platform": "kw",
+          "l1": true,
+          "l2": true,
+          "l3": true,
+          "url": "http://car-er.kuwo.cn/2dccb2a622387454d75cb845dcde97b1/6ad4f0d5/resource/30106/trackmedia/M800000bYDlc2XxKLs.mp3?bitrate$320&format$mp3&source$kwplayercar_ar_6.0.0.9_B_jiakong_vh.apk&type$convert_url2&user$0&loginUid$",
+          "detail": "OK 206 mp3(ID3) 2048B"
+        },
+        "kg": {
+          "source": "xinghai:xinghai-music-sourcev2.3.12.js",
+          "platform": "kg",
+          "l1": false,
+          "l2": false,
+          "l3": false,
+          "url": null,
+          "detail": "L1 失败: 后端失败: 缺少 songmid 或 hash"
+        }
+      },
+      "l3Count": 2
+    },
+    {
       "source": "pdone:qdy/latest.js",
       "platforms": {
         "wy": {
@@ -1127,7 +1211,7 @@
           "l1": true,
           "l2": true,
           "l3": true,
-          "url": "https://m701.music.126.net/20261018234333/c106d3791fe62ada06e1abbe42a4beb0/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
+          "url": "https://m701.music.126.net/20261019004400/bdcbf91f58480a94660409c13286e566/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
           "detail": "OK 206 mp3(ID3) 2048B"
         },
         "kw": {
@@ -1169,7 +1253,7 @@
           "l1": true,
           "l2": true,
           "l3": true,
-          "url": "http://m801.music.126.net/20261018234356/67458897fd18fc4c5949c3d8a9d91de2/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869966078/2350/1ee3/a3e5/a250ee753a91f455f02628d8a4b5b845.mp3?vuutv=Cir4nPZwhxCH31L7fVL8Z+8V12I2yUZr9QdazGfMlMIGcvIaxflFVLkl1OPK/G1+khiS+ZrUnGGxPS+LXdt7kfpx7b2+dVjei7ZkVdg9LcU=",
+          "url": "http://m801.music.126.net/20261019004420/f819a1888b5b42f2e98d5315b091b483/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869966078/2350/1ee3/a3e5/a250ee753a91f455f02628d8a4b5b845.mp3?vuutv=dvjeuEExZfJlQ3uP+znS6jCBBw+Or4lpLWY9yXVmANbU9TF6c6zO16Xxz8qwuwygEUdP+WWfLHJTCZ/UMHaweS/EWYzvj8Kwhj9N9JgZNCM=",
           "detail": "OK 206 mp3(ID3) 2048B"
         },
         "tx": {
@@ -1205,22 +1289,13 @@
     {
       "source": "lxs:xinghai-music-source2.3.0.js",
       "platforms": {
-        "tx": {
-          "source": "lxs:xinghai-music-source2.3.0.js",
-          "platform": "tx",
-          "l1": false,
-          "l2": false,
-          "l3": false,
-          "url": null,
-          "detail": "L1 失败: 无法获取音频地址：所有关键词均未搜索到歌曲（可能接口异常或歌曲不存在）"
-        },
         "wy": {
           "source": "lxs:xinghai-music-source2.3.0.js",
           "platform": "wy",
           "l1": true,
           "l2": true,
           "l3": true,
-          "url": "https://m801.music.126.net/20261018234402/44f19c1fe4f478ec7e345cd579c529df/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
+          "url": "https://m701.music.126.net/20261019004427/ff2c1e0b4ac615299129efafe45dc745/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
           "detail": "OK 206 mp3(ID3) 2048B"
         },
         "kw": {
@@ -1231,6 +1306,15 @@
           "l3": false,
           "url": null,
           "detail": "L1 失败: 无法获取音频地址：主API未返回音频地址"
+        },
+        "tx": {
+          "source": "lxs:xinghai-music-source2.3.0.js",
+          "platform": "tx",
+          "l1": false,
+          "l2": false,
+          "l3": false,
+          "url": null,
+          "detail": "L1 失败: 无法获取音频地址：所有关键词均未搜索到歌曲（可能接口异常或歌曲不存在）"
         },
         "kg": {
           "source": "lxs:xinghai-music-source2.3.0.js",
@@ -1253,7 +1337,7 @@
           "l1": true,
           "l2": true,
           "l3": true,
-          "url": "https://m801.music.126.net/20261018234405/fba15cbb6afb754d0c5b0ddfeba0b039/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
+          "url": "https://m701.music.126.net/20261019004430/5ac5ac7d2d35da7cfcfa1d7cedd587ec/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
           "detail": "OK 206 mp3(ID3) 2048B"
         },
         "kw": {
@@ -1307,15 +1391,6 @@
           "url": null,
           "detail": "不支持该平台"
         },
-        "wy": {
-          "source": "lxs:忆音音源 v1.js",
-          "platform": "wy",
-          "l1": true,
-          "l2": true,
-          "l3": true,
-          "url": "https://music.3e0.cn/?server=netease&type=url&id=2652820720",
-          "detail": "OK 206 mp3(ID3) 2048B"
-        },
         "tx": {
           "source": "lxs:忆音音源 v1.js",
           "platform": "tx",
@@ -1324,6 +1399,15 @@
           "l3": false,
           "url": "https://music.3e0.cn/?server=tencent&type=url&id=0039MnYb0qxYhV",
           "detail": "L2/L3 失败: HTTP 200 ct=text/html; charset=utf-8 magic=-"
+        },
+        "wy": {
+          "source": "lxs:忆音音源 v1.js",
+          "platform": "wy",
+          "l1": true,
+          "l2": true,
+          "l3": true,
+          "url": "https://music.3e0.cn/?server=netease&type=url&id=2652820720",
+          "detail": "OK 206 mp3(ID3) 2048B"
         }
       },
       "l3Count": 1
@@ -1364,7 +1448,7 @@
           "l1": true,
           "l2": true,
           "l3": true,
-          "url": "https://iot102.music.126.net/Yml6PWlvdCZjaGFubmVsPW5ldGVhc2Umc2NlbmU9YW5kcmNhcg/20261018234420/cbd9a30999402a0c439abc8d7ae5c5a6/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
+          "url": "https://iot202.music.126.net/Yml6PWlvdCZjaGFubmVsPW5ldGVhc2Umc2NlbmU9YW5kcmNhcg/20261019004446/c73810b57d73e8cba2f37db522a58b26/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
           "detail": "OK 206 mp3(ID3) 2048B"
         }
       },
@@ -1381,15 +1465,6 @@
           "l3": false,
           "url": null,
           "detail": "不支持该平台"
-        },
-        "wy": {
-          "source": "lxs:统一音乐源.js",
-          "platform": "wy",
-          "l1": true,
-          "l2": true,
-          "l3": true,
-          "url": "https://m801.music.126.net/20261018234425/6bf3f25e2afcf68cce5b7eb12ddbcb6c/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
-          "detail": "OK 206 mp3(ID3) 2048B"
         },
         "kg": {
           "source": "lxs:统一音乐源.js",
@@ -1408,6 +1483,15 @@
           "l3": false,
           "url": null,
           "detail": "L1 失败: 所有音质尝试均失败"
+        },
+        "wy": {
+          "source": "lxs:统一音乐源.js",
+          "platform": "wy",
+          "l1": true,
+          "l2": true,
+          "l3": true,
+          "url": "https://m801.music.126.net/20261019004450/44758d893ed77f2339a2e55ae4e0442a/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
+          "detail": "OK 206 mp3(ID3) 2048B"
         }
       },
       "l3Count": 1
@@ -1421,7 +1505,7 @@
           "l1": true,
           "l2": true,
           "l3": true,
-          "url": "http://m701.music.126.net/20261018234528/613121807456acca7eadc6d78fb4b16b/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869966078/2350/1ee3/a3e5/a250ee753a91f455f02628d8a4b5b845.mp3?vuutv=k7ZruF5ch85QS3VpZ71BSAf9p35Oj2neXiklVxB7QgHtlKx0iSBL2iJNp25bVVxI2WNgZI2g20ersylF8QTnx+ET3p2DgO6x2PWwTzGsRao=",
+          "url": "http://m701.music.126.net/20261019004552/3bbf35841f00dfb1c860e2998d7106ab/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869966078/2350/1ee3/a3e5/a250ee753a91f455f02628d8a4b5b845.mp3?vuutv=kuelidvkrbgfIxpi58SityBd/RodltYr5Kf6ynJptbteXMzwhBMtbEWWCqdGAd/eMyQBmRFhwrstPrXOJPImpIilzLO8UFcpe9Nzgp6Zh0s=",
           "detail": "OK 206 mp3(ID3) 2048B"
         },
         "tx": {
@@ -1455,92 +1539,17 @@
       "l3Count": 1
     },
     {
-      "source": "xinghai:xinghai-music-source.js",
-      "platforms": {
-        "wy": {
-          "source": "xinghai:xinghai-music-source.js",
-          "platform": "wy",
-          "l1": true,
-          "l2": true,
-          "l3": true,
-          "url": "https://m801.music.126.net/20261018234537/b4d71ac9192195f867f36fc477f1270b/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
-          "detail": "OK 206 mp3(ID3) 2048B"
-        },
-        "tx": {
-          "source": "xinghai:xinghai-music-source.js",
-          "platform": "tx",
-          "l1": false,
-          "l2": false,
-          "l3": false,
-          "url": null,
-          "detail": "L1 失败: 后端失败: This operation was aborted"
-        },
-        "kw": {
-          "source": "xinghai:xinghai-music-source.js",
-          "platform": "kw",
-          "l1": false,
-          "l2": false,
-          "l3": false,
-          "url": null,
-          "detail": "L1 失败: 后端失败: This operation was aborted"
-        },
-        "kg": {
-          "source": "xinghai:xinghai-music-source.js",
-          "platform": "kg",
-          "l1": false,
-          "l2": false,
-          "l3": false,
-          "url": null,
-          "detail": "L1 失败: 后端失败: This operation was aborted"
-        }
-      },
-      "l3Count": 1
-    },
-    {
-      "source": "xinghai:xinghai-music-sourcev2.3.12.js",
-      "platforms": {
-        "wy": {
-          "source": "xinghai:xinghai-music-sourcev2.3.12.js",
-          "platform": "wy",
-          "l1": true,
-          "l2": true,
-          "l3": true,
-          "url": "https://m701.music.126.net/20261018234556/7e5315bbbaf61d7c32f95a8f5800e20b/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
-          "detail": "OK 206 mp3(ID3) 2048B"
-        },
-        "tx": {
-          "source": "xinghai:xinghai-music-sourcev2.3.12.js",
-          "platform": "tx",
-          "l1": false,
-          "l2": false,
-          "l3": false,
-          "url": null,
-          "detail": "L1 失败: 后端失败: This operation was aborted"
-        },
-        "kw": {
-          "source": "xinghai:xinghai-music-sourcev2.3.12.js",
-          "platform": "kw",
-          "l1": false,
-          "l2": false,
-          "l3": false,
-          "url": null,
-          "detail": "L1 失败: 后端失败: This operation was aborted"
-        },
-        "kg": {
-          "source": "xinghai:xinghai-music-sourcev2.3.12.js",
-          "platform": "kg",
-          "l1": false,
-          "l2": false,
-          "l3": false,
-          "url": null,
-          "detail": "L1 失败: 后端失败: This operation was aborted"
-        }
-      },
-      "l3Count": 1
-    },
-    {
       "source": "xinghai:xinghai-music-sourcev2.3.8.js",
       "platforms": {
+        "wy": {
+          "source": "xinghai:xinghai-music-sourcev2.3.8.js",
+          "platform": "wy",
+          "l1": true,
+          "l2": true,
+          "l3": true,
+          "url": "https://m701.music.126.net/20261019004607/66de56d02a81cdc361fb2eae9a611dfb/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
+          "detail": "OK 206 mp3(ID3) 2048B"
+        },
         "tx": {
           "source": "xinghai:xinghai-music-sourcev2.3.8.js",
           "platform": "tx",
@@ -1549,15 +1558,6 @@
           "l3": false,
           "url": null,
           "detail": "不支持该平台"
-        },
-        "wy": {
-          "source": "xinghai:xinghai-music-sourcev2.3.8.js",
-          "platform": "wy",
-          "l1": true,
-          "l2": true,
-          "l3": true,
-          "url": "https://m701.music.126.net/20261018234609/071d4fc8082ee9fdbcc7bcdf1cd5d30e/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/56869964448/ced9/90ef/3446/be7eff5b04000465e8b62d861046d83a.mp3",
-          "detail": "OK 206 mp3(ID3) 2048B"
         },
         "kw": {
           "source": "xinghai:xinghai-music-sourcev2.3.8.js",
@@ -1583,13 +1583,13 @@
     {
       "source": "pdone:changqing/latest.js",
       "platforms": {
-        "tx": {
+        "wy": {
           "source": "pdone:changqing/latest.js",
-          "platform": "tx",
+          "platform": "wy",
           "l1": true,
           "l2": true,
           "l3": false,
-          "url": "http://yinyue.haitangw.net/qq/qq_kw.php?type=mp3&id=0039MnYb0qxYhV&level=exhigh",
+          "url": "http://yinyue.haitangw.net/wy/wy.php?type=mp3&id=2652820720&level=exhigh",
           "detail": "L2/L3 失败: HTTP 404 ct=text/html magic=-"
         },
         "kw": {
@@ -1610,13 +1610,13 @@
           "url": "http://yinyue.haitangw.net/kg/kg_song_kw.php?type=mp3&id=undefined&level=exhigh",
           "detail": "L2/L3 失败: HTTP 404 ct=text/html magic=-"
         },
-        "wy": {
+        "tx": {
           "source": "pdone:changqing/latest.js",
-          "platform": "wy",
+          "platform": "tx",
           "l1": true,
           "l2": true,
           "l3": false,
-          "url": "http://yinyue.haitangw.net/wy/wy.php?type=mp3&id=2652820720&level=exhigh",
+          "url": "http://yinyue.haitangw.net/qq/qq_kw.php?type=mp3&id=0039MnYb0qxYhV&level=exhigh",
           "detail": "L2/L3 失败: HTTP 404 ct=text/html magic=-"
         }
       },
@@ -1718,13 +1718,13 @@
           "url": "https://music-dl.sayqz.com/api/?source=netease&id=2652820720&type=url&br=320k",
           "detail": "L2/L3 失败: HTTP 0 ct=- magic=- fetch failed"
         },
-        "tx": {
+        "kw": {
           "source": "pdone:huanyin/latest.js",
-          "platform": "tx",
+          "platform": "kw",
           "l1": true,
           "l2": false,
           "l3": false,
-          "url": "https://music-dl.sayqz.com/api/?source=qq&id=0039MnYb0qxYhV&type=url&br=320k",
+          "url": "https://music-dl.sayqz.com/api/?source=kuwo&id=228908&type=url&br=320k",
           "detail": "L2/L3 失败: HTTP 0 ct=- magic=- fetch failed"
         },
         "kg": {
@@ -1736,13 +1736,13 @@
           "url": null,
           "detail": "不支持该平台"
         },
-        "kw": {
+        "tx": {
           "source": "pdone:huanyin/latest.js",
-          "platform": "kw",
+          "platform": "tx",
           "l1": true,
           "l2": false,
           "l3": false,
-          "url": "https://music-dl.sayqz.com/api/?source=kuwo&id=228908&type=url&br=320k",
+          "url": "https://music-dl.sayqz.com/api/?source=qq&id=0039MnYb0qxYhV&type=url&br=320k",
           "detail": "L2/L3 失败: HTTP 0 ct=- magic=- fetch failed"
         }
       },
@@ -1877,6 +1877,15 @@
     {
       "source": "pdone:lx/latest.js",
       "platforms": {
+        "tx": {
+          "source": "pdone:lx/latest.js",
+          "platform": "tx",
+          "l1": false,
+          "l2": false,
+          "l3": false,
+          "url": null,
+          "detail": "L1 失败: fetch failed"
+        },
         "wy": {
           "source": "pdone:lx/latest.js",
           "platform": "wy",
@@ -1889,15 +1898,6 @@
         "kw": {
           "source": "pdone:lx/latest.js",
           "platform": "kw",
-          "l1": false,
-          "l2": false,
-          "l3": false,
-          "url": null,
-          "detail": "L1 失败: fetch failed"
-        },
-        "tx": {
-          "source": "pdone:lx/latest.js",
-          "platform": "tx",
           "l1": false,
           "l2": false,
           "l3": false,
