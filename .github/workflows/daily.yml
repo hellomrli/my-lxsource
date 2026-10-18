@@ -1,0 +1,58 @@
+name: daily-source-check
+
+on:
+  schedule:
+    - cron: "0 20 * * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/**"
+      - "templates/**"
+
+concurrency:
+  group: daily-source-check
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: fetch upstream
+        run: node scripts/fetch-upstream.mjs
+
+      - name: test sources (L1/L2/L3)
+        run: node scripts/test-sources.mjs
+        continue-on-error: true
+
+      - name: build merged source
+        run: node scripts/build-source.mjs
+        continue-on-error: true
+
+      - name: commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # 报告类文件属于本次运行的产物，冲突时一律以本次为准
+          mkdir -p /tmp/artifacts && cp -r state.json reports dist /tmp/artifacts/
+          git add state.json reports dist
+          git diff --staged --quiet || git commit -m "chore: daily check"
+          for i in 1 2 3; do
+            if git push; then echo "pushed on attempt $i"; exit 0; fi
+            echo "push rejected, rebuilding on top of origin/master (attempt $i)"
+            git fetch -q origin master
+            git reset --hard origin/master
+            cp -r /tmp/artifacts/state.json /tmp/artifacts/reports /tmp/artifacts/dist .
+            git add state.json reports dist
+            git commit -m "chore: daily check" || true
+          done
+          echo "failed to push after 3 attempts"; exit 1

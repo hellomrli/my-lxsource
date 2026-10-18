@@ -1,0 +1,11 @@
+{
+  "name": "我的聚合音源",
+  "description": "my-lxsource 自动生成：内嵌可用音源，按优先级自动降级",
+  "author": "hellomrli",
+  "homepage": "https://github.com/hellomrli/my-lxsource",
+  "mode": "embed",
+  "embed": {
+    "initTimeoutMs": 30000,
+    "probeTimeoutMs": 15000
+  }
+}

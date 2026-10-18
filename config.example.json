@@ -1,0 +1,11 @@
+{
+  "name": "我的聚合音源",
+  "description": "自动巡检 + 内嵌可用音源",
+  "author": "hellomrli",
+  "homepage": "https://github.com/hellomrli/my-lxsource",
+  "mode": "embed",
+  "embed": {
+    "initTimeoutMs": 30000,
+    "probeTimeoutMs": 15000
+  }
+}
