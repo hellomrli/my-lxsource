@@ -1,4 +1,4 @@
-# 音源可用性巡检 2026-10-18 16:21 UTC
+# 音源可用性巡检 2026-10-18 22:14 UTC
 
 `✅` = L3 通过（真能播）  `⚠` = 有 URL 但播不了  `❌` = 无 URL
 
@@ -36,6 +36,7 @@
 
 | 音源 | 平台 | L1 | L2 | L3 | 说明 |
 |---|:--:|:--:|:--:|:--:|---|
+| pdone:changqing/latest.js | tx | ✅ | ✅ | ❌ | L2/L3 失败: HTTP 404 ct=text/html magic=- |
 | pdone:changqing/latest.js | wy | ✅ | ✅ | ❌ | L2/L3 失败: HTTP 404 ct=text/html magic=- |
 | pdone:changqing/latest.js | kw | ✅ | ✅ | ❌ | L2/L3 失败: HTTP 404 ct=text/html magic=- |
 | pdone:flower/latest.js | wy | ❌ | ❌ | ❌ | L1 失败: Error |
@@ -46,9 +47,8 @@
 | pdone:grass/latest.js | tx | ❌ | ❌ | ❌ | 不支持该平台 |
 | pdone:grass/latest.js | kw | ❌ | ❌ | ❌ | L1 失败: Error |
 | pdone:grass/latest.js | kg | ❌ | ❌ | ❌ | 不支持该平台 |
-| pdone:changqing/latest.js | kg | ✅ | ✅ | ❌ | L2/L3 失败: HTTP 404 ct=text/html magic=- |
 | pdone:huanyin/latest.js | wy | ✅ | ❌ | ❌ | L2/L3 失败: HTTP 0 ct=- magic=- fetch failed |
-| pdone:huanyin/latest.js | kw | ✅ | ❌ | ❌ | L2/L3 失败: HTTP 0 ct=- magic=- fetch failed |
+| pdone:huanyin/latest.js | tx | ✅ | ❌ | ❌ | L2/L3 失败: HTTP 0 ct=- magic=- fetch failed |
 | pdone:huanyin/latest.js | kg | ❌ | ❌ | ❌ | 不支持该平台 |
 | pdone:huibq/latest.js | wy | ❌ | ❌ | ❌ | L1 失败: console.group is not a function |
 | pdone:huibq/latest.js | tx | ❌ | ❌ | ❌ | L1 失败: console.group is not a function |
@@ -58,8 +58,8 @@
 | pdone:ikun/latest.js | tx | ❌ | ❌ | ❌ | 不支持该平台 |
 | pdone:ikun/latest.js | kw | ❌ | ❌ | ❌ | L1 失败: console.group is not a function |
 | pdone:ikun/latest.js | kg | ❌ | ❌ | ❌ | 不支持该平台 |
-| pdone:huanyin/latest.js | tx | ✅ | ❌ | ❌ | L2/L3 失败: HTTP 0 ct=- magic=- fetch failed |
-| pdone:changqing/latest.js | tx | ✅ | ✅ | ❌ | L2/L3 失败: HTTP 404 ct=text/html magic=- |
+| pdone:huanyin/latest.js | kw | ✅ | ❌ | ❌ | L2/L3 失败: HTTP 0 ct=- magic=- fetch failed |
+| pdone:changqing/latest.js | kg | ✅ | ✅ | ❌ | L2/L3 失败: HTTP 404 ct=text/html magic=- |
 | pdone:juhe/latest.js | wy | ❌ | ❌ | ❌ | L0 等待 inited 超时 |
 | pdone:juhe/latest.js | tx | ❌ | ❌ | ❌ | L0 等待 inited 超时 |
 | pdone:juhe/latest.js | kw | ❌ | ❌ | ❌ | L0 等待 inited 超时 |
@@ -69,8 +69,8 @@
 | pdone:lx/latest.js | kg | ❌ | ❌ | ❌ | L1 失败: fetch failed |
 | pdone:qdy/latest.js | wy | ✅ | ✅ | ✅ | OK 206 mp3(ID3) 2048B |
 | pdone:qdy/latest.js | kw | ✅ | ✅ | ❌ | L2/L3 失败: HTTP 410 ct=- magic=- |
-| pdone:qdy/latest.js | kg | ✅ | ✅ | ❌ | L2/L3 失败: HTTP 200 ct=application/json; charset=utf-8 magic=- |
 | pdone:qdy/latest.js | tx | ✅ | ✅ | ❌ | L2/L3 失败: HTTP 403 ct=application/octet-stream magic=- |
+| pdone:qdy/latest.js | kg | ✅ | ✅ | ❌ | L2/L3 失败: HTTP 200 ct=application/json; charset=utf-8 magic=- |
 | pdone:sixyin/latest.js | tx | ❌ | ❌ | ❌ | L1 返回无效: undefined |
 | pdone:sixyin/latest.js | kw | ❌ | ❌ | ❌ | L1 失败: failed |
 | pdone:sixyin/latest.js | kg | ❌ | ❌ | ❌ | L1 返回无效: undefined |
@@ -86,36 +86,36 @@
 | lxs:lx-玉宁熙.js | tx | ❌ | ❌ | ❌ | L1 失败: QQ音乐所有接口均无可用地址 |
 | lxs:lx-玉宁熙.js | kw | ❌ | ❌ | ❌ | L1 失败: This resource is not available in your region or country due |
 | lxs:lx-玉宁熙.js | kg | ❌ | ❌ | ❌ | L1 失败: 酷狗歌曲ID不存在 |
-| pdone:juhe/latest.js | kg | ❌ | ❌ | ❌ | L0 等待 inited 超时 |
 | lxs:xinghai-music-source2.3.0.js | wy | ✅ | ✅ | ✅ | OK 206 mp3(ID3) 2048B |
-| lxs:xinghai-music-source2.3.0.js | kw | ❌ | ❌ | ❌ | L1 失败: 无法获取音频地址：主API未返回音频地址 |
 | lxs:xinghai-music-source2.3.0.js | tx | ❌ | ❌ | ❌ | L1 失败: 无法获取音频地址：所有关键词均未搜索到歌曲（可能接口异常或歌曲不存在） |
+| lxs:xinghai-music-source2.3.0.js | kw | ❌ | ❌ | ❌ | L1 失败: 无法获取音频地址：主API未返回音频地址 |
+| pdone:juhe/latest.js | kg | ❌ | ❌ | ❌ | L0 等待 inited 超时 |
 | lxs:全豆要-聚合音源-V4.1.js | wy | ✅ | ✅ | ✅ | OK 206 mp3(ID3) 2048B |
 | lxs:xinghai-music-source2.3.0.js | kg | ❌ | ❌ | ❌ | L1 失败: 无法获取音频地址：所有关键词均未搜索到歌曲（可能接口异常或歌曲不存在） |
 | lxs:全豆要-聚合音源-V4.1.js | kw | ✅ | ✅ | ❌ | L2/L3 失败: HTTP 410 ct=- magic=- |
 | lxs:全豆要-聚合音源-V4.1.js | kg | ✅ | ✅ | ❌ | L2/L3 失败: HTTP 200 ct=application/json; charset=utf-8 magic=- |
 | lxs:全豆要-聚合音源-V4.1.js | tx | ✅ | ✅ | ❌ | L2/L3 失败: HTTP 403 ct=application/octet-stream magic=- |
-| pdone:sixyin/latest.js | wy | ❌ | ❌ | ❌ | L1 失败: musicUrl 超时 |
+| lxs:忆音音源 v1.js | tx | ✅ | ✅ | ❌ | L2/L3 失败: HTTP 200 ct=text/html; charset=utf-8 magic=- |
 | lxs:忆音音源 v1.js | kw | ❌ | ❌ | ❌ | 不支持该平台 |
 | lxs:忆音音源 v1.js | kg | ❌ | ❌ | ❌ | 不支持该平台 |
-| lxs:忆音音源 v1.js | tx | ✅ | ✅ | ❌ | L2/L3 失败: HTTP 200 ct=text/html; charset=utf-8 magic=- |
 | lxs:忆音音源 v1.js | wy | ✅ | ✅ | ✅ | OK 206 mp3(ID3) 2048B |
+| pdone:sixyin/latest.js | wy | ❌ | ❌ | ❌ | L1 失败: musicUrl 超时 |
 | lxs:念心音源-V1.0.1.js | wy | ✅ | ✅ | ✅ | OK 206 mp3(ID3) 2048B |
-| lxs:念心音源-V1.0.1.js | kw | ✅ | ✅ | ✅ | OK 206 mp3(ID3) 2048B |
 | lxs:念心音源-V1.0.1.js | tx | ✅ | ✅ | ✅ | OK 206 mp3(ID3) 2048B |
+| lxs:念心音源-V1.0.1.js | kw | ✅ | ✅ | ✅ | OK 206 mp3(ID3) 2048B |
 | lxs:收集の聚合接口.js | tx | ❌ | ❌ | ❌ | L1 失败: fetch failed |
 | lxs:收集の聚合接口.js | kw | ❌ | ❌ | ❌ | L1 失败: fetch failed |
 | lxs:收集の聚合接口.js | kg | ❌ | ❌ | ❌ | 不支持该平台 |
 | lxs:溯音音源 v1.js | wy | ✅ | ✅ | ✅ | OK 206 mp3(ID3) 2048B |
 | lxs:收集の聚合接口.js | wy | ✅ | ✅ | ✅ | OK 206 mp3(ID3) 2048B |
-| lxs:溯音音源 v1.js | kw | ✅ | ✅ | ✅ | OK 206 ogg 2048B |
-| lxs:溯音音源 v1.js | kg | ❌ | ❌ | ❌ | 不支持该平台 |
 | lxs:溯音音源 v1.js | tx | ❌ | ❌ | ❌ | L1 失败: 所有音质尝试均失败 |
+| lxs:溯音音源 v1.js | kg | ❌ | ❌ | ❌ | 不支持该平台 |
+| lxs:溯音音源 v1.js | kw | ✅ | ✅ | ✅ | OK 206 ogg 2048B |
 | lxs:统一音乐源.js | tx | ❌ | ❌ | ❌ | 不支持该平台 |
-| lxs:念心音源-V1.0.1.js | kg | ✅ | ✅ | ❌ | L2/L3 失败: HTTP 404 ct=text/html magic=- |
+| lxs:统一音乐源.js | wy | ✅ | ✅ | ✅ | OK 206 mp3(ID3) 2048B |
 | lxs:统一音乐源.js | kg | ❌ | ❌ | ❌ | 不支持该平台 |
 | lxs:统一音乐源.js | kw | ❌ | ❌ | ❌ | L1 失败: 所有音质尝试均失败 |
-| lxs:统一音乐源.js | wy | ✅ | ✅ | ✅ | OK 206 mp3(ID3) 2048B |
+| lxs:念心音源-V1.0.1.js | kg | ✅ | ✅ | ❌ | L2/L3 失败: HTTP 404 ct=text/html magic=- |
 | lxs:聚合API.js | wy | ❌ | ❌ | ❌ | L0 等待 inited 超时 |
 | lxs:聚合API.js | tx | ❌ | ❌ | ❌ | L0 等待 inited 超时 |
 | lxs:聚合API.js | kw | ❌ | ❌ | ❌ | L0 等待 inited 超时 |
