@@ -1,6 +1,6 @@
 {
-  "headCommit": "489a2e36ecb8b7c4a58ae45d8a1918c0c0591da1",
-  "headDate": "2026-09-14T02:45:34Z",
+  "headCommit": "79c0c17cc41f240650434831707bcf4ec5b3fb81",
+  "headDate": "2026-10-19T17:12:54Z",
   "sources": {
     "pdone:changqing/latest.js": {
       "repo": "pdone/lx-music-source",
@@ -101,6 +101,16 @@
       "name": "六音音源",
       "version": "v1.2.1",
       "author": "六音"
+    },
+    "pdone:xinghai/latest.js": {
+      "repo": "pdone/lx-music-source",
+      "path": "xinghai/latest.js",
+      "url": "https://raw.githubusercontent.com/pdone/lx-music-source/main/xinghai/latest.js",
+      "sha256": "807d6157e4fd7cdd05b8727efd73778b54a3b05a0b5e4c6bb28dedc0668e94e9",
+      "size": 37958,
+      "name": "星海音乐源",
+      "version": "v3.2.15",
+      "author": "万去了了 / 科学大魔王"
     },
     "lxs:HUIBQ音源.js": {
       "repo": "hwxlikemi/lxs",
@@ -284,6 +294,7 @@
     "pdone:lx/latest.js",
     "pdone:qdy/latest.js",
     "pdone:sixyin/latest.js",
+    "pdone:xinghai/latest.js",
     "lxs:HUIBQ音源.js",
     "lxs:fish-music音源.js",
     "lxs:lx-玉宁熙.js",
