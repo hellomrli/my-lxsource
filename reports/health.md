@@ -1,4 +1,4 @@
-# 音源可用性巡检 2026-10-20T19:22:03.106Z UTC
+# 音源可用性巡检 2026-10-20T19:43:52.025Z UTC
 
 只表示探针曲目可用，不保证所有曲目。每个平台独立检测 128k / 320k / flac / flac24bit；无损请求会校验 FLAC 格式，24-bit 还会校验位深。
 
@@ -8,7 +8,7 @@
 | pdone:xinghai/latest.js | 320k, 128k, flac | 320k | 320k, 128k, flac | - | 320k, 128k, flac | 4/5 |
 | xinghai:xinghai-music-source.js | 320k, 128k, flac, flac24bit | 320k | 320k, 128k, flac | - | 320k, 128k, flac | 4/5 |
 | xinghai:xinghai-music-sourcev2.3.12.js | 320k, 128k, flac, flac24bit | 320k | 320k, 128k, flac | - | 320k, 128k, flac | 4/5 |
-| lxs:lx-玉宁熙.js | 320k, 128k | - | 320k, 128k | - | 128k | 3/5 |
+| lxs:lx-玉宁熙.js | 320k, 128k | - | 320k, 128k | - | - | 2/5 |
 | lxs:溯音音源 v1.js | 320k, 128k | - | 320k, 128k | - | - | 2/5 |
 | lxs:xinghai-music-source2.3.0.js | 320k, 128k, flac, flac24bit | - | - | - | - | 1/5 |
 | lxs:全豆要-聚合音源-V4.1.js | 320k, 128k | - | - | - | - | 1/5 |
@@ -17,7 +17,6 @@
 | lxs:统一音乐源.js | 320k, 128k, flac | - | - | - | - | 1/5 |
 | lxs:非常刀.js | 320k, 128k | - | - | - | - | 1/5 |
 | pdone:qdy/latest.js | 320k, 128k, flac | - | - | - | - | 1/5 |
-| pdone:sixyin/latest.js | 320k, 128k | - | - | - | - | 1/5 |
 | xinghai:xinghai-music-sourcev2.3.8.js | 320k, 128k, flac, flac24bit | - | - | - | - | 1/5 |
 | lxs:fish-music音源.js | - | - | - | - | - | 0/5 |
 | lxs:HUIBQ音源.js | - | - | - | - | - | 0/5 |
@@ -31,6 +30,7 @@
 | pdone:ikun/latest.js | - | - | - | - | - | 0/5 |
 | pdone:juhe/latest.js | - | - | - | - | - | 0/5 |
 | pdone:lx/latest.js | - | - | - | - | - | 0/5 |
+| pdone:sixyin/latest.js | - | - | - | - | - | 0/5 |
 | sixyin-cc:sixyin-music-source-v1.0.7.js | - | - | - | - | - | 0/5 |
 
 ## 明细
@@ -188,13 +188,13 @@
 | pdone:lx/latest.js | kw | 320k | - | - | - | L1 read ECONNRESET |
 | pdone:lx/latest.js | kw | 128k | - | - | - | L1 read ECONNRESET |
 | pdone:lx/latest.js | kw | flac | - | - | - | L1 read ECONNRESET |
-| pdone:lx/latest.js | kw | flac24bit | - | - | - | L1 unknow error |
+| pdone:lx/latest.js | kw | flac24bit | - | - | - | L1 read ECONNRESET |
 | pdone:lx/latest.js | kg | 320k | - | - | - | L1 read ECONNRESET |
 | pdone:lx/latest.js | kg | 128k | - | - | - | L1 read ECONNRESET |
 | pdone:lx/latest.js | kg | flac | - | - | - | L1 read ECONNRESET |
-| pdone:lx/latest.js | kg | flac24bit | - | - | - | L1 unknow error |
+| pdone:lx/latest.js | kg | flac24bit | - | - | - | L1 read ECONNRESET |
 | pdone:lx/latest.js | mg | 320k | - | - | - | L1 read ECONNRESET |
-| pdone:lx/latest.js | mg | 128k | - | - | - | L1 unknow error |
+| pdone:lx/latest.js | mg | 128k | - | - | - | L1 read ECONNRESET |
 | pdone:lx/latest.js | mg | flac | - | - | - | L1 read ECONNRESET |
 | pdone:lx/latest.js | mg | flac24bit | - | - | - | L1 read ECONNRESET |
 | pdone:qdy/latest.js | wy | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -217,9 +217,9 @@
 | pdone:qdy/latest.js | mg | 128k | OK | - | - | HTTP 404 ct=text/html magic=- |
 | pdone:qdy/latest.js | mg | flac | OK | - | - | HTTP 404 ct=text/html magic=- quality mismatch |
 | pdone:qdy/latest.js | mg | flac24bit | - | - | - | Platform or quality not declared |
-| pdone:sixyin/latest.js | wy | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| pdone:sixyin/latest.js | wy | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| pdone:sixyin/latest.js | wy | flac | OK | OK | - | HTTP 206 ct=audio/mpeg; charset=utf-8 magic=mp3(ID3) quality mismatch |
+| pdone:sixyin/latest.js | wy | 320k | - | - | - | L1 failed |
+| pdone:sixyin/latest.js | wy | 128k | - | - | - | L1 failed |
+| pdone:sixyin/latest.js | wy | flac | - | - | - | L1 failed |
 | pdone:sixyin/latest.js | wy | flac24bit | - | - | - | Platform or quality not declared |
 | pdone:sixyin/latest.js | tx | 320k | - | - | - | L1 Invalid HTTP URL |
 | pdone:sixyin/latest.js | tx | 128k | - | - | - | L1 Invalid HTTP URL |
@@ -242,8 +242,8 @@
 | pdone:xinghai/latest.js | wy | flac | OK | OK | OK | OK 206 flac 4096B |
 | pdone:xinghai/latest.js | wy | flac24bit | - | - | - | Platform or quality not declared |
 | pdone:xinghai/latest.js | tx | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| pdone:xinghai/latest.js | tx | 128k | OK | - | - | HTTP 404 ct=audio/mpeg magic=- |
-| pdone:xinghai/latest.js | tx | flac | OK | - | - | HTTP 404 ct=audio/x-ogg magic=- quality mismatch |
+| pdone:xinghai/latest.js | tx | 128k | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| pdone:xinghai/latest.js | tx | flac | OK | - | - | HTTP 404 ct=text/octet magic=- quality mismatch |
 | pdone:xinghai/latest.js | tx | flac24bit | - | - | - | Platform or quality not declared |
 | pdone:xinghai/latest.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:xinghai/latest.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -314,7 +314,7 @@
 | lxs:lx-玉宁熙.js | kg | flac | - | - | - | L1 未获取到有效播放链接 |
 | lxs:lx-玉宁熙.js | kg | flac24bit | - | - | - | L1 未获取到有效播放链接 |
 | lxs:lx-玉宁熙.js | mg | 320k | - | - | - | L1 未返回有效播放地址 |
-| lxs:lx-玉宁熙.js | mg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lxs:lx-玉宁熙.js | mg | 128k | - | - | - | L1 未返回有效播放地址 |
 | lxs:lx-玉宁熙.js | mg | flac | - | - | - | L1 未返回有效播放地址 |
 | lxs:lx-玉宁熙.js | mg | flac24bit | - | - | - | L1 未返回有效播放地址 |
 | lxs:xinghai-music-source2.3.0.js | wy | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -522,8 +522,8 @@
 | xinghai:xinghai-music-source.js | wy | flac | OK | OK | OK | OK 206 flac 4096B |
 | xinghai:xinghai-music-source.js | wy | flac24bit | OK | OK | OK | OK 206 flac 4096B |
 | xinghai:xinghai-music-source.js | tx | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| xinghai:xinghai-music-source.js | tx | 128k | OK | - | - | HTTP 404 ct=audio/mpeg magic=- |
-| xinghai:xinghai-music-source.js | tx | flac | OK | - | - | HTTP 404 ct=audio/x-ogg magic=- quality mismatch |
+| xinghai:xinghai-music-source.js | tx | 128k | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| xinghai:xinghai-music-source.js | tx | flac | OK | - | - | HTTP 404 ct=text/octet magic=- quality mismatch |
 | xinghai:xinghai-music-source.js | tx | flac24bit | - | - | - | Platform or quality not declared |
 | xinghai:xinghai-music-source.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | xinghai:xinghai-music-source.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -542,8 +542,8 @@
 | xinghai:xinghai-music-sourcev2.3.12.js | wy | flac | OK | OK | OK | OK 206 flac 4096B |
 | xinghai:xinghai-music-sourcev2.3.12.js | wy | flac24bit | OK | OK | OK | OK 206 flac 4096B |
 | xinghai:xinghai-music-sourcev2.3.12.js | tx | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| xinghai:xinghai-music-sourcev2.3.12.js | tx | 128k | OK | - | - | HTTP 404 ct=audio/mpeg magic=- |
-| xinghai:xinghai-music-sourcev2.3.12.js | tx | flac | OK | - | - | HTTP 404 ct=audio/x-ogg magic=- quality mismatch |
+| xinghai:xinghai-music-sourcev2.3.12.js | tx | 128k | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| xinghai:xinghai-music-sourcev2.3.12.js | tx | flac | OK | - | - | HTTP 404 ct=text/octet magic=- quality mismatch |
 | xinghai:xinghai-music-sourcev2.3.12.js | tx | flac24bit | - | - | - | Platform or quality not declared |
 | xinghai:xinghai-music-sourcev2.3.12.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | xinghai:xinghai-music-sourcev2.3.12.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
