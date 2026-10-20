@@ -2,8 +2,7 @@
 import crypto from 'node:crypto'
 import fs from 'node:fs/promises'
 
-// 多上游仓库：name -> { repo, branch, paths }
-// paths 为需要跟踪的脚本路径（支持子目录，中文会被自动编码）
+// 多上游仓库；中文脚本路径会被自动编码。
 const UPSTREAMS = {
   'pdone':        { repo: 'pdone/lx-music-source',       branch: 'main'   },
   'lxs':          { repo: 'hwxlikemi/lxs',               branch: 'main'   },
@@ -11,9 +10,6 @@ const UPSTREAMS = {
   'sixyin-cc':    { repo: 'cc2415/lx-custom-music-source',  branch: 'main' },
 }
 const UPSTREAM = UPSTREAMS['pdone'].repo
-const BRANCH = 'main'
-// 从上游 README 抓取的音源目录名；新增目录会被自动发现
-const KNOWN = ['sixyin','huibq','flower','lx','changqing','huanyin','ikun','grass','juhe','qdy','qdy','yiyin','tfappstore']
 
 async function ghJson(url) {
   const res = await fetch(url, { headers: { 'User-Agent': 'lx-source-guard', Accept: 'application/vnd.github+json' } })
@@ -115,7 +111,5 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     changes,
   }
   await fs.writeFile(statePath, JSON.stringify(next, null, 2) + '\n')
-  await fs.mkdir('reports', { recursive: true })
-  await fs.writeFile('reports/upstream.json', JSON.stringify(cur, null, 2) + '\n')
-  console.log('✅ 已写入 state.json 和 reports/upstream.json')
+  console.log('✅ 已写入 state.json')
 }

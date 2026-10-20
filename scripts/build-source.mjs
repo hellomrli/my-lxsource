@@ -63,7 +63,6 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     process.exit(1)
   }
   const state = await readJson('state.json', {})
-  const upstream = await readJson('reports/upstream.json', {})
 
   // 统计每个源的 L3 通过平台和声明支持的平台
   const health = new Map()
@@ -102,7 +101,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 
   // 下载源码；构建时实际加载一次，取得每个子源真正声明的平台（含 mg 等未巡检平台）
   const loaded = await pool(candidates, 3, async (h) => {
-    const info = state.sources?.[h.id] || upstream.sources?.[h.id] || {}
+    const info = state.sources?.[h.id] || {}
     const url = info.url || rawUrl(info)
     if (!url) {
       console.warn(`  ⚠ 跳过 ${h.id}: 找不到下载地址`)

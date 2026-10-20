@@ -5,16 +5,21 @@ on:
     - cron: "0 20 * * *"
   workflow_dispatch:
   push:
+    branches:
+      - master
     paths:
       - "scripts/**"
       - "templates/**"
+      - "config.json"
+      - "package.json"
+      - ".github/workflows/**"
 
 concurrency:
   group: daily-source-check
   cancel-in-progress: false
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   check:
@@ -22,37 +27,89 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
+
+      - name: restore source state
+        uses: actions/cache@v4
+        with:
+          path: state.json
+          key: source-state-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            source-state-${{ github.ref_name }}-
 
       - name: fetch upstream
         run: node scripts/fetch-upstream.mjs
 
       - name: test sources (L1/L2/L3)
         run: node scripts/test-sources.mjs
-        continue-on-error: true
 
       - name: build merged source
         run: node scripts/build-source.mjs
-        continue-on-error: true
 
-      - name: commit results
+      - name: upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagnostics
+          path: |
+            state.json
+            reports/health.json
+            reports/health.md
+          retention-days: 7
+          if-no-files-found: warn
+
+      - name: upload publication
+        uses: actions/upload-artifact@v4
+        with:
+          name: publication
+          path: |
+            reports/health.md
+            dist/merged-source.js
+          retention-days: 7
+          if-no-files-found: error
+
+  publish:
+    needs: check
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: publication
+          path: ${{ runner.temp }}/publication
+
+      - name: commit published files
+        env:
+          CHECKED_SHA: ${{ github.sha }}
+          PUBLICATION_DIR: ${{ runner.temp }}/publication
         run: |
+          # Do not overwrite newer source or configuration changes with stale results.
+          git fetch -q origin master
+          if [ "$(git rev-parse origin/master)" != "$CHECKED_SHA" ]; then
+            echo "::error::master advanced during the check; run a new check before publishing"
+            exit 1
+          fi
+          mkdir -p reports dist
+          cp "$PUBLICATION_DIR/reports/health.md" reports/health.md
+          cp "$PUBLICATION_DIR/dist/merged-source.js" dist/merged-source.js
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # 报告类文件属于本次运行的产物，冲突时一律以本次为准
-          mkdir -p /tmp/artifacts && cp -r state.json reports dist /tmp/artifacts/
-          git add state.json reports dist
-          git diff --staged --quiet || git commit -m "chore: daily check"
-          for i in 1 2 3; do
-            if git push; then echo "pushed on attempt $i"; exit 0; fi
-            echo "push rejected, rebuilding on top of origin/master (attempt $i)"
-            git fetch -q origin master
-            git reset --hard origin/master
-            cp -r /tmp/artifacts/state.json /tmp/artifacts/reports /tmp/artifacts/dist .
-            git add state.json reports dist
-            git commit -m "chore: daily check" || true
-          done
-          echo "failed to push after 3 attempts"; exit 1
+          git add reports/health.md dist/merged-source.js
+          if git diff --staged --quiet; then
+            echo "no published changes"
+            exit 0
+          fi
+          git commit -m "chore: daily check"
+          git push origin HEAD:master

@@ -2,3 +2,5 @@ node_modules/
 *.log
 .env
 config.local.json
+/state.json
+/reports/*.json
