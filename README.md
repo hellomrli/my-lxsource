@@ -13,10 +13,14 @@
 | 层 | 检测内容 | 失败含义 |
 |---|---|---|
 | L1 | 脚本加载 + 返回非空 URL | 脚本本身坏了/被删 |
-| L2 | URL 连通性（HTTP 200/206/302 跟随后 200） | 后端接口下线 |
-| L3 | 音频魔数校验（另记录 content-type） | 返回的是错误页/JSON |
+| L2 | URL 连通性（仅 HTTP 200/206；重定向逐跳检查） | 死链、后端接口下线 |
+| L3 | 音频魔数 + content-type 排除；无损格式与位深校验 | 错误页/JSON/视频、无损降级 |
 
 **只有 L3 通过才计入「可用」。**
+
+覆盖 `wy/tx/kw/kg/mg` 五个平台和 `128k/320k/flac/flac24bit` 四种音质。
+酷狗探针同时携带 `songmid` 与 `hash`；咪咕探针区分 `songmid` 与 `copyrightId`。
+每个组合分别记录结果，未声明的音质会标为跳过，不会生成虚假的支持声明。
 
 ## 跟踪的上游仓库
 
@@ -30,11 +34,11 @@
 ## 每日流程
 
 ```
-fetch-upstream  拉取上游脚本，与 state.json 比对 SHA256 → 得出变更
+fetch-upstream  固定各上游 commit，缓存源码并计算 SHA256 → 得出变更
      ↓
-test-sources    对每个 源×平台: L1(取URL) → L2(连通) → L3(音频校验)
+test-sources    对每个 源×平台×音质: L1(取URL) → L2(连通) → L3(音频校验)
      ↓
-build           从「L3 通过」的源中挑选，生成单一整合音源脚本
+build           核对 runId/报告时间/SHA256，验证子源和整合源，再原子写入产物
      ↓
 publish         仅提交 reports/health.md + dist/merged-source.js
 ```
@@ -47,15 +51,22 @@ scripts/fetch-upstream.mjs    上游抓取与变更检测
 scripts/test-sources.mjs      三层可用性检测
 scripts/build-source.mjs     生成整合音源脚本
 scripts/lx-runtime.mjs       无头 LX API 兼容运行时
+scripts/lx-worker.mjs        无网络、无宿主凭据的隔离子进程
+scripts/http.mjs             限时、限量、限制目标地址的 HTTP 通道
+scripts/audio.mjs            音频/无损魔数校验（客户端复用）
+scripts/source-state.mjs     快照缓存、元数据与共用工具
 templates/merged-source.js   整合音源模板（LX 自定义源格式）
+tests/                      离线回归测试
 config.json                 项目配置（直接修改此文件）
 reports/health.md            最新可读巡检报告
 dist/merged-source.js        生成的整合音源（供客户端导入）
 ```
 
-`state.json` 与 `reports/health.json` 是运行时生成的中间数据，不再提交到 Git。
+`state.json`、`reports/health.json` 与 `.cache/sources/` 是运行时生成的中间数据，不提交到 Git。
 Actions 用缓存保存上次巡检快照，并用保留 7 天的 `diagnostics` 附件保存完整报告；
 缓存未命中时会重新发现全部音源，不影响检测和构建。
+播放 URL 不写进健康报告，避免将临时签名或查询参数长期公开。
+任意上游抓取失败时保留旧快照并中止本轮流程，不把网络故障当作源被删除。
 
 巡检与发布在两个独立的 Actions job 中运行：巡检只有仓库读取权限，
 发布 job 只复制并提交指定产物，不执行音源脚本。
@@ -65,13 +76,21 @@ Actions 用缓存保存上次巡检快照，并用保留 7 天的 `diagnostics` 
 ## 整合音源的原理
 
 洛雪自定义源脚本**只负责 `musicUrl`（把 songmid 换成播放地址），搜索由客户端 SDK 完成**。
-所以「整合」= 把多个 L3 通过的上游脚本内联进一个自包含脚本：每个子源在独立的
-`lx` shim 下加载并收集 handler，请求时按优先级依次调用，返回第一个有效地址。
+所以「整合」= 把多个 L3 通过的上游脚本内联进一个自包含脚本：每个子源绑定稳定的
+`globalThis/window/self/global/lx` 作用域，不修改宿主的 `globalThis.lx`；
+初始化和播放请求都有超时，晚到的回调不会注册到其他子源。
+只声明同一份源码实测通过的平台/音质，重复 SHA256 的脚本只嵌入一次。
 
 见 `templates/merged-source.js`。
 
-当前整合脚本只验证子源返回的是 HTTP(S) URL，播放时不会重新做 L2/L3 检查；
-巡检通过不代表所有曲目、音质或未检测的平台都可用。
+播放时遇到子源卡住、404、HTML 响应或音频校验失败会尝试下一个子源。
+有流式 `fetch` 的宿主限量读取 4096 字节并取消请求；缺少流式 API 的 LX 宿主使用
+`HEAD` 检查 HTTP 状态与音频 content-type，避免宿主忽略 Range 后下载整首歌。
+`HEAD` 无法检查魔数/24-bit 位深，且部分 CDN 不支持它；这类限制不会被当作验证成功。
+所有宿主的 L3/位深都在每日巡检中检查；巡检通过仍不保证所有曲目或一天内不会失效。
+
+客户端作用域隔离解决兼容性与串扰，不是恶意 JavaScript 的安全边界。
+同步死循环无法在同一 LX JavaScript 线程内抢占；巡检进程使用独立 OS 沙箱来处理这类故障。
 
 ## 用法
 
@@ -83,20 +102,32 @@ Actions 用缓存保存上次巡检快照，并用保留 7 天的 `diagnostics` 
 
 ## 本地运行
 
-需要 Node.js 20 或更新版本，没有第三方 npm 依赖。
+需要 Linux、Node.js 22.13 或更新版本，以及 `bubblewrap` 和 `prlimit`（util-linux）。
+CI 使用 Node.js 22；没有第三方 npm 依赖。运行时不会回退到不安全的本机执行。
+
+```sh
+sudo apt-get install bubblewrap util-linux
+npm test
+```
+
+`npm test` 是离线回归测试，仅执行仓库自带的模拟脚本；默认不访问公网。
+真实巡检在 OS 沙箱安装成功后运行：
 
 ```sh
 npm run all
 ```
 
-也可以按 `npm run fetch` → `npm test` → `npm run build` 的顺序执行。
-`npm test` 是需要联网并执行上游代码的健康巡检，不是离线单元测试。
+也可以按 `npm run fetch` → `npm run health` → `npm run build` 的顺序执行。
 首次运行必须先抓取、再巡检，不能只依赖仓库中保留的可读报告构建。
+`config.json` 可设置子源/总请求/验证超时、报告最长有效期和巡检并发数；
+可用 `health.probes` 提供五个平台的探针元数据，默认探针在 `scripts/test-sources.mjs`。
 
 ## 安全说明
 
 - 仓库公开，产物不含任何服务器凭据
-- 本地运行时使用 `node:vm` 模拟 LX API，**不是安全沙箱，也没有使用 Worker 或 `lx-user-api-env`**
-- 上游脚本属于不可信代码；不要在带有 GitHub 登录、SSH 密钥、服务器凭据或其他私密数据的本机直接巡检，应使用无敏感信息的隔离环境
-- `state.json` 只记录上游元数据；完整健康报告可能包含临时播放 URL，应避免长期公开保存
+- `node:vm` 只模拟 LX API。真正边界为每个源独立的 bubblewrap OS 进程：不挂载 home/项目、不继承凭据、隔离 PID/网络、禁用子进程与原生扩展，并限制 CPU/内存/计时器/IPC
+- 上游请求通过可信父进程 HTTP 通道，DNS 地址在连接时固定并检查；私网、回环、保留地址、云元数据与重定向到这些地址均被拒绝
+- 超时包括 DNS、响应头、重定向和响应体；普通 API 响应限制 1 MiB，源码 2 MiB，音频只读取前 4096 字节
+- OS 沙箱不能防范内核漏洞；仍建议使用不带敏感凭据的临时 runner，不给巡检 job 写库权限
+- 仅接受固定 commit 的源码且逐步核对 SHA256、巡检 runId 和报告时间；加载失败或无健康候选时保留上一个成功产物
 - 生成脚本不依赖自建 lxserver 代理，但各子源仍会访问自己的上游 API

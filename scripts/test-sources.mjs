@@ -1,130 +1,120 @@
-/** 三层可用性检测: L1 取URL → L2 连通 → L3 真音频 */
-import fs from 'node:fs/promises'
 import { loadSource, verifyAudioUrl } from './lx-runtime.mjs'
+import { parseHttpUrl, boundedNumber } from './http.mjs'
+import { PLATFORMS, QUALITIES, readJson, readSnapshot, pool, atomicWrite, isMain } from './source-state.mjs'
 
-// 每个平台一个稳定的探针曲目（songmid 长期有效）
-const PROBES = {
+export const PROBES = {
   wy: { source: 'wy', musicInfo: { songmid: '2652820720', name: '晴天(深情版)', singer: 'Lucky小爱', source: 'wy', interval: '04:38' } },
   tx: { source: 'tx', musicInfo: { songmid: '0039MnYb0qxYhV', name: '晴天', singer: '周杰伦', source: 'tx', interval: '04:29' } },
   kw: { source: 'kw', musicInfo: { songmid: '228908', name: '晴天', singer: '周杰伦', source: 'kw', interval: '04:29' } },
-  kg: { source: 'kg', musicInfo: { songmid: 'B3A52A7A958BF0AED0EBFBA2E9A818B7', name: '晴天', singer: '周杰伦', source: 'kg', interval: '04:29' } },
+  kg: { source: 'kg', musicInfo: { songmid: 'B3A52A7A958BF0AED0EBFBA2E9A818B7', hash: 'B3A52A7A958BF0AED0EBFBA2E9A818B7', name: '晴天', singer: '周杰伦', source: 'kg', interval: '04:29' } },
+  mg: { source: 'mg', musicInfo: { songmid: '3790007', copyrightId: '60054701923', name: '晴天', singer: '周杰伦', source: 'mg', interval: '04:30' } },
 }
 
-const UPSTREAM = 'pdone/lx-music-source'
-const QUALITY = '320k'
-const CONCURRENCY = 3
+const safeDetail = value => String(value).replace(/https?:\/\/[^\s"'<>]+/gi, '[URL redacted]').slice(0, 240)
 
-/** 按 state.json 里记录的 URL 下载（支持多仓库） */
-async function fetchScript(name, sources) {
-  const entry = sources?.[name]
-  const url = entry?.url || `https://raw.githubusercontent.com/${UPSTREAM}/main/${name}/latest.js`
-  const res = await fetch(url, { headers: { 'User-Agent': 'lx-source-guard' } })
-  if (!res.ok) throw new Error(`download ${res.status}`)
-  return res.text()
-}
-
-/** 测试单个音源 × 单个平台 */
-async function testOne(name, script, platform) {
-  const probe = PROBES[platform]
-  const out = { source: name, platform, l1: false, l2: false, l3: false, url: null, detail: '' }
-  let rt
+export async function testOne(rt, { id, sha256 }, platform, quality, probe, verify = verifyAudioUrl, verifyOptions = {}) {
+  const result = { source: id, sha256, platform, quality, l1: false, l2: false, l3: false, detail: '' }
+  if (rt.error) { result.detail = safeDetail(`L0 ${rt.error}`); return result }
+  if (!rt.sources?.[platform]?.qualitys.includes(quality)) {
+    result.skipped = true
+    result.detail = 'Platform or quality not declared'
+    return result
+  }
   try {
-    rt = await loadSource(script)
-  } catch (e) { out.detail = `L0 加载失败: ${e.message}`; return out }
-  if (rt.error) { out.detail = `L0 ${rt.error}`; return out }
-  if (!rt.sources?.[platform]) { out.detail = `不支持该平台`; return out }
-
-  // L1: 能返回非空 URL
-  let url = null
-  try {
-    url = await rt.callMusicUrl(probe.source, probe.musicInfo, QUALITY)
-  } catch (e) { out.detail = `L1 失败: ${String(e.message || e).slice(0, 60)}`; return out }
-  if (typeof url !== 'string' || !/^https?:\/\//.test(url)) {
-    out.detail = `L1 返回无效: ${String(url).slice(0, 40)}`; return out
-  }
-  out.l1 = true; out.url = url
-
-  // L2 + L3: 连通且为真音频
-  const v = await verifyAudioUrl(url)
-  out.l2 = v.ok || v.status > 0
-  out.l3 = !!v.ok
-  out.detail = v.ok
-    ? `OK ${v.status} ${v.magic} ${v.bytes}B`
-    : `L2/L3 失败: HTTP ${v.status} ct=${v.contentType || '-'} magic=${v.magic || '-'}${v.error ? ' ' + v.error : ''}`
-  return out
+    const url = await rt.callMusicUrl(platform, structuredClone(probe.musicInfo), quality)
+    parseHttpUrl(url)
+    result.l1 = true
+    const checked = await verify(url, { ...verifyOptions, quality })
+    result.l2 = checked.connected === true
+    result.l3 = checked.ok === true
+    result.detail = safeDetail(checked.ok ? `OK ${checked.status} ${checked.magic} ${checked.bytes}B` :
+      `HTTP ${checked.status} ct=${checked.contentType || '-'} magic=${checked.magic || '-'}${checked.qualityOk === false ? ' quality mismatch' : ''}${checked.error ? ' ' + checked.error : ''}`)
+  } catch (error) { result.detail = safeDetail(`L1 ${error.message || error}`) }
+  return result
 }
 
-async function pool(items, limit, fn) {
-  const results = []
-  const running = new Set()
-  for (const item of items) {
-    const p = Promise.resolve().then(() => fn(item)).then(r => { results.push(r); running.delete(p) })
-    running.add(p)
-    if (running.size >= limit) await Promise.race(running)
+export function summarize(results) {
+  const sources = new Map()
+  for (const result of results) {
+    let summary = sources.get(result.source)
+    if (!summary) {
+      summary = { source: result.source, platforms: {}, l3Count: 0 }
+      sources.set(result.source, summary)
+    }
+    const platform = summary.platforms[result.platform] ||= { l3: false, qualitys: [] }
+    if (result.l3) {
+      if (!platform.l3) { platform.l3 = true; summary.l3Count++ }
+      if (!platform.qualitys.includes(result.quality)) platform.qualitys.push(result.quality)
+    }
   }
-  await Promise.all(running)
-  return results
+  return [...sources.values()].sort((a, b) => b.l3Count - a.l3Count || a.source.localeCompare(b.source))
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  const state = JSON.parse(await fs.readFile('state.json', 'utf8').catch(() => '{}'))
-  const names = Object.keys(state.sources || {})
-  if (!names.length) { console.error('state.json 里没有音源，请先跑 npm run fetch'); process.exit(1) }
-
-  console.log(`开始检测 ${names.length} 个音源 × ${Object.keys(PROBES).length} 个平台\n`)
-
-  const scripts = {}
-  for (const n of names) {
-    try { scripts[n] = await fetchScript(n, state.sources) } catch (e) { console.warn(`  跳过 ${n}: ${e.message}`) }
-  }
-
-  const jobs = []
-  for (const n of Object.keys(scripts)) for (const p of Object.keys(PROBES)) jobs.push([n, p])
-
-  let done = 0
-  const results = await pool(jobs, CONCURRENCY, async ([n, p]) => {
-    const r = await testOne(n, scripts[n], p)
-    done++
-    process.stdout.write(`\r  进度 ${done}/${jobs.length}`)
-    return r
-  })
-  process.stdout.write('\n\n')
-
-  // 汇总
-  const bySource = {}
-  for (const r of results) {
-    bySource[r.source] ??= { source: r.source, platforms: {}, l3Count: 0 }
-    bySource[r.source].platforms[r.platform] = r
-    if (r.l3) bySource[r.source].l3Count++
-  }
-  const summary = Object.values(bySource).sort((a, b) => b.l3Count - a.l3Count)
-
-  console.log('音源'.padEnd(40), 'wy tx kw kg', ' 可用')
-  for (const s of summary) {
-    const marks = ['wy','tx','kw','kg'].map(p => s.platforms[p]?.l3 ? ' ✅' : (s.platforms[p]?.l1 ? ' ⚠' : ' ❌')).join('')
-    console.log(String(s.source).padEnd(40).slice(0,40), marks, ` ${s.l3Count}/4`)
-  }
-
-  await fs.mkdir('reports', { recursive: true })
-  const report = { generatedAt: new Date().toISOString(), quality: QUALITY, probes: PROBES, results, summary }
-  await fs.writeFile('reports/health.json', JSON.stringify(report, null, 2) + '\n')
-
-  // markdown 报告
-  const md = [
-    `# 音源可用性巡检 ${new Date().toISOString().slice(0, 16).replace('T', ' ')} UTC`, '',
-    '`✅` = L3 通过（真能播）  `⚠` = 有 URL 但播不了  `❌` = 无 URL', '',
-    '| 音源 | wy | tx | kw | kg | 可用数 |', '|---|:--:|:--:|:--:|:--:|:--:|',
-    ...summary.map(s => {
-      const marks = ['wy','tx','kw','kg'].map(p => {
-        const r = s.platforms[p]
-        return r?.l3 ? '✅' : (r?.l1 ? '⚠' : '❌')
-      })
-      return `| ${s.source} | ${marks.join(' | ')} | ${s.l3Count}/4 |`
-    }),
+const markdownCell = value => String(value).replace(/\|/g, '\\|').replace(/[\r\n]+/g, ' ')
+export function healthMarkdown(report) {
+  return [
+    `# 音源可用性巡检 ${report.generatedAt} UTC`, '',
+    '只表示探针曲目可用，不保证所有曲目。每个平台独立检测 128k / 320k / flac / flac24bit；无损请求会校验 FLAC 格式，24-bit 还会校验位深。', '',
+    '| 音源 | wy | tx | kw | kg | mg | 可用平台 |',
+    '|---|---|---|---|---|---|---|',
+    ...report.summary.map(item => `| ${markdownCell(item.source)} | ${PLATFORMS.map(p => item.platforms[p]?.qualitys.join(', ') || '-').join(' | ')} | ${item.l3Count}/5 |`),
     '', '## 明细', '',
-    '| 音源 | 平台 | L1 | L2 | L3 | 说明 |', '|---|:--:|:--:|:--:|:--:|---|',
-    ...results.map(r => `| ${r.source} | ${r.platform} | ${r.l1?'✅':'❌'} | ${r.l2?'✅':'❌'} | ${r.l3?'✅':'❌'} | ${r.detail} |`),
+    '| 音源 | 平台 | 音质 | L1 | L2 | L3 | 说明 |', '|---|---|---|---|---|---|---|',
+    ...report.results.map(r => `| ${markdownCell(r.source)} | ${r.platform} | ${r.quality} | ${r.l1 ? 'OK' : '-'} | ${r.l2 ? 'OK' : '-'} | ${r.l3 ? 'OK' : '-'} | ${markdownCell(r.detail)} |`), '',
   ].join('\n')
-  await fs.writeFile('reports/health.md', md + '\n')
-  console.log('\n✅ 已写入 reports/health.json 和 reports/health.md')
+}
+
+export async function runHealth({ statePath = 'state.json', reportPath = 'reports/health.json',
+  markdownPath = 'reports/health.md', cacheDir = '.cache/sources', load = loadSource,
+  verify = verifyAudioUrl, probes, config } = {}) {
+  const cfg = config || await readJson('config.json', {})
+  const state = await readJson(statePath)
+  if (state.schemaVersion !== 2 || !state.runId || !Object.keys(state.sources || {}).length) {
+    throw new Error('Missing immutable source state; run npm run fetch first')
+  }
+  const selectedProbes = probes || cfg.health?.probes || PROBES
+  for (const p of PLATFORMS) {
+    if (!selectedProbes[p]?.musicInfo?.songmid || (p === 'kg' && !selectedProbes[p].musicInfo.hash) ||
+      (p === 'mg' && !selectedProbes[p].musicInfo.copyrightId)) throw new Error(`Incomplete probe metadata for ${p}`)
+  }
+  const timeoutMs = boundedNumber(cfg.health?.requestTimeoutMs, 12000)
+  const verifyTimeout = boundedNumber(cfg.health?.verifyTimeoutMs, 10000)
+  const concurrency = boundedNumber(cfg.health?.concurrency, 4, 1, 8)
+  const preflight = await load("lx.send('inited', { sources: {} })", { timeoutMs: 2000 })
+  preflight.dispose()
+  if (preflight.error) throw new Error(`OS sandbox preflight failed: ${preflight.error}`)
+  const declarations = {}, sourceHashes = {}
+  const outputs = await pool(Object.entries(state.sources), concurrency, async ([id, entry]) => {
+    sourceHashes[id] = entry.sha256
+    let code, rt
+    const results = []
+    try {
+      code = await readSnapshot(entry, { cacheDir })
+      rt = await load(code, { timeoutMs })
+      if (!rt.error) declarations[id] = rt.sources
+    } catch (error) { rt = { error: error.message, sources: {}, dispose() {} } }
+    try {
+      // Keep healthy qualities useful even if another quality wedges its disposable process.
+      for (const platform of PLATFORMS) for (const quality of ['320k', '128k', 'flac', 'flac24bit']) {
+        if (rt.closed && code) { rt.dispose(); rt = await load(code, { timeoutMs }) }
+        const result = await testOne(rt, { id, sha256: entry.sha256 }, platform, quality,
+          selectedProbes[platform], verify, { timeoutMs: verifyTimeout })
+        results.push(result)
+      }
+      console.log(`${id}: ${results.filter(r => r.l3).length} healthy platform/quality combinations`)
+      return results
+    } finally { rt.dispose() }
+  })
+  const results = outputs.flat()
+  const report = { schemaVersion: 2, runId: state.runId, generatedAt: new Date().toISOString(),
+    qualities: QUALITIES, probes: selectedProbes, sourceHashes, declarations, results, summary: summarize(results) }
+  await atomicWrite(reportPath, JSON.stringify(report, null, 2) + '\n')
+  await atomicWrite(markdownPath, healthMarkdown(report))
+  if (!results.some(r => r.l3)) throw new Error('No healthy sources; preserving previous published artifact')
+  return report
+}
+
+if (isMain(import.meta.url)) {
+  try { await runHealth() }
+  catch (error) { console.error(error.message); process.exitCode = 1 }
 }

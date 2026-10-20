@@ -1,203 +1,184 @@
-/**
- * 无头 LX Music 运行时
- * 在 Node 里模拟 globalThis.lx，让音源脚本可以脱离客户端被调用。
- * 依据官方规范: https://lxmusic.toside.cn/desktop/custom-source
- */
-import vm from 'node:vm'
-import crypto from 'node:crypto'
-import zlib from 'node:zlib'
-import { Buffer } from 'node:buffer'
+import fs from 'node:fs'
+import { spawn } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
+import { boundedNumber, requestBytes, parseHttpUrl } from './http.mjs'
+import { parseMeta, normalizeSources } from './source-state.mjs'
+import { sniffAudio, qualityMatchesAudio, audioContentTypeAllowed } from './audio.mjs'
 
-// 音源脚本内部常用 Promise.any 且不处理全部失败的情况，
-// 会产生未处理的 rejection。静默掉，避免把巡检进程带崩。
-process.on('unhandledRejection', () => {})
-process.on('uncaughtException', (err) => {
-  // 仅记录，不让单个脚本的异常终止整个巡检
-  if (process.env.LX_GUARD_DEBUG) console.error('[runtime]', err?.message)
-})
+export { parseMeta, sniffAudio }
 
-const EVENT_NAMES = {
-  inited: 'inited',
-  request: 'request',
-  updateAlert: 'updateAlert',
+export function sandboxCommand() {
+  if (process.platform !== 'linux') throw new Error('Source execution requires Linux and bubblewrap; no unsafe fallback')
+  const node = fs.realpathSync(process.execPath)
+  const worker = fileURLToPath(new URL('./lx-worker.mjs', import.meta.url))
+  const args = [
+    '--unshare-user', '--unshare-pid', '--unshare-net', '--unshare-ipc', '--unshare-uts',
+    '--disable-userns', '--die-with-parent', '--new-session', '--cap-drop', 'ALL', '--clearenv',
+  ]
+  for (const dir of ['/lib', '/lib64', '/usr/lib', '/usr/lib64']) args.push('--ro-bind-try', dir, dir)
+  const nodeResources = ['/usr/share/nodejs', '/usr/share/node_modules'].filter(dir => fs.existsSync(dir))
+  for (const dir of nodeResources) args.push('--ro-bind', dir, dir)
+  args.push('--proc', '/proc', '--dev', '/dev', '--size', '16777216', '--tmpfs', '/tmp',
+    '--dir', '/runner', '--ro-bind', node, '/runner/node', '--ro-bind', worker, '/runner/worker.mjs',
+    '--chdir', '/runner', '--setenv', 'HOME', '/tmp', '--setenv', 'LANG', 'C.UTF-8',
+    '/runner/node', Number(process.versions.node.split('.')[0]) >= 22 ? '--permission' : '--experimental-permission',
+    '--allow-fs-read=/runner', ...nodeResources.map(dir => `--allow-fs-read=${dir}`),
+    '--no-addons', '--jitless', '--max-old-space-size=96', '--stack-size=512', '/runner/worker.mjs')
+  return { command: '/usr/bin/prlimit', args: [
+    '--core=0', '--data=536870912', '--cpu=300', '--nofile=128', '--', '/usr/bin/bwrap', ...args,
+  ] }
 }
 
-/** 从脚本文本解析头部元数据注释 */
-export function parseMeta(script) {
-  const m = script.match(/\/\*!?([\s\S]*?)\*\//)
-  if (!m) return {}
-  const meta = {}
-  for (const line of m[1].split('\n')) {
-    const mm = line.match(/^\s*\*?\s*@(\w+)\s+(.*)$/)
-    if (mm) meta[mm[1]] = mm[2].trim()
-  }
-  return meta
-}
-
-/** 极简 HTTP 请求，兼容 lx.request 的 callback(err, resp) 签名 */
-function httpRequest(url, options = {}, callback) {
-  const ac = new AbortController()
-  const method = options.method || 'GET'
-  const headers = options.headers || {}
+function encodeBody(options, headers) {
   let body = options.body
-  if (options.form && typeof options.form === 'object') {
+  if (options.form) {
     body = new URLSearchParams(options.form).toString()
-    headers['Content-Type'] = headers['Content-Type'] || 'application/x-www-form-urlencoded'
-  }
-  const timeout = setTimeout(() => ac.abort(), options.timeout || 20000)
-  fetch(url, { method, headers, body, signal: ac.signal, redirect: 'follow' })
-    .then(async (res) => {
-      clearTimeout(timeout)
-      const text = await res.text()
-      const ct = (res.headers.get('content-type') || '').toLowerCase()
-      // 与 LX 宿主保持一致：JSON 响应自动解析为对象，其余保留字符串
-      let body = text
-      if (ct.includes('json')) {
-        try { body = JSON.parse(text) } catch { body = text }
-      }
-      const headers = {}
-      for (const [k, v] of res.headers.entries()) headers[k] = v
-      const sc = typeof res.headers.getSetCookie === 'function' ? res.headers.getSetCookie() : null
-      if (sc && sc.length) headers['set-cookie'] = sc
-      callback(null, { statusCode: res.status, headers, body, rawBody: text })
-    })
-    .catch((err) => {
-      clearTimeout(timeout)
-      callback(err)
-    })
-  return () => ac.abort()
-}
-
-/**
- * 在隔离上下文中加载音源脚本
- * @returns {Promise<{meta, sources, callMusicUrl, errors}>}
- */
-export async function loadSource(script, { timeoutMs = 30000 } = {}) {
-  const meta = parseMeta(script)
-  const state = { sources: null, initedError: null, initResolve: null, initReject: null, requestHandlers: [] }
-  const initedPromise = new Promise((res, rej) => {
-    state.initResolve = res
-    state.initReject = rej
-  })
-
-  const lx = {
-    version: 2,
-    env: 'desktop',
-    currentScriptInfo: { ...meta, rawScript: script },
-    EVENT_NAMES,
-    on(event, handler) {
-      if (event === EVENT_NAMES.request) state.requestHandlers.push(handler)
-    },
-    send(event, data) {
-      if (event === EVENT_NAMES.inited) {
-        state.sources = data?.sources || {}
-        state.initResolve({ sources: state.sources })
-      }
-    },
-    request: httpRequest,
-    utils: {
-      buffer: { from: (v, enc) => Buffer.from(v, enc), bufToString: (b, f) => Buffer.from(b).toString(f) },
-      crypto: {
-        md5: (s) => crypto.createHash('md5').update(s).digest('hex'),
-        randomBytes: (n) => crypto.randomBytes(n).toString('hex'),
-        aesEncrypt: (buf, mode, key, iv) => {
-          const c = crypto.createCipheriv(mode, Buffer.from(key), iv ? Buffer.from(iv) : null)
-          return Buffer.concat([c.update(Buffer.from(buf)), c.final()])
-        },
-        rsaEncrypt: (buf, key) => crypto.publicEncrypt(key, Buffer.from(buf)),
-      },
-      zlib: {
-        inflate: (b) => new Promise((res, rej) => zlib.inflate(Buffer.from(b), (e, r) => e ? rej(e) : res(r))),
-        deflate: (b) => new Promise((res, rej) => zlib.deflate(Buffer.from(b), (e, r) => e ? rej(e) : res(r))),
-      },
-    },
-  }
-
-  const sandbox = {
-    lx,
-    globalThis: null,
-    console: { log() {}, warn() {}, error() {}, info() {}, debug() {} },
-    setTimeout, clearTimeout, setInterval, clearInterval,
-    Buffer, URL, URLSearchParams, TextEncoder, TextDecoder, atob, btoa,
-    Promise, Error, JSON, Math, Date, String, Number, Boolean, Array, Object, RegExp, Map, Set, Symbol,
-  }
-  sandbox.globalThis = sandbox
-  sandbox.window = sandbox
-  sandbox.self = sandbox
-
-  try {
-    const ctx = vm.createContext(sandbox)
-    new vm.Script(script, { filename: meta.name || 'source.js' }).runInContext(ctx, { timeout: timeoutMs })
-  } catch (err) {
-    return { meta, sources: {}, error: `脚本执行失败: ${err.message}`, callMusicUrl: null }
-  }
-
-  // 等待 inited（带超时）
-  let inited
-  try {
-    inited = await Promise.race([
-      initedPromise,
-      new Promise((_, rej) => setTimeout(() => rej(new Error('等待 inited 超时')), timeoutMs)),
-    ])
-  } catch (err) {
-    return { meta, sources: {}, error: err.message, callMusicUrl: null }
-  }
-
-  const callMusicUrl = async (source, musicInfo, quality) => {
-    const handler = state.requestHandlers[0]
-    if (!handler) throw new Error('脚本未注册 request 事件')
-    const p = handler({ source, action: 'musicUrl', info: { type: quality, musicInfo } })
-    if (!p || typeof p.then !== 'function') throw new Error('handler 未返回 Promise')
-    return await Promise.race([
-      p,
-      new Promise((_, rej) => setTimeout(() => rej(new Error('musicUrl 超时')), timeoutMs)),
-    ])
-  }
-
-  return { meta, sources: inited.sources, state, callMusicUrl, error: null }
-}
-
-/** 判断一个 URL 是否返回真正的音频 */
-export async function verifyAudioUrl(url, { timeoutMs = 20000 } = {}) {
-  const ac = new AbortController()
-  const timer = setTimeout(() => ac.abort(), timeoutMs)
-  try {
-    const res = await fetch(url, {
-      method: 'GET',
-      headers: { 'User-Agent': 'Mozilla/5.0', Range: 'bytes=0-2047' },
-      signal: ac.signal,
-      redirect: 'follow',
-    })
-    clearTimeout(timer)
-    const ct = (res.headers.get('content-type') || '').toLowerCase()
-    const buf = Buffer.from(await res.arrayBuffer())
-    const magic = sniffAudio(buf)
-    const ctOk = /audio|mpeg|mp3|flac|m4a|aac|ogg/.test(ct)
-    return {
-      ok: res.status >= 200 && res.status < 300 && (magic !== null),
-      status: res.status,
-      contentType: ct,
-      magic,
-      ctOk,
-      bytes: buf.length,
+    if (!Object.keys(headers).some(k => k.toLowerCase() === 'content-type')) {
+      headers['Content-Type'] = 'application/x-www-form-urlencoded'
     }
-  } catch (err) {
-    clearTimeout(timer)
-    return { ok: false, status: 0, error: err.message, magic: null, ctOk: false, bytes: 0 }
+  } else if (options.formData) {
+    throw new Error('Multipart formData is not supported by the inspection broker')
+  } else if (body?.type === 'Buffer' && Array.isArray(body.data)) body = Buffer.from(body.data)
+  else if (body && typeof body === 'object') {
+    body = JSON.stringify(body)
+    if (!Object.keys(headers).some(k => k.toLowerCase() === 'content-type')) headers['Content-Type'] = 'application/json'
+  }
+  if (body !== undefined && Buffer.byteLength(body) > 1048576) throw new Error('HTTP request body too large')
+  return body
+}
+
+/** The VM is only an API shim; OS namespaces and the HTTP broker form the security boundary. */
+export async function loadSource(script, { timeoutMs = 30000, allowPrivateNetwork = false } = {}) {
+  const meta = parseMeta(script)
+  const timeout = boundedNumber(timeoutMs, 30000)
+  let child
+  try {
+    if (Buffer.byteLength(script) > 2097152) throw new Error('Source script exceeds 2 MiB')
+    const { command, args } = sandboxCommand()
+    child = spawn(command, args, { env: { PATH: '/usr/bin:/bin' }, stdio: ['pipe', 'pipe', 'pipe'] })
+  } catch (error) { return { meta, sources: {}, error: error.message, callMusicUrl: null, dispose() {} } }
+
+  const pending = new Map(), requests = new Map()
+  child.stdout.setEncoding('utf8')
+  child.stderr.setEncoding('utf8')
+  let closed = false, counter = 0, output = '', stderr = '', messageCount = 0, started = false
+  const send = message => {
+    if (!closed && child.stdin.writable) child.stdin.write(JSON.stringify(message) + '\n')
+  }
+  const stop = error => {
+    if (closed) return
+    closed = true
+    clearTimeout(lifetime)
+    for (const controller of requests.values()) controller.abort()
+    requests.clear()
+    for (const item of pending.values()) { clearTimeout(item.timer); item.reject(error || new Error('Source disposed')) }
+    pending.clear()
+    child.stdin.destroy()
+    child.kill('SIGKILL')
+  }
+  const lifetime = setTimeout(() => stop(new Error('Sandbox lifetime exceeded')), 600000)
+  const rpc = (type, data, deadline = timeout) => new Promise((resolve, reject) => {
+    if (closed) { reject(new Error('Source sandbox is closed')); return }
+    const id = ++counter
+    const item = { resolve, reject, type, deadline }
+    item.timer = setTimeout(() => stop(new Error(`${type} timeout`)), type === 'load' ? 10000 : deadline)
+    pending.set(id, item)
+    send({ type, id, ...data })
+  })
+  async function broker(message) {
+    const id = message.id
+    if (!Number.isSafeInteger(id) || id < 1 || requests.has(id) || requests.size >= 16) {
+      send({ type: 'httpResult', id, error: 'Too many concurrent HTTP requests' })
+      return
+    }
+    const controller = new AbortController()
+    requests.set(id, controller)
+    try {
+      const options = message.options || {}
+      const headers = { ...options.headers }
+      const body = encodeBody(options, headers)
+      const response = await requestBytes(message.url, {
+        method: options.method || 'GET', headers, body, signal: controller.signal,
+        timeoutMs: boundedNumber(options.timeout, 20000, 1, 20000),
+        maxBytes: 1048576, allowPrivateNetwork,
+      })
+      send({ type: 'httpResult', id, response: {
+        statusCode: response.statusCode, headers: response.headers, url: response.url,
+        raw: response.raw.toString('base64'),
+      } })
+    } catch (error) { send({ type: 'httpResult', id, error: error.message }) }
+    finally { requests.delete(id) }
+  }
+  child.stderr.on('data', chunk => { stderr = (stderr + chunk).slice(0, 2048) })
+  child.once('error', error => stop(new Error(`OS sandbox unavailable: ${error.message}`)))
+  child.once('exit', (code, signal) => stop(new Error(`Sandbox exited (${signal || code}): ${stderr.slice(0, 400)}`)))
+  child.stdin.on('error', error => stop(error))
+  child.stdout.on('data', chunk => {
+    if (closed) return
+    output += chunk
+    if (output.length > 4194304) { stop(new Error('Sandbox IPC message too large')); return }
+    let newline
+    while ((newline = output.indexOf('\n')) >= 0) {
+      const line = output.slice(0, newline)
+      output = output.slice(newline + 1)
+      let message
+      try { message = JSON.parse(line) } catch { stop(new Error('Invalid sandbox IPC')); return }
+      if (!message || typeof message !== 'object' || Array.isArray(message) || typeof message.type !== 'string') {
+        stop(new Error('Invalid sandbox IPC message shape')); return
+      }
+      if (++messageCount > 4096) { stop(new Error('Sandbox IPC quota exceeded')); return }
+      if (message.type === 'started' && !started) {
+        started = true
+        for (const item of pending.values()) if (item.type === 'load') {
+          clearTimeout(item.timer)
+          item.timer = setTimeout(() => stop(new Error('Source initialization timeout')), item.deadline)
+        }
+      } else if (message.type === 'http') void broker(message)
+      else if (message.type === 'cancelHttp') requests.get(message.id)?.abort()
+      else if (message.type === 'fatal') stop(new Error(`Source failed: ${String(message.error).slice(0, 300)}`))
+      else if (message.type === 'result') {
+        const item = pending.get(message.id)
+        if (!item) continue
+        clearTimeout(item.timer)
+        pending.delete(message.id)
+        if (message.error) item.reject(new Error(String(message.error)))
+        else item.resolve(message.value)
+      }
+    }
+  })
+  try {
+    const declared = await rpc('load', { script, meta, timeoutMs: timeout })
+    const sources = normalizeSources(declared)
+    return {
+      meta, sources, error: null,
+      get closed() { return closed },
+      callMusicUrl: (source, musicInfo, quality) => rpc('call', { source, musicInfo, quality }),
+      dispose: () => stop(),
+    }
+  } catch (error) {
+    stop(error)
+    return { meta, sources: {}, error: error.message, callMusicUrl: null, dispose() {} }
   }
 }
 
-/** 音频文件魔数识别 */
-export function sniffAudio(buf) {
-  if (!buf || buf.length < 4) return null
-  const b = buf
-  if (b.slice(0, 3).toString('ascii') === 'ID3') return 'mp3(ID3)'
-  if (b[0] === 0xff && (b[1] & 0xe0) === 0xe0) return 'mp3(frame)'
-  if (b.slice(0, 4).toString('ascii') === 'fLaC') return 'flac'
-  if (b.slice(4, 8).toString('ascii') === 'ftyp') return 'mp4/m4a'
-  if (b.slice(0, 4).toString('ascii') === 'OggS') return 'ogg'
-  if (b.slice(0, 2).toString('ascii') === 'RIFF') return 'wav'
-  // ADTS AAC
-  if (b[0] === 0xff && (b[1] & 0xf0) === 0xf0) return 'aac'
-  return null
+export async function verifyAudioUrl(url, { timeoutMs = 20000, maxBytes = 4096, quality,
+  allowPrivateNetwork = false } = {}) {
+  try {
+    parseHttpUrl(url)
+    const response = await requestBytes(url, {
+      headers: { 'User-Agent': 'Mozilla/5.0', Range: `bytes=0-${maxBytes - 1}` },
+      timeoutMs, maxBytes, prefix: true, allowPrivateNetwork,
+    })
+    const ct = String(response.headers['content-type'] || '').toLowerCase()
+    const magic = sniffAudio(response.raw)
+    const connected = response.statusCode === 200 || response.statusCode === 206
+    const qualityOk = qualityMatchesAudio(quality, magic, response.raw)
+    return {
+      ok: connected && magic !== null && audioContentTypeAllowed(ct) && qualityOk,
+      connected, status: response.statusCode, contentType: ct, magic, qualityOk,
+      ctOk: /^audio\//.test(ct), bytes: response.raw.length,
+    }
+  } catch (error) {
+    return { ok: false, connected: false, status: 0, error: error.message, magic: null, ctOk: false, bytes: 0 }
+  }
 }

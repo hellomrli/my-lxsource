@@ -6,12 +6,13 @@
   "description": "Daily health check + merged source builder for LX Music custom sources",
   "scripts": {
     "fetch": "node scripts/fetch-upstream.mjs",
-    "test": "node scripts/test-sources.mjs",
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "health": "node scripts/test-sources.mjs",
     "build": "node scripts/build-source.mjs",
     "all": "node scripts/fetch-upstream.mjs && node scripts/test-sources.mjs && node scripts/build-source.mjs"
   },
   "dependencies": {},
   "engines": {
-    "node": ">=20"
+    "node": ">=22.13.0"
   }
 }

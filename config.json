@@ -6,6 +6,15 @@
   "mode": "embed",
   "embed": {
     "initTimeoutMs": 30000,
-    "probeTimeoutMs": 15000
+    "probeTimeoutMs": 15000,
+    "requestTimeoutMs": 12000,
+    "totalTimeoutMs": 45000,
+    "verifyTimeoutMs": 8000,
+    "maxReportAgeMs": 86400000
+  },
+  "health": {
+    "requestTimeoutMs": 12000,
+    "verifyTimeoutMs": 10000,
+    "concurrency": 4
   }
 }
