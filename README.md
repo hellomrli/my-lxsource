@@ -82,6 +82,9 @@ Runner 固定为 Ubuntu 24.04，Actions 固定到完整 commit SHA；Dependabot 
 所以「整合」= 把多个 L3 通过的上游脚本内联进一个自包含脚本：每个子源绑定稳定的
 `globalThis/window/self/global/lx` 作用域，不修改宿主的 `globalThis.lx`；
 初始化和播放请求都有超时，晚到的回调不会注册到其他子源。
+子源在构建时转换为静态函数，不通过运行时 `eval`/`new Function` 加载，兼容禁止动态代码执行的客户端。
+巡检与构建会在禁用字符串代码生成的环境中验证子源和最终产物；依赖动态执行的初始化或播放请求不会计为可用。
+允许动态执行的宿主仍保留子源显式使用 `eval`/`Function` 时的作用域兼容处理，但加载器本身不调用它们。
 只声明同一份源码实测通过的平台/音质，重复 SHA256 的脚本合并覆盖范围后只加载、嵌入一次。
 `embed.maxSources` 限制的是验证通过的独立脚本数；重复脚本和加载失败的候选不占名额。
 
@@ -104,6 +107,10 @@ Runner 固定为 Ubuntu 24.04，Actions 固定到完整 commit SHA；Dependabot 
 3. 客户端导入 `dist/merged-source.js` 的 raw 地址：
 
    `https://raw.githubusercontent.com/hellomrli/my-lxsource/master/dist/merged-source.js`
+
+客户端保存的是已导入脚本的本地副本，GitHub 更新不会自动替换它。
+如果旧版本提示 `Dynamic code execution is not allowed`，删除旧的「我的聚合音源」后重新导入最新地址即可；
+无需关闭客户端的动态执行安全限制。
 
 ## 本地运行
 

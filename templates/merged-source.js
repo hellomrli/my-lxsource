@@ -19,6 +19,7 @@ const { EVENT_NAMES } = LX
 const NativeFunction = Function
 const nativeEval = eval
 const SUBS = {{SUBS_JSON}}
+const SUB_RUNNERS = {{SUB_RUNNERS}}
 const SOURCES = {{SOURCES_JSON}}
 const SUB_INIT_TIMEOUT_MS = {{INIT_TIMEOUT_MS}}
 const SUB_REQUEST_TIMEOUT_MS = {{REQUEST_TIMEOUT_MS}}
@@ -58,7 +59,11 @@ function disableEntry(entry, error) {
   entry.requests.clear()
 }
 
-function loadEntry(sub) {
+function scopedEvaluator(scope) {
+  with (scope) { return function(code) { return eval(code) } }
+}
+
+function loadEntry(sub, index) {
   const entry = { sub, handlers: [], declared: {}, status: 'pending', timers: new Set(), requests: new Set() }
   entry.ready = new Promise(resolve => {
     let settled = false
@@ -137,7 +142,7 @@ function loadEntry(sub) {
       const compiled = compile(args.slice(0, -1), args.length ? args[args.length - 1] : '')
       return function() { return compiled.apply(world, arguments) }
     }
-    const scopedEval = NativeFunction('scope', 'eval', 'with (scope) { return (function(code) { return eval(code) }) }')(scope, nativeEval)
+    const scopedEval = scopedEvaluator(scope)
     world.eval = code => scopedEval.call(world, String(code))
     const schedule = (callback, delay, repeat, args) => {
       if (entry.status === 'error') return null
@@ -160,7 +165,8 @@ function loadEntry(sub) {
       HOST.clearTimeout(id); HOST.clearInterval(id); entry.timers.delete(id)
     }
     const initTimer = HOST.setTimeout(() => finish(new Error('Subsource initialization timeout')), SUB_INIT_TIMEOUT_MS)
-    try { compile([], sub.code).call(world) }
+    // The host can disable eval/Function; ordinary subsources must not need either.
+    try { SUB_RUNNERS[index].call(world, scope) }
     catch (error) { disableEntry(entry, error); finish(error) }
   })
   return entry

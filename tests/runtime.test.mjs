@@ -3,6 +3,20 @@ import test from 'node:test'
 import { loadSource } from '../scripts/lx-runtime.mjs'
 import { server, sourceCode } from './helpers.mjs'
 
+test('the sandbox can emulate clients that prohibit eval and Function', async t => {
+  const good = await loadSource(sourceCode("return 'https://example.test/audio.mp3';"), {
+    timeoutMs: 1000, allowCodeGeneration: false,
+  })
+  t.after(() => good.dispose())
+  assert.equal(good.error, null)
+  assert.equal(await good.callMusicUrl('wy', {}, '320k'), 'https://example.test/audio.mp3')
+  for (const code of ["new Function('return globalThis')()", "eval('globalThis')"]) {
+    const blocked = await loadSource(code, { timeoutMs: 1000, allowCodeGeneration: false })
+    t.after(() => blocked.dispose())
+    assert.match(blocked.error, /Code generation from strings disallowed/)
+  }
+})
+
 test('source execution cannot read host secrets or spawn child processes even after a VM escape', async t => {
   process.env.LX_TEST_SECRET = 'must-not-leak'
   t.after(() => { delete process.env.LX_TEST_SECRET })

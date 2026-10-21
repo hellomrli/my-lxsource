@@ -78,7 +78,7 @@ function load(message) {
     clearTimeout: cancelTimer, clearInterval: cancelTimer,
     Buffer, URL, URLSearchParams, TextEncoder, TextDecoder, atob, btoa,
   }
-  context = vm.createContext(globals)
+  context = vm.createContext(globals, { codeGeneration: { strings: message.allowCodeGeneration !== false, wasm: false } })
   vm.runInContext('globalThis.window = globalThis; globalThis.self = globalThis; globalThis.global = globalThis', context)
   new vm.Script(message.script, { filename: 'source.js' }).runInContext(context, { timeout: timeoutMs })
   evaluationDone = true

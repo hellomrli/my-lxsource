@@ -3,6 +3,46 @@ import test from 'node:test'
 import vm from 'node:vm'
 import { mergedHarness, sub, sourceCode, mp3, flac } from './helpers.mjs'
 
+test('static subsources initialize and play when the host forbids dynamic code execution', async t => {
+  let dynamicCalls = 0
+  const blocked = () => { dynamicCalls++; throw new Error('Dynamic code execution is not allowed.') }
+  const h = await mergedHarness(t, [sub('good', sourceCode("return 'https://example.test/good.mp3';"))], {
+    allowCodeGeneration: false,
+    globals: { Function: new Proxy(Function, { apply: blocked, construct: blocked }), eval: blocked },
+  })
+  assert.deepEqual(Object.keys(h.inited.sources), ['wy'])
+  assert.equal(await h.call(), 'https://example.test/good.mp3')
+  assert.equal(dynamicCalls, 0)
+})
+
+test('a subsource requiring dynamic code is disabled without rejecting the whole initialization', async t => {
+  const h = await mergedHarness(t, [sub('dynamic', `new Function('return globalThis')();`),
+    sub('good', sourceCode("return 'https://example.test/good.mp3';"))])
+  assert.equal(vm.runInContext('ENTRIES[0].status', h.context), 'error')
+  assert.match(vm.runInContext('ENTRIES[0].error.message', h.context), /disallowed/)
+  assert.equal(await h.call(), 'https://example.test/good.mp3')
+})
+
+test('static strict-mode sources retain independent globals, asynchronous closures, and the original raw script', async t => {
+  const code = `
+    'use strict';
+    const privateValue = 'good';
+    globalThis.marker = privateValue;
+    if (this !== globalThis || window !== self || self !== global) throw new Error('wrong globals');
+    lx.on('request', async()=>{
+      await new Promise(resolve => setTimeout(resolve, 5));
+      if (!lx.currentScriptInfo.rawScript.includes("const privateValue = 'good'")) throw new Error('missing raw script');
+      return 'https://example.test/' + globalThis.marker + '.mp3';
+    });
+    lx.send('inited', { sources: { wy: { qualitys: ['320k'] } } });
+  `
+  const h = await mergedHarness(t, [sub('strict', code),
+    sub('other', `globalThis.marker = 'wrong';` + sourceCode("return 'https://example.test/wrong.mp3';"))])
+  assert.equal(await h.call(), 'https://example.test/good.mp3')
+  assert.equal(h.context.marker, undefined)
+  assert.equal(vm.runInContext('ENTRIES[0].world.lx.currentScriptInfo.rawScript', h.context), code)
+})
+
 test('a hanging first source falls back and is disabled without affecting other sources', async t => {
   const h = await mergedHarness(t, [sub('hang', sourceCode('return await new Promise(()=>{});')),
     sub('good', sourceCode("return 'https://example.test/good.mp3';"))])
@@ -47,7 +87,7 @@ test('late init, dynamic Function, eval, aliases, and asynchronous global lx rea
     eval("globalThis.marker = 'only-good'");
     window.lx.send('inited',{sources:{wy:{qualitys:['320k']}}});
   `
-  const h = await mergedHarness(t, [sub('late', late), sub('good', good)])
+  const h = await mergedHarness(t, [sub('late', late), sub('good', good)], { allowCodeGeneration: true })
   await new Promise(resolve => setTimeout(resolve, 120))
   assert.equal(h.context.lx, h.lx)
   assert.equal(await h.call(), 'https://example.test/good.mp3')
@@ -66,7 +106,7 @@ test('direct eval retains subsource lexical variables while its global objects r
     });
     globalThis.lx.send('inited',{sources:{wy:{qualitys:['320k']}}});
   `
-  const h = await mergedHarness(t, [sub('eval', code)])
+  const h = await mergedHarness(t, [sub('eval', code)], { allowCodeGeneration: true })
   assert.equal(await h.call(), 'https://example.test/good.mp3')
 })
 

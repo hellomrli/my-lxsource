@@ -162,6 +162,23 @@ test('a failed candidate cannot prevent a lower-ranked valid source from filling
   assert.equal(result.subs[0].key, 'z-good')
 })
 
+test('build excludes dynamic-code-only sources and validates the output with code generation disabled', async t => {
+  const f = await buildFixture(t, "eval('globalThis');" + sourceCode("return 'https://example.test/dynamic.mp3';"))
+  await addBuildSource(f, 'z-static', sourceCode("return 'https://example.test/good.mp3';"))
+  const result = await buildSource(f)
+  assert.deepEqual(result.subs.map(s => s.key), ['z-static'])
+})
+
+test('candidate and merged validation both request a code-generation-disabled runtime', async t => {
+  const f = await buildFixture(t), options = []
+  await buildSource({ ...f, load: async (script, config) => {
+    options.push(config)
+    return { error: null, sources: { wy: { type: 'music', actions: ['musicUrl'], qualitys: ['320k'] } }, dispose() {} }
+  } })
+  assert.equal(options.length, 2)
+  assert.ok(options.every(option => option.allowCodeGeneration === false))
+})
+
 test('unknown platforms and invalid quality declarations do not reach LX clients', () => {
   const sources = normalizeSources({ qs: { type: 'music', actions: ['musicUrl'], qualitys: ['flac'] },
     wy: { type: 'music', actions: ['musicUrl', 'search'], qualitys: ['192k', '320k'] } })
@@ -208,12 +225,15 @@ test('health reports cover all five platforms and all four qualities without pub
     { type: 'music', actions: ['musicUrl'], qualitys: ['128k', '320k', 'flac', 'flac24bit'] }]))
   const report = await runHealth({ statePath: f.statePath, reportPath: f.reportPath,
     markdownPath: path.join(f.dir, 'health.md'), cacheDir: f.cacheDir, config: {},
-    load: async () => ({ error: null, sources: declared, dispose() {},
-      callMusicUrl: async (platform, info, quality) => {
-        if (platform === 'kg') assert.equal(info.hash, PROBES.kg.musicInfo.hash)
-        if (platform === 'mg') assert.equal(info.copyrightId, PROBES.mg.musicInfo.copyrightId)
-        return `https://example.test/audio?token=private-${quality}`
-      } }),
+    load: async (script, options) => {
+      assert.equal(options.allowCodeGeneration, false)
+      return { error: null, sources: declared, dispose() {},
+        callMusicUrl: async (platform, info, quality) => {
+          if (platform === 'kg') assert.equal(info.hash, PROBES.kg.musicInfo.hash)
+          if (platform === 'mg') assert.equal(info.copyrightId, PROBES.mg.musicInfo.copyrightId)
+          return `https://example.test/audio?token=private-${quality}`
+        } }
+    },
     verify: async () => ({ ok: true, connected: true, status: 206, magic: 'flac', bytes: 4096 }),
   })
   assert.equal(report.results.length, 20)
@@ -221,4 +241,17 @@ test('health reports cover all five platforms and all four qualities without pub
   assert.equal(report.runId, f.state.runId)
   assert.equal(JSON.stringify(report).includes('token=private'), false)
   assert.equal(healthMarkdown(report).includes('| mg |'), true)
+})
+
+test('health does not count playback handlers that only work with dynamic code execution', async t => {
+  const f = await buildFixture(t, sourceCode("return eval(\"'https://example.test/dynamic.mp3'\");"))
+  await assert.rejects(runHealth({ statePath: f.statePath, reportPath: f.reportPath,
+    markdownPath: path.join(f.dir, 'health.md'), cacheDir: f.cacheDir, config: {},
+    verify: async () => { throw new Error('A blocked handler must not reach audio verification') },
+  }), /No healthy sources/)
+  const report = JSON.parse(await fs.readFile(f.reportPath, 'utf8'))
+  const result = report.results.find(r => r.platform === 'wy' && r.quality === '320k')
+  assert.equal(result.l1, false)
+  assert.equal(result.l3, false)
+  assert.match(result.detail, /Code generation from strings disallowed/)
 })

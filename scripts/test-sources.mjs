@@ -78,9 +78,10 @@ export async function runHealth({ statePath = 'state.json', reportPath = 'report
       (p === 'mg' && !selectedProbes[p].musicInfo.copyrightId)) throw new Error(`Incomplete probe metadata for ${p}`)
   }
   const timeoutMs = boundedNumber(cfg.health?.requestTimeoutMs, 12000)
+  const runtimeOptions = { timeoutMs, allowCodeGeneration: false }
   const verifyTimeout = boundedNumber(cfg.health?.verifyTimeoutMs, 10000)
   const concurrency = boundedNumber(cfg.health?.concurrency, 4, 1, 8)
-  const preflight = await load("lx.send('inited', { sources: {} })", { timeoutMs: 2000 })
+  const preflight = await load("lx.send('inited', { sources: {} })", { timeoutMs: 2000, allowCodeGeneration: false })
   preflight.dispose()
   if (preflight.error) throw new Error(`OS sandbox preflight failed: ${preflight.error}`)
   const declarations = {}, sourceHashes = {}
@@ -90,13 +91,13 @@ export async function runHealth({ statePath = 'state.json', reportPath = 'report
     const results = []
     try {
       code = await readSnapshot(entry, { cacheDir })
-      rt = await load(code, { timeoutMs })
+      rt = await load(code, runtimeOptions)
       if (!rt.error) declarations[id] = rt.sources
     } catch (error) { rt = { error: error.message, sources: {}, dispose() {} } }
     try {
       // Keep healthy qualities useful even if another quality wedges its disposable process.
       for (const platform of PLATFORMS) for (const quality of ['320k', '128k', 'flac', 'flac24bit']) {
-        if (rt.closed && code) { rt.dispose(); rt = await load(code, { timeoutMs }) }
+        if (rt.closed && code) { rt.dispose(); rt = await load(code, runtimeOptions) }
         const result = await testOne(rt, { id, sha256: entry.sha256 }, platform, quality,
           selectedProbes[platform], verify, { timeoutMs: verifyTimeout })
         results.push(result)

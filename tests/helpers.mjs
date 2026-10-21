@@ -40,7 +40,7 @@ export async function server(t, handler) {
   return `http://127.0.0.1:${instance.address().port}`
 }
 
-export async function mergedHarness(t, subs, { request, fetch, config, globals = {} } = {}) {
+export async function mergedHarness(t, subs, { request, fetch, config, globals = {}, allowCodeGeneration = false } = {}) {
   const timers = new Set(), handlers = []
   let initialized
   const ready = new Promise(resolve => { initialized = resolve })
@@ -65,7 +65,7 @@ export async function mergedHarness(t, subs, { request, fetch, config, globals =
     clearTimeout: id => { clearTimeout(id); timers.delete(id) },
     setInterval: (fn, ms) => { const id = setInterval(fn, ms); timers.add(id); return id },
     clearInterval: id => { clearInterval(id); timers.delete(id) },
-  })
+  }, { codeGeneration: { strings: allowCodeGeneration, wasm: false } })
   t.after(() => { for (const id of timers) { clearTimeout(id); clearInterval(id) } })
   const template = await fs.readFile(path.join(ROOT, 'templates/merged-source.js'), 'utf8')
   const script = renderSource(template, subs, { embed: { initTimeoutMs: 60, requestTimeoutMs: 80,

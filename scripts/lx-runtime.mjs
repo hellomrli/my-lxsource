@@ -48,7 +48,7 @@ function encodeBody(options, headers) {
 }
 
 /** The VM is only an API shim; OS namespaces and the HTTP broker form the security boundary. */
-export async function loadSource(script, { timeoutMs = 30000, allowPrivateNetwork = false } = {}) {
+export async function loadSource(script, { timeoutMs = 30000, allowPrivateNetwork = false, allowCodeGeneration = true } = {}) {
   const meta = parseMeta(script)
   const timeout = boundedNumber(timeoutMs, 30000)
   let child
@@ -147,7 +147,7 @@ export async function loadSource(script, { timeoutMs = 30000, allowPrivateNetwor
     }
   })
   try {
-    const declared = await rpc('load', { script, meta, timeoutMs: timeout })
+    const declared = await rpc('load', { script, meta, timeoutMs: timeout, allowCodeGeneration })
     const sources = normalizeSources(declared)
     return {
       meta, sources, error: null,

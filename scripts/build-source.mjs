@@ -67,6 +67,9 @@ export function renderSource(template, subs, config = {}, generatedAt = new Date
     AUTHOR: commentValue(config.author || 'hellomrli'), HOMEPAGE: commentValue(config.homepage || ''),
     GENERATED_AT: commentValue(generatedAt), SUB_NAMES: commentValue(subs.map(s => s.name).join(' / ')),
     SUBS_JSON: safeJson(subs), SOURCES_JSON: safeJson(sources),
+    // Function literals are parsed with the script, even when runtime eval/Function is disabled.
+    SUB_RUNNERS: '[\n' + subs.map(sub => 'function(scope) {\nwith (scope) {\nreturn (function() {\n' +
+      sub.code + '\n}).call(this)\n}\n}').join(',\n') + '\n]',
     INIT_TIMEOUT_MS: String(boundedNumber(config.embed?.initTimeoutMs, 30000)),
     REQUEST_TIMEOUT_MS: String(boundedNumber(config.embed?.requestTimeoutMs, 12000)),
     TOTAL_TIMEOUT_MS: String(boundedNumber(config.embed?.totalTimeoutMs, 45000)),
@@ -108,7 +111,7 @@ export async function buildSource({ statePath = 'state.json', reportPath = 'repo
     try {
       const entry = state.sources[candidate.id]
       const code = await readSnapshot(entry, { cacheDir })
-      rt = await load(code, { timeoutMs: boundedNumber(cfg.embed?.probeTimeoutMs, 15000) })
+      rt = await load(code, { timeoutMs: boundedNumber(cfg.embed?.probeTimeoutMs, 15000), allowCodeGeneration: false })
       if (rt.error || rt.closed) throw new Error(`Build-time initialization failed: ${rt.error || 'sandbox closed'}`)
       const declared = normalizeSources(rt.sources)
       const verified = {}
@@ -129,7 +132,8 @@ export async function buildSource({ statePath = 'state.json', reportPath = 'repo
   const template = await fs.readFile(templatePath, 'utf8')
   const output = renderSource(template, subs, cfg, new Date(now).toISOString())
   // Syntax alone cannot detect a broken loader/shim. Load the actual merged artifact before publishing it.
-  const combined = await load(output, { timeoutMs: Math.min(boundedNumber(cfg.embed?.initTimeoutMs, 30000) + 5000, 60000) })
+  const combined = await load(output, { timeoutMs: Math.min(boundedNumber(cfg.embed?.initTimeoutMs, 30000) + 5000, 60000),
+    allowCodeGeneration: false })
   try {
     if (combined.error || combined.closed || !Object.keys(combined.sources).length) {
       throw new Error(`Merged source validation failed: ${combined.error || 'no live sources'}`)
