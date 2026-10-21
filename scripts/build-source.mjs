@@ -24,12 +24,27 @@ export function validateReport(state, report, { now = Date.now(), maxAgeMs = 864
     throw new Error('Source hashes changed since the health check')
   }
   if (!Array.isArray(report.results) || !report.results.length) throw new Error('Health report has no results')
+  if (report.results.length !== ids.length * PLATFORMS.length * QUALITIES.length) {
+    throw new Error('Health report has an incomplete source/platform/quality matrix')
+  }
+  const seen = new Set()
   for (const result of report.results) {
-    if (!state.sources[result.source] || result.sha256 !== state.sources[result.source].sha256 ||
+    if (!result || typeof result.source !== 'string' || !Object.hasOwn(state.sources, result.source) ||
+      result.sha256 !== state.sources[result.source].sha256 ||
       !PLATFORMS.includes(result.platform) || !QUALITIES.includes(result.quality)) {
       throw new Error('Invalid or unverified health result')
     }
-    if (result.l3 && (!result.l1 || !result.l2)) throw new Error('Inconsistent L1/L2/L3 health result')
+    if (['l1', 'l2', 'l3'].some(key => typeof result[key] !== 'boolean') ||
+      (result.skipped !== undefined && typeof result.skipped !== 'boolean')) {
+      throw new Error('Health result flags must be boolean')
+    }
+    if ((result.l2 && !result.l1) || (result.l3 && !result.l2) ||
+      (result.skipped && (result.l1 || result.l2 || result.l3))) {
+      throw new Error('Inconsistent L1/L2/L3 health result')
+    }
+    const key = JSON.stringify([result.source, result.platform, result.quality])
+    if (seen.has(key)) throw new Error('Duplicate source/platform/quality health result')
+    seen.add(key)
   }
 }
 
@@ -76,15 +91,17 @@ export async function buildSource({ statePath = 'state.json', reportPath = 'repo
   const healthy = new Map()
   for (const result of report.results) {
     if (!result.l3) continue
-    let item = healthy.get(result.source)
-    if (!item) { item = { id: result.source, healthy: {} }; healthy.set(result.source, item) }
+    // Aliases of identical code share one initialization and one source-limit slot.
+    const hash = state.sources[result.source].sha256
+    let item = healthy.get(hash)
+    if (!item) { item = { id: result.source, healthy: {} }; healthy.set(hash, item) }
+    else if (result.source.localeCompare(item.id) < 0) item.id = result.source
     const qualitys = item.healthy[result.platform] ||= []
     if (!qualitys.includes(result.quality)) qualitys.push(result.quality)
   }
-  let candidates = [...healthy.values()].sort((a, b) => Object.keys(b.healthy).length - Object.keys(a.healthy).length ||
+  const candidates = [...healthy.values()].sort((a, b) => Object.keys(b.healthy).length - Object.keys(a.healthy).length ||
     Object.values(b.healthy).flat().length - Object.values(a.healthy).flat().length || a.id.localeCompare(b.id))
   const maxSources = boundedNumber(cfg.embed?.maxSources, 0, 1, 40)
-  if (maxSources) candidates = candidates.slice(0, maxSources)
   if (!candidates.length) throw new Error('No L3-passing sources; previous artifact preserved')
   const loaded = await pool(candidates, 3, async candidate => {
     let rt
@@ -107,16 +124,7 @@ export async function buildSource({ statePath = 'state.json', reportPath = 'repo
     } catch (error) { console.warn(`Skipping ${candidate.id}: ${error.message}`); return null }
     finally { rt?.dispose() }
   })
-  const unique = new Map()
-  for (const sub of loaded.filter(Boolean)) {
-    const existing = unique.get(sub.sha256)
-    if (!existing) { unique.set(sub.sha256, sub); continue }
-    for (const p of PLATFORMS) {
-      const qualitys = QUALITIES.filter(q => existing.healthy[p]?.includes(q) || sub.healthy[p]?.includes(q))
-      if (qualitys.length) existing.healthy[p] = qualitys
-    }
-  }
-  const subs = [...unique.values()]
+  const subs = loaded.filter(Boolean).slice(0, maxSources || undefined)
   if (!subs.length) throw new Error('All candidate sources failed validation; previous artifact preserved')
   const template = await fs.readFile(templatePath, 'utf8')
   const output = renderSource(template, subs, cfg, new Date(now).toISOString())

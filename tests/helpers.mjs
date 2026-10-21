@@ -55,7 +55,8 @@ export async function mergedHarness(t, subs, { request, fetch, config, globals =
       return () => clearTimeout(id)
     }),
   }
-  const context = vm.createContext({ lx, URL, ...globals,
+  const context = vm.createContext({ lx, URL,
+    ...(fetch ? { fetch, AbortController, ReadableStream } : {}), ...globals,
     setTimeout: (fn, ms, ...args) => {
       const id = setTimeout(() => { timers.delete(id); fn(...args) }, ms)
       timers.add(id)
@@ -64,7 +65,6 @@ export async function mergedHarness(t, subs, { request, fetch, config, globals =
     clearTimeout: id => { clearTimeout(id); timers.delete(id) },
     setInterval: (fn, ms) => { const id = setInterval(fn, ms); timers.add(id); return id },
     clearInterval: id => { clearInterval(id); timers.delete(id) },
-    ...(fetch ? { fetch, AbortController } : {}),
   })
   t.after(() => { for (const id of timers) { clearTimeout(id); clearInterval(id) } })
   const template = await fs.readFile(path.join(ROOT, 'templates/merged-source.js'), 'utf8')

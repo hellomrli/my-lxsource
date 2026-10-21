@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: "0 20 * * *"
   workflow_dispatch:
+  pull_request:
   push:
     branches:
       - master
@@ -14,33 +15,37 @@ on:
       - "config.json"
       - "package.json"
       - ".github/workflows/**"
+      - ".github/dependabot.yml"
 
 concurrency:
-  group: daily-source-check
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
 
 permissions:
   contents: read
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [22, 24]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: "22"
+          node-version: ${{ matrix.node }}
+          package-manager-cache: false
 
       - name: install OS sandbox
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y bubblewrap
-          # Ubuntu runner AppArmor can prevent unprivileged user namespaces.
-          # This is an ephemeral, secret-free runner; the source sandbox itself is still mandatory.
+          sudo apt-get install -y bubblewrap util-linux
           if [ -e /proc/sys/kernel/apparmor_restrict_unprivileged_userns ]; then
             sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
           fi
@@ -48,8 +53,33 @@ jobs:
       - name: offline regression tests
         run: npm test
 
+  check:
+    needs: test
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24"
+          package-manager-cache: false
+
+      - name: install OS sandbox
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y bubblewrap util-linux
+          # Ubuntu runner AppArmor can prevent unprivileged user namespaces.
+          # This is an ephemeral, secret-free runner; the source sandbox itself is still mandatory.
+          if [ -e /proc/sys/kernel/apparmor_restrict_unprivileged_userns ]; then
+            sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+          fi
+
       - name: restore source state
-        uses: actions/cache@v4
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: state.json
           key: source-state-${{ github.ref_name }}-${{ github.run_id }}-${{ github.run_attempt }}
@@ -67,7 +97,7 @@ jobs:
 
       - name: upload diagnostics
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: diagnostics
           path: |
@@ -78,7 +108,7 @@ jobs:
           if-no-files-found: warn
 
       - name: upload publication
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: publication
           path: |
@@ -90,16 +120,16 @@ jobs:
   publish:
     needs: check
     if: github.ref == 'refs/heads/master'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.sha }}
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: publication
           path: ${{ runner.temp }}/publication

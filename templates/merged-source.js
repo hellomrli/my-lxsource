@@ -25,8 +25,15 @@ const SUB_REQUEST_TIMEOUT_MS = {{REQUEST_TIMEOUT_MS}}
 const TOTAL_TIMEOUT_MS = {{TOTAL_TIMEOUT_MS}}
 const VERIFY_TIMEOUT_MS = {{VERIFY_TIMEOUT_MS}}
 const PROBE_BYTES = 4096
+const HAS_STREAMING_FETCH = typeof HOST.fetch === 'function' && typeof HOST.AbortController === 'function' &&
+  typeof HOST.ReadableStream === 'function' && HOST.ReadableStream.prototype &&
+  typeof HOST.ReadableStream.prototype.getReader === 'function'
 
 {{AUDIO_HELPERS}}
+
+function canVerifyQuality(quality) {
+  return quality !== 'flac24bit' || HAS_STREAMING_FETCH
+}
 
 function httpUrl(url) {
   if (typeof url !== 'string' || !/^https?:\/\/[^\s]+$/i.test(url)) return false
@@ -193,6 +200,7 @@ async function verifyWithFetch(url, quality, timeoutMs, control) {
 
 // Limited LX hosts buffer lx.request bodies. A HEAD-only probe avoids downloading a whole song there.
 function verifyWithHead(url, quality, timeoutMs, control) {
+  if (!canVerifyQuality(quality)) return Promise.reject(new Error('HEAD cannot verify 24-bit audio'))
   return new Promise((resolve, reject) => {
     let cancel, settled = false
     const finish = error => {
@@ -226,7 +234,7 @@ function verifyWithHead(url, quality, timeoutMs, control) {
 
 async function verifyPlayback(url, quality, timeoutMs, control) {
   if (!httpUrl(url)) throw new Error('Invalid playback URL')
-  if (typeof HOST.fetch === 'function' && typeof HOST.AbortController === 'function') {
+  if (HAS_STREAMING_FETCH) {
     await verifyWithFetch(url, quality, timeoutMs, control)
   } else await verifyWithHead(url, quality, timeoutMs, control)
 }
@@ -236,7 +244,9 @@ const ENTRIES = SUBS.map(loadEntry)
 LX.on(EVENT_NAMES.request, async ({ source, action, info }) => {
   if (action !== 'musicUrl') throw new Error('Only musicUrl is supported')
   const quality = info && info.type || '320k'
-  if (!SOURCES[source] || !SOURCES[source].qualitys.includes(quality)) throw new Error('Platform/quality was not health-verified')
+  if (!canVerifyQuality(quality) || !SOURCES[source] || !SOURCES[source].qualitys.includes(quality)) {
+    throw new Error('Platform/quality was not health-verified or cannot be verified on this host')
+  }
   const started = Date.now()
   const errors = []
   for (const entry of ENTRIES) {
@@ -276,7 +286,7 @@ LX.on(EVENT_NAMES.request, async ({ source, action, info }) => {
 Promise.all(ENTRIES.map(entry => entry.ready)).then(() => {
   const sources = {}
   for (const platform of Object.keys(SOURCES)) {
-    const qualitys = SOURCES[platform].qualitys.filter(quality => ENTRIES.some(entry => entry.status === 'ready' &&
+    const qualitys = SOURCES[platform].qualitys.filter(quality => canVerifyQuality(quality) && ENTRIES.some(entry => entry.status === 'ready' &&
       entry.sub.healthy[platform] && entry.sub.healthy[platform].includes(quality) && entry.declared[platform] &&
       entry.declared[platform].qualitys.includes(quality) && entry.handlers.length))
     if (qualitys.length) sources[platform] = Object.assign({}, SOURCES[platform], { qualitys })

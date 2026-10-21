@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import vm from 'node:vm'
-import { mergedHarness, sub, sourceCode, mp3 } from './helpers.mjs'
+import { mergedHarness, sub, sourceCode, mp3, flac } from './helpers.mjs'
 
 test('a hanging first source falls back and is disabled without affecting other sources', async t => {
   const h = await mergedHarness(t, [sub('hang', sourceCode('return await new Promise(()=>{});')),
@@ -76,6 +76,45 @@ test('unhealthy platforms and undeclared qualities are not advertised or dispatc
   assert.deepEqual(Array.from(h.inited.sources.wy.qualitys), ['320k'])
   await assert.rejects(h.call('mg'), /not health-verified/)
   await assert.rejects(h.call('wy', 'flac'), /not health-verified/)
+})
+
+test('HEAD-only hosts do not advertise or accept unverifiable 24-bit quality', async t => {
+  let requests = 0
+  const qualitys = ['320k', 'flac', 'flac24bit']
+  const h = await mergedHarness(t, [sub('lossless', sourceCode("return 'https://example.test/good.flac';", qualitys), { wy: qualitys })], {
+    request: (url, options, callback) => {
+      requests++
+      queueMicrotask(() => callback(null, { statusCode: 200, headers: { 'content-type': 'audio/flac' } }))
+      return () => {}
+    },
+  })
+  assert.deepEqual(Array.from(h.inited.sources.wy.qualitys), ['320k', 'flac'])
+  await assert.rejects(h.call('wy', 'flac24bit'), /not health-verified/)
+  assert.equal(requests, 0)
+  assert.equal(await h.call('wy', 'flac'), 'https://example.test/good.flac')
+})
+
+test('buffered fetch implementations use HEAD without downloading a song', async t => {
+  let fetches = 0
+  const h = await mergedHarness(t, [sub('good', sourceCode("return 'https://example.test/good.mp3';"))], {
+    fetch: async () => { fetches++; throw new Error('Buffered fetch must not be used') },
+    globals: { ReadableStream: undefined },
+  })
+  assert.equal(await h.call(), 'https://example.test/good.mp3')
+  assert.equal(fetches, 0)
+})
+
+test('streaming hosts verify 24-bit samples and fall back from 16-bit audio', async t => {
+  const qualitys = ['flac24bit']
+  const h = await mergedHarness(t, [
+    sub('16bit', sourceCode("return 'https://example.test/16bit.flac';", qualitys), { wy: qualitys }),
+    sub('24bit', sourceCode("return 'https://example.test/24bit.flac';", qualitys), { wy: qualitys }),
+  ], {
+    fetch: async url => ({ status: 206, headers: new Headers({ 'content-type': 'audio/flac' }),
+      body: new ReadableStream({ start(controller) { controller.enqueue(flac(url.includes('16bit') ? 16 : 24)) } }) }),
+  })
+  assert.deepEqual(Array.from(h.inited.sources.wy.qualitys), ['flac24bit'])
+  assert.equal(await h.call('wy', 'flac24bit'), 'https://example.test/24bit.flac')
 })
 
 test('playback total deadline bounds a long fallback chain', async t => {

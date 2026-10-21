@@ -3,11 +3,18 @@ import test from 'node:test'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import vm from 'node:vm'
-import { sha256, cacheScript, readSnapshot, normalizeSources } from '../scripts/source-state.mjs'
+import { PLATFORMS, QUALITIES, sha256, cacheScript, readSnapshot, normalizeSources } from '../scripts/source-state.mjs'
 import { runFetch, diffState } from '../scripts/fetch-upstream.mjs'
 import { buildSource, validateReport, renderSource } from '../scripts/build-source.mjs'
 import { PROBES, testOne, runHealth, healthMarkdown } from '../scripts/test-sources.mjs'
 import { ROOT, tempDir, sourceCode } from './helpers.mjs'
+
+function healthResults(source, hash, healthy = [['wy', '320k']]) {
+  return PLATFORMS.flatMap(platform => QUALITIES.map(quality => {
+    const ok = healthy.some(([p, q]) => p === platform && q === quality)
+    return { source, sha256: hash, platform, quality, l1: ok, l2: ok, l3: ok, skipped: !ok }
+  }))
+}
 
 async function buildFixture(t, code = sourceCode("return 'https://example.test/good.mp3';")) {
   const dir = await tempDir(t), cacheDir = path.join(dir, 'cache')
@@ -16,13 +23,22 @@ async function buildFixture(t, code = sourceCode("return 'https://example.test/g
   const entry = { sha256: hash, commit: 'a'.repeat(40), url: `https://example.test/${'a'.repeat(40)}/source.js` }
   const state = { schemaVersion: 2, runId, lastRun: new Date(now - 1000).toISOString(), sources: { fixture: entry } }
   const report = { schemaVersion: 2, runId, generatedAt: new Date(now).toISOString(), sourceHashes: { fixture: hash },
-    results: [{ source: 'fixture', sha256: hash, platform: 'wy', quality: '320k', l1: true, l2: true, l3: true }] }
+    results: healthResults('fixture', hash) }
   const statePath = path.join(dir, 'state.json'), reportPath = path.join(dir, 'health.json')
   const outputPath = path.join(dir, 'merged.js')
   await fs.writeFile(statePath, JSON.stringify(state))
   await fs.writeFile(reportPath, JSON.stringify(report))
   return { dir, cacheDir, state, report, statePath, reportPath, outputPath, now,
     templatePath: path.join(ROOT, 'templates/merged-source.js'), config: { embed: { initTimeoutMs: 500, probeTimeoutMs: 1000 } } }
+}
+
+async function addBuildSource(f, id, code, healthy) {
+  const hash = await cacheScript(code, f.cacheDir)
+  f.state.sources[id] = { ...f.state.sources.fixture, sha256: hash }
+  f.report.sourceHashes[id] = hash
+  f.report.results.push(...healthResults(id, hash, healthy))
+  await fs.writeFile(f.statePath, JSON.stringify(f.state))
+  await fs.writeFile(f.reportPath, JSON.stringify(f.report))
 }
 
 test('fetch pins source downloads to each repository commit and stores content-addressed snapshots', async t => {
@@ -68,7 +84,30 @@ test('stale reports, changed run IDs, and source hashes are rejected', async t =
   assert.throws(() => validateReport(f.state, { ...f.report, runId: 'different' }), /does not match/)
   assert.throws(() => validateReport(f.state, { ...f.report, generatedAt: '2020-01-01' }), /stale/)
   assert.throws(() => validateReport(f.state, { ...f.report, sourceHashes: { fixture: 'b'.repeat(64) } }), /hashes changed/)
-  assert.throws(() => validateReport(f.state, { ...f.report, results: [{ ...f.report.results[0], l2: false }] }), /Inconsistent/)
+  assert.throws(() => validateReport(f.state, { ...f.report,
+    results: f.report.results.map(r => r.l3 ? { ...r, l2: false } : r) }), /Inconsistent/)
+})
+
+test('incomplete and duplicate health matrices are rejected', async t => {
+  const f = await buildFixture(t)
+  assert.throws(() => validateReport(f.state, { ...f.report, results: f.report.results.slice(1) }), /incomplete/i)
+  const duplicate = [...f.report.results]
+  duplicate[1] = { ...duplicate[0] }
+  assert.throws(() => validateReport(f.state, { ...f.report, results: duplicate }), /duplicate/i)
+})
+
+test('health flags must be booleans and follow L1 to L3 without skipped successes', async t => {
+  const f = await buildFixture(t)
+  for (const field of ['l1', 'l2', 'l3']) {
+    for (const value of ['false', 1, null]) {
+      assert.throws(() => validateReport(f.state, { ...f.report,
+        results: f.report.results.map(r => r.l3 ? { ...r, [field]: value } : r) }), /boolean/i)
+    }
+  }
+  for (const flags of [{ l1: false, l2: true, l3: false }, { skipped: true }]) {
+    assert.throws(() => validateReport(f.state, { ...f.report,
+      results: f.report.results.map(r => r.l3 ? { ...r, ...flags } : r) }), /Inconsistent/)
+  }
 })
 
 test('clean build uses exactly the tested snapshot and validates the merged artifact', async t => {
@@ -88,17 +127,39 @@ test('build-time script failure is not embedded and does not overwrite the last 
 })
 
 test('identical scripts are embedded once while preserving healthy coverage from every alias', async t => {
-  const f = await buildFixture(t), hash = f.state.sources.fixture.sha256
-  f.state.sources.alias = { ...f.state.sources.fixture }
-  f.report.sourceHashes.alias = hash
-  f.report.results.push({ ...f.report.results[0], source: 'alias', platform: 'mg' })
-  await fs.writeFile(f.statePath, JSON.stringify(f.state))
-  await fs.writeFile(f.reportPath, JSON.stringify(f.report))
+  const f = await buildFixture(t)
+  const code = await readSnapshot(f.state.sources.fixture, { cacheDir: f.cacheDir })
+  await addBuildSource(f, 'alias', code, [['mg', '320k']])
   const loaded = { wy: { type: 'music', actions: ['musicUrl'], qualitys: ['320k'] },
     mg: { type: 'music', actions: ['musicUrl'], qualitys: ['320k'] } }
-  const result = await buildSource({ ...f, load: async () => ({ error: null, sources: loaded, dispose() {} }) })
+  let sourceLoads = 0
+  const result = await buildSource({ ...f, load: async script => {
+    if (script === code) sourceLoads++
+    return { error: null, sources: loaded, dispose() {} }
+  } })
   assert.equal(result.subs.length, 1)
   assert.deepEqual(Object.keys(result.sources), ['wy', 'mg'])
+  assert.equal(sourceLoads, 1)
+})
+
+test('duplicate scripts do not consume maxSources slots', async t => {
+  const f = await buildFixture(t)
+  const code = await readSnapshot(f.state.sources.fixture, { cacheDir: f.cacheDir })
+  await addBuildSource(f, 'alias', code)
+  await addBuildSource(f, 'z-good', sourceCode("return 'https://example.test/other.mp3';"))
+  f.config.embed.maxSources = 2
+  const result = await buildSource(f)
+  assert.equal(result.subs.length, 2)
+  assert.equal(new Set(result.subs.map(s => s.sha256)).size, 2)
+})
+
+test('a failed candidate cannot prevent a lower-ranked valid source from filling maxSources', async t => {
+  const f = await buildFixture(t, "throw new Error('broken preferred source')")
+  await addBuildSource(f, 'z-good', sourceCode("return 'https://example.test/good.mp3';"))
+  f.config.embed.maxSources = 1
+  const result = await buildSource(f)
+  assert.equal(result.subs.length, 1)
+  assert.equal(result.subs[0].key, 'z-good')
 })
 
 test('unknown platforms and invalid quality declarations do not reach LX clients', () => {

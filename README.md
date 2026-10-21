@@ -38,7 +38,7 @@ fetch-upstream  固定各上游 commit，缓存源码并计算 SHA256 → 得出
      ↓
 test-sources    对每个 源×平台×音质: L1(取URL) → L2(连通) → L3(音频校验)
      ↓
-build           核对 runId/报告时间/SHA256，验证子源和整合源，再原子写入产物
+build           核对完整检测矩阵/runId/报告时间/SHA256，验证子源和整合源，再原子写入产物
      ↓
 publish         仅提交 reports/health.md + dist/merged-source.js
 ```
@@ -47,6 +47,7 @@ publish         仅提交 reports/health.md + dist/merged-source.js
 
 ```
 .github/workflows/daily.yml   每日定时任务
+.github/dependabot.yml       Actions 依赖更新检查
 scripts/fetch-upstream.mjs    上游抓取与变更检测
 scripts/test-sources.mjs      三层可用性检测
 scripts/build-source.mjs     生成整合音源脚本
@@ -70,6 +71,8 @@ Actions 用缓存保存上次巡检快照，并用保留 7 天的 `diagnostics` 
 
 巡检与发布在两个独立的 Actions job 中运行：巡检只有仓库读取权限，
 发布 job 只复制并提交指定产物，不执行音源脚本。
+巡检前先通过 Node.js 22/24 双版本离线回归测试；Pull Request 只运行离线测试，不抓取上游或发布产物。
+Runner 固定为 Ubuntu 24.04，Actions 固定到完整 commit SHA；Dependabot 每月将更新集中到一条 PR，不自动合并。
 巡检或构建失败时，工作流会失败，仓库里的上一个成功产物保持不变。
 若 `master` 在巡检期间发生更新，发布会停止，避免旧结果覆盖新代码。
 
@@ -79,14 +82,16 @@ Actions 用缓存保存上次巡检快照，并用保留 7 天的 `diagnostics` 
 所以「整合」= 把多个 L3 通过的上游脚本内联进一个自包含脚本：每个子源绑定稳定的
 `globalThis/window/self/global/lx` 作用域，不修改宿主的 `globalThis.lx`；
 初始化和播放请求都有超时，晚到的回调不会注册到其他子源。
-只声明同一份源码实测通过的平台/音质，重复 SHA256 的脚本只嵌入一次。
+只声明同一份源码实测通过的平台/音质，重复 SHA256 的脚本合并覆盖范围后只加载、嵌入一次。
+`embed.maxSources` 限制的是验证通过的独立脚本数；重复脚本和加载失败的候选不占名额。
 
 见 `templates/merged-source.js`。
 
 播放时遇到子源卡住、404、HTML 响应或音频校验失败会尝试下一个子源。
-有流式 `fetch` 的宿主限量读取 4096 字节并取消请求；缺少流式 API 的 LX 宿主使用
+有流式 `fetch`/`ReadableStream` 的宿主限量读取 4096 字节并取消请求；缺少流式 API 的 LX 宿主使用
 `HEAD` 检查 HTTP 状态与音频 content-type，避免宿主忽略 Range 后下载整首歌。
-`HEAD` 无法检查魔数/24-bit 位深，且部分 CDN 不支持它；这类限制不会被当作验证成功。
+`HEAD` 无法检查魔数/位深，因此这类宿主不声明或接受 `flac24bit`；普通 FLAC 仅能核对 content-type。
+部分 CDN 不支持 `HEAD`，这类探测失败会继续回退，不会被当作验证成功。
 所有宿主的 L3/位深都在每日巡检中检查；巡检通过仍不保证所有曲目或一天内不会失效。
 
 客户端作用域隔离解决兼容性与串扰，不是恶意 JavaScript 的安全边界。
@@ -103,7 +108,7 @@ Actions 用缓存保存上次巡检快照，并用保留 7 天的 `diagnostics` 
 ## 本地运行
 
 需要 Linux、Node.js 22.13 或更新版本，以及 `bubblewrap` 和 `prlimit`（util-linux）。
-CI 使用 Node.js 22；没有第三方 npm 依赖。运行时不会回退到不安全的本机执行。
+CI 使用 Node.js 22/24 测试、Node.js 24 巡检；没有第三方 npm 依赖。运行时不会回退到不安全的本机执行。
 
 ```sh
 sudo apt-get install bubblewrap util-linux
