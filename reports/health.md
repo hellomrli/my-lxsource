@@ -1,13 +1,13 @@
-# 音源可用性巡检 2026-10-21T23:02:09.161Z UTC
+# 音源可用性巡检 2026-10-22T22:58:32.332Z UTC
 
 只表示探针曲目可用，不保证所有曲目。每个平台独立检测 128k / 320k / flac / flac24bit；无损请求会校验 FLAC 格式，24-bit 还会校验位深。
 
 | 音源 | wy | tx | kw | kg | mg | 可用平台 |
 |---|---|---|---|---|---|---|
-| xinghai:xinghai-music-source.js | 320k, 128k, flac, flac24bit | - | 320k, 128k, flac | 320k, 128k, flac | 320k, 128k, flac | 4/5 |
-| xinghai:xinghai-music-sourcev2.3.12.js | 320k, 128k, flac, flac24bit | - | 320k, 128k, flac | 320k, 128k, flac | 320k, 128k, flac | 4/5 |
-| pdone:xinghai/latest.js | 320k, 128k, flac | - | - | 320k, 128k, flac | 320k, 128k, flac | 3/5 |
+| xinghai:xinghai-music-source.js | 320k, 128k, flac, flac24bit | - | 320k, 128k, flac | - | 320k, 128k | 3/5 |
+| xinghai:xinghai-music-sourcev2.3.12.js | 320k, 128k, flac, flac24bit | - | 320k, 128k, flac | - | 320k, 128k | 3/5 |
 | lxs:溯音音源 v1.js | 320k, 128k | - | 320k, 128k | - | - | 2/5 |
+| pdone:xinghai/latest.js | 320k, 128k, flac | - | - | - | 320k, 128k | 2/5 |
 | lxs:lx-玉宁熙.js | 320k, 128k | - | - | - | - | 1/5 |
 | lxs:xinghai-music-source2.3.0.js | 320k, 128k, flac, flac24bit | - | - | - | - | 1/5 |
 | lxs:全豆要-聚合音源-V4.1.js | 320k, 128k, flac | - | - | - | - | 1/5 |
@@ -249,13 +249,13 @@
 | pdone:xinghai/latest.js | kw | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
 | pdone:xinghai/latest.js | kw | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
 | pdone:xinghai/latest.js | kw | flac24bit | - | - | - | Platform or quality not declared |
-| pdone:xinghai/latest.js | kg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| pdone:xinghai/latest.js | kg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| pdone:xinghai/latest.js | kg | flac | OK | OK | OK | OK 206 flac 4096B |
+| pdone:xinghai/latest.js | kg | 320k | - | - | - | L1 后端失败: 所有音质(128k)均获取失败 |
+| pdone:xinghai/latest.js | kg | 128k | - | - | - | L1 后端失败: 所有音质(128k)均获取失败 |
+| pdone:xinghai/latest.js | kg | flac | - | - | - | L1 后端失败: 所有音质(128k)均获取失败 |
 | pdone:xinghai/latest.js | kg | flac24bit | - | - | - | Platform or quality not declared |
 | pdone:xinghai/latest.js | mg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:xinghai/latest.js | mg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| pdone:xinghai/latest.js | mg | flac | OK | OK | OK | OK 206 flac 4096B |
+| pdone:xinghai/latest.js | mg | flac | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | pdone:xinghai/latest.js | mg | flac24bit | - | - | - | Platform or quality not declared |
 | lxs:HUIBQ音源.js | wy | 320k | - | - | - | L1 console.group is not a function |
 | lxs:HUIBQ音源.js | wy | 128k | - | - | - | L1 console.group is not a function |
@@ -529,13 +529,13 @@
 | xinghai:xinghai-music-source.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | xinghai:xinghai-music-source.js | kw | flac | OK | OK | OK | OK 206 flac 4096B |
 | xinghai:xinghai-music-source.js | kw | flac24bit | - | - | - | Platform or quality not declared |
-| xinghai:xinghai-music-source.js | kg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| xinghai:xinghai-music-source.js | kg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| xinghai:xinghai-music-source.js | kg | flac | OK | OK | OK | OK 206 flac 4096B |
+| xinghai:xinghai-music-source.js | kg | 320k | - | - | - | L1 后端失败: 所有音质(128k)均获取失败 |
+| xinghai:xinghai-music-source.js | kg | 128k | - | - | - | L1 后端失败: 所有音质(128k)均获取失败 |
+| xinghai:xinghai-music-source.js | kg | flac | - | - | - | L1 后端失败: 所有音质(128k)均获取失败 |
 | xinghai:xinghai-music-source.js | kg | flac24bit | - | - | - | Platform or quality not declared |
 | xinghai:xinghai-music-source.js | mg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | xinghai:xinghai-music-source.js | mg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| xinghai:xinghai-music-source.js | mg | flac | OK | OK | OK | OK 206 flac 4096B |
+| xinghai:xinghai-music-source.js | mg | flac | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | xinghai:xinghai-music-source.js | mg | flac24bit | - | - | - | Platform or quality not declared |
 | xinghai:xinghai-music-sourcev2.3.12.js | wy | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | xinghai:xinghai-music-sourcev2.3.12.js | wy | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -549,13 +549,13 @@
 | xinghai:xinghai-music-sourcev2.3.12.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | xinghai:xinghai-music-sourcev2.3.12.js | kw | flac | OK | OK | OK | OK 206 flac 4096B |
 | xinghai:xinghai-music-sourcev2.3.12.js | kw | flac24bit | - | - | - | Platform or quality not declared |
-| xinghai:xinghai-music-sourcev2.3.12.js | kg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| xinghai:xinghai-music-sourcev2.3.12.js | kg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| xinghai:xinghai-music-sourcev2.3.12.js | kg | flac | OK | OK | OK | OK 206 flac 4096B |
+| xinghai:xinghai-music-sourcev2.3.12.js | kg | 320k | - | - | - | L1 后端失败: 所有音质(128k)均获取失败 |
+| xinghai:xinghai-music-sourcev2.3.12.js | kg | 128k | - | - | - | L1 后端失败: 所有音质(128k)均获取失败 |
+| xinghai:xinghai-music-sourcev2.3.12.js | kg | flac | - | - | - | L1 后端失败: 所有音质(128k)均获取失败 |
 | xinghai:xinghai-music-sourcev2.3.12.js | kg | flac24bit | - | - | - | Platform or quality not declared |
 | xinghai:xinghai-music-sourcev2.3.12.js | mg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | xinghai:xinghai-music-sourcev2.3.12.js | mg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| xinghai:xinghai-music-sourcev2.3.12.js | mg | flac | OK | OK | OK | OK 206 flac 4096B |
+| xinghai:xinghai-music-sourcev2.3.12.js | mg | flac | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | xinghai:xinghai-music-sourcev2.3.12.js | mg | flac24bit | - | - | - | Platform or quality not declared |
 | xinghai:xinghai-music-sourcev2.3.8.js | wy | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | xinghai:xinghai-music-sourcev2.3.8.js | wy | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
