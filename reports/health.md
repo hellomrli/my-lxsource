@@ -1,20 +1,20 @@
-# 音源可用性巡检 2026-10-24T22:15:21.937Z UTC
+# 音源可用性巡检 2026-10-25T22:17:34.636Z UTC
 
 只表示探针曲目可用，不保证所有曲目。每个平台独立检测 128k / 320k / flac / flac24bit；无损请求会校验 FLAC 格式，24-bit 还会校验位深。
 
 | 音源 | wy | tx | kw | kg | mg | 可用平台 |
 |---|---|---|---|---|---|---|
+| pdone:xinghai/latest.js | 320k, 128k, flac | - | 320k, 128k, flac | 320k, 128k, flac | 320k, 128k | 4/5 |
 | xinghai:xinghai-music-source.js | 320k, 128k, flac, flac24bit | - | 320k, 128k, flac | 320k, 128k, flac | 320k, 128k | 4/5 |
 | xinghai:xinghai-music-sourcev2.3.12.js | 320k, 128k, flac, flac24bit | - | 320k, 128k, flac | 320k, 128k, flac | 320k, 128k | 4/5 |
-| pdone:xinghai/latest.js | 320k, 128k, flac | - | - | 320k, 128k, flac | 320k, 128k | 3/5 |
+| lxs:lx-玉宁熙.js | 320k, 128k | - | 320k, 128k | - | - | 2/5 |
+| lxs:全豆要-聚合音源-V4.1.js | 320k, 128k, flac | - | 320k | - | - | 2/5 |
 | lxs:溯音音源 v1.js | 320k, 128k | - | 320k, 128k | - | - | 2/5 |
-| lxs:lx-玉宁熙.js | 320k, 128k | - | - | - | - | 1/5 |
+| lxs:非常刀.js | 320k, 128k | - | 320k | - | - | 2/5 |
+| pdone:qdy/latest.js | 320k, 128k, flac | - | 320k | - | - | 2/5 |
 | lxs:xinghai-music-source2.3.0.js | 320k, 128k, flac, flac24bit | - | - | - | - | 1/5 |
-| lxs:全豆要-聚合音源-V4.1.js | 320k, 128k, flac | - | - | - | - | 1/5 |
 | lxs:忆音音源 v1.js | 320k | - | - | - | - | 1/5 |
-| lxs:统一音乐源.js | 320k, 128k, flac | - | - | - | - | 1/5 |
-| lxs:非常刀.js | 320k, 128k | - | - | - | - | 1/5 |
-| pdone:qdy/latest.js | 320k, 128k, flac | - | - | - | - | 1/5 |
+| lxs:统一音乐源.js | 320k, flac | - | - | - | - | 1/5 |
 | xinghai:xinghai-music-sourcev2.3.8.js | 320k, 128k, flac, flac24bit | - | - | - | - | 1/5 |
 | lxs:fish-music音源.js | - | - | - | - | - | 0/5 |
 | lxs:HUIBQ音源.js | - | - | - | - | - | 0/5 |
@@ -205,7 +205,7 @@
 | pdone:qdy/latest.js | tx | 128k | OK | - | - | HTTP 403 ct=application/octet-stream magic=- |
 | pdone:qdy/latest.js | tx | flac | OK | - | - | HTTP 403 ct=application/octet-stream magic=- quality mismatch |
 | pdone:qdy/latest.js | tx | flac24bit | - | - | - | Platform or quality not declared |
-| pdone:qdy/latest.js | kw | 320k | OK | - | - | HTTP 410 ct=- magic=- |
+| pdone:qdy/latest.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:qdy/latest.js | kw | 128k | OK | - | - | HTTP 410 ct=- magic=- |
 | pdone:qdy/latest.js | kw | flac | OK | - | - | HTTP 410 ct=- magic=- quality mismatch |
 | pdone:qdy/latest.js | kw | flac24bit | - | - | - | Platform or quality not declared |
@@ -225,9 +225,9 @@
 | pdone:sixyin/latest.js | tx | 128k | - | - | - | L1 Invalid HTTP URL |
 | pdone:sixyin/latest.js | tx | flac | - | - | - | L1 Invalid HTTP URL |
 | pdone:sixyin/latest.js | tx | flac24bit | - | - | - | Platform or quality not declared |
-| pdone:sixyin/latest.js | kw | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| pdone:sixyin/latest.js | kw | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| pdone:sixyin/latest.js | kw | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| pdone:sixyin/latest.js | kw | 320k | - | - | - | L1 failed |
+| pdone:sixyin/latest.js | kw | 128k | - | - | - | L1 failed |
+| pdone:sixyin/latest.js | kw | flac | - | - | - | L1 failed |
 | pdone:sixyin/latest.js | kw | flac24bit | - | - | - | Platform or quality not declared |
 | pdone:sixyin/latest.js | kg | 320k | - | - | - | L1 Invalid HTTP URL |
 | pdone:sixyin/latest.js | kg | 128k | - | - | - | L1 Invalid HTTP URL |
@@ -245,9 +245,9 @@
 | pdone:xinghai/latest.js | tx | 128k | OK | - | - | HTTP 404 ct=text/octet magic=- |
 | pdone:xinghai/latest.js | tx | flac | - | - | - | L1 后端失败: QQ音乐 暂时无法获取，请稍后重试 |
 | pdone:xinghai/latest.js | tx | flac24bit | - | - | - | Platform or quality not declared |
-| pdone:xinghai/latest.js | kw | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| pdone:xinghai/latest.js | kw | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| pdone:xinghai/latest.js | kw | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| pdone:xinghai/latest.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| pdone:xinghai/latest.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| pdone:xinghai/latest.js | kw | flac | OK | OK | OK | OK 206 flac 4096B |
 | pdone:xinghai/latest.js | kw | flac24bit | - | - | - | Platform or quality not declared |
 | pdone:xinghai/latest.js | kg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:xinghai/latest.js | kg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -305,18 +305,18 @@
 | lxs:lx-玉宁熙.js | tx | 128k | - | - | - | L1 QQ音乐所有接口均无可用地址 |
 | lxs:lx-玉宁熙.js | tx | flac | - | - | - | L1 QQ音乐所有接口均无可用地址 |
 | lxs:lx-玉宁熙.js | tx | flac24bit | - | - | - | L1 QQ音乐所有接口均无可用地址 |
-| lxs:lx-玉宁熙.js | kw | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lxs:lx-玉宁熙.js | kw | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lxs:lx-玉宁熙.js | kw | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lxs:lx-玉宁熙.js | kw | flac24bit | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| lxs:lx-玉宁熙.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lxs:lx-玉宁熙.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lxs:lx-玉宁熙.js | kw | flac | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
+| lxs:lx-玉宁熙.js | kw | flac24bit | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | lxs:lx-玉宁熙.js | kg | 320k | - | - | - | L1 未获取到有效播放链接 |
 | lxs:lx-玉宁熙.js | kg | 128k | - | - | - | L1 未获取到有效播放链接 |
 | lxs:lx-玉宁熙.js | kg | flac | - | - | - | L1 未获取到有效播放链接 |
 | lxs:lx-玉宁熙.js | kg | flac24bit | - | - | - | L1 未获取到有效播放链接 |
-| lxs:lx-玉宁熙.js | mg | 320k | - | - | - | L1 未返回有效播放地址 |
-| lxs:lx-玉宁熙.js | mg | 128k | - | - | - | L1 未返回有效播放地址 |
-| lxs:lx-玉宁熙.js | mg | flac | - | - | - | L1 未返回有效播放地址 |
-| lxs:lx-玉宁熙.js | mg | flac24bit | - | - | - | L1 未返回有效播放地址 |
+| lxs:lx-玉宁熙.js | mg | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| lxs:lx-玉宁熙.js | mg | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| lxs:lx-玉宁熙.js | mg | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| lxs:lx-玉宁熙.js | mg | flac24bit | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
 | lxs:xinghai-music-source2.3.0.js | wy | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lxs:xinghai-music-source2.3.0.js | wy | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lxs:xinghai-music-source2.3.0.js | wy | flac | OK | OK | OK | OK 206 flac 4096B |
@@ -345,7 +345,7 @@
 | lxs:全豆要-聚合音源-V4.1.js | tx | 128k | OK | - | - | HTTP 403 ct=application/octet-stream magic=- |
 | lxs:全豆要-聚合音源-V4.1.js | tx | flac | OK | - | - | HTTP 403 ct=application/octet-stream magic=- quality mismatch |
 | lxs:全豆要-聚合音源-V4.1.js | tx | flac24bit | - | - | - | Platform or quality not declared |
-| lxs:全豆要-聚合音源-V4.1.js | kw | 320k | OK | - | - | HTTP 410 ct=- magic=- |
+| lxs:全豆要-聚合音源-V4.1.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lxs:全豆要-聚合音源-V4.1.js | kw | 128k | OK | - | - | HTTP 410 ct=- magic=- |
 | lxs:全豆要-聚合音源-V4.1.js | kw | flac | OK | - | - | HTTP 410 ct=- magic=- quality mismatch |
 | lxs:全豆要-聚合音源-V4.1.js | kw | flac24bit | - | - | - | Platform or quality not declared |
@@ -438,7 +438,7 @@
 | lxs:溯音音源 v1.js | mg | flac | - | - | - | Platform or quality not declared |
 | lxs:溯音音源 v1.js | mg | flac24bit | - | - | - | Platform or quality not declared |
 | lxs:统一音乐源.js | wy | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lxs:统一音乐源.js | wy | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lxs:统一音乐源.js | wy | 128k | - | - | - | L1 所有音质尝试均失败 |
 | lxs:统一音乐源.js | wy | flac | OK | OK | OK | OK 206 flac 4096B |
 | lxs:统一音乐源.js | wy | flac24bit | - | - | - | Platform or quality not declared |
 | lxs:统一音乐源.js | tx | 320k | - | - | - | Platform or quality not declared |
@@ -505,7 +505,7 @@
 | lxs:非常刀.js | tx | 128k | - | - | - | L1 所有音源均失败 |
 | lxs:非常刀.js | tx | flac | - | - | - | L1 所有音源均失败 |
 | lxs:非常刀.js | tx | flac24bit | - | - | - | L1 所有音源均失败 |
-| lxs:非常刀.js | kw | 320k | OK | - | - | HTTP 410 ct=- magic=- |
+| lxs:非常刀.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lxs:非常刀.js | kw | 128k | OK | - | - | HTTP 410 ct=- magic=- |
 | lxs:非常刀.js | kw | flac | OK | - | - | HTTP 410 ct=- magic=- quality mismatch |
 | lxs:非常刀.js | kw | flac24bit | - | - | - | Platform or quality not declared |
@@ -541,9 +541,9 @@
 | xinghai:xinghai-music-sourcev2.3.12.js | wy | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | xinghai:xinghai-music-sourcev2.3.12.js | wy | flac | OK | OK | OK | OK 206 flac 4096B |
 | xinghai:xinghai-music-sourcev2.3.12.js | wy | flac24bit | OK | OK | OK | OK 206 flac 4096B |
-| xinghai:xinghai-music-sourcev2.3.12.js | tx | 320k | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| xinghai:xinghai-music-sourcev2.3.12.js | tx | 320k | - | - | - | L1 后端失败: QQ音乐 暂时无法获取，请稍后重试 |
 | xinghai:xinghai-music-sourcev2.3.12.js | tx | 128k | OK | - | - | HTTP 404 ct=text/octet magic=- |
-| xinghai:xinghai-music-sourcev2.3.12.js | tx | flac | OK | - | - | HTTP 404 ct=text/octet magic=- quality mismatch |
+| xinghai:xinghai-music-sourcev2.3.12.js | tx | flac | - | - | - | L1 后端失败: QQ音乐 暂时无法获取，请稍后重试 |
 | xinghai:xinghai-music-sourcev2.3.12.js | tx | flac24bit | - | - | - | Platform or quality not declared |
 | xinghai:xinghai-music-sourcev2.3.12.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | xinghai:xinghai-music-sourcev2.3.12.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
