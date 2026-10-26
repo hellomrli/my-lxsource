@@ -166,6 +166,23 @@ test('embedded byte budgets skip oversized sources without blocking smaller ones
   assert.deepEqual(total.subs.map(s => s.key), ['fixture'])
 })
 
+const brandedSource = (name, version, body = "return 'https://example.test/audio.mp3';") =>
+  `/*!\n * @name ${name}\n * @version ${version}\n */\n` + sourceCode(body)
+
+test('only the newest usable version of the same brand is embedded', async t => {
+  const f = await buildFixture(t, brandedSource('星海音乐源', '3.2.12'))
+  await addBuildSource(f, 'z-new', brandedSource('星海音乐源', '3.2.15'))
+  const result = await buildSource(f)
+  assert.deepEqual(result.subs.map(s => s.key), ['z-new'])
+})
+
+test('a newest version that fails to initialize falls back to an older usable one', async t => {
+  const f = await buildFixture(t, brandedSource('某某音源', '1.0.0'))
+  await addBuildSource(f, 'z-new', `/*!\n * @name 某某音源\n * @version 2.0.0\n */\nthrow new Error('broken init')`)
+  const result = await buildSource(f)
+  assert.deepEqual(result.subs.map(s => s.key), ['fixture'])
+})
+
 test('a failed candidate cannot prevent a lower-ranked valid source from filling maxSources', async t => {
   const f = await buildFixture(t, "throw new Error('broken preferred source')")
   await addBuildSource(f, 'z-good', sourceCode("return 'https://example.test/good.mp3';"))

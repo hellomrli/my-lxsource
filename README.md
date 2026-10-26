@@ -92,6 +92,8 @@ Runner 固定为 Ubuntu 24.04，Actions 固定到完整 commit SHA；Dependabot 
 `embed.maxSources` 限制的是验证通过的独立脚本数；重复脚本和加载失败的候选不占名额。
 `embed.maxSourceBytes` / `embed.maxEmbedBytes` 限制单个子源与全部子源的源码字节数
 （每份源码在产物中出现两次），超预算的源只做巡检、不嵌入，避免产物超出客户端 2 MiB 上限。
+同一品牌（同名，或去掉 `Pro`/`Plus`/`手机版`/`桌面版` 等后缀后同名）只嵌入版本号最新的可用脚本；
+最新版初始化失败时自动回退到该品牌下一个可用版本。
 
 见 `templates/merged-source.js`。
 

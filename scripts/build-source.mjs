@@ -48,6 +48,31 @@ export function validateReport(state, report, { now = Date.now(), maxAgeMs = 864
   }
 }
 
+/** Same-brand scripts differing only by suffix/version share one brand key. */
+const brandKey = value => String(value || '').toLowerCase()
+  .replace(/\.js$/, '')
+  .replace(/[-_\s]*(pro|plus|mobile|手机版|桌面版)$/i, '')
+  .replace(/[-_\s]*(音源|音乐源)$/i, '')
+  .replace(/[\s\-_·]+/g, '')
+
+const versionParts = value => {
+  const match = String(value || '').match(/\d+(?:\.\d+)*/)
+  return match ? match[0].split('.').map(Number) : null
+}
+
+const compareVersions = (a, b) => {
+  const left = versionParts(a), right = versionParts(b)
+  if (!left || !right) return left ? 1 : right ? -1 : 0
+  for (let i = 0; i < Math.max(left.length, right.length); i++) {
+    const diff = (left[i] || 0) - (right[i] || 0)
+    if (diff) return diff
+  }
+  return 0
+}
+
+const coverageRank = (a, b) => Object.keys(b.healthy).length - Object.keys(a.healthy).length ||
+  Object.values(b.healthy).flat().length - Object.values(a.healthy).flat().length
+
 export function buildDeclarations(subs) {
   const sources = {}
   for (const p of PLATFORMS) {
@@ -130,9 +155,22 @@ export async function buildSource({ statePath = 'state.json', reportPath = 'repo
     } catch (error) { console.warn(`Skipping ${candidate.id}: ${error.message}`); return null }
     finally { rt?.dispose() }
   })
+  const brands = new Map()
+  for (const sub of loaded.filter(Boolean)) {
+    const key = brandKey(sub.name)
+    const group = brands.get(key) || []
+    group.push(sub)
+    brands.set(key, group)
+  }
+  // Only the newest usable version of each brand is embedded; a newest version that failed
+  // to initialize is absent from `loaded`, so the next usable version takes its place.
+  const preferred = [...brands.values()].map(group => {
+    group.sort((a, b) => compareVersions(b.version, a.version) || coverageRank(a, b) || a.key.localeCompare(b.key))
+    return group[0]
+  }).sort((a, b) => coverageRank(a, b) || a.key.localeCompare(b.key))
   const subs = []
   let embedBytes = 0
-  for (const sub of loaded.filter(Boolean)) {
+  for (const sub of preferred) {
     if (maxSources && subs.length >= maxSources) break
     if (maxSourceBytes && sub.bytes > maxSourceBytes) {
       console.warn(`Skipping ${sub.key}: per-source budget exceeded`)
