@@ -10,7 +10,9 @@
     "requestTimeoutMs": 12000,
     "totalTimeoutMs": 45000,
     "verifyTimeoutMs": 8000,
-    "maxReportAgeMs": 86400000
+    "maxReportAgeMs": 86400000,
+    "maxEmbedBytes": 850000,
+    "maxSourceBytes": 400000
   },
   "health": {
     "requestTimeoutMs": 12000,

@@ -30,6 +30,9 @@
 | `lxs` | [hwxlikemi/lxs](https://github.com/hwxlikemi/lxs) | 收集的精选音源，以最新巡检报告为准 |
 | `xinghai` | [cdyUuu/lx-music-xinghai-source](https://github.com/cdyUuu/lx-music-xinghai-source) | 星海音乐源 |
 | `sixyin-cc` | [cc2415/lx-custom-music-source](https://github.com/cc2415/lx-custom-music-source) | 六音 |
+| `shellsec` | [shellsec/lx-music-source](https://github.com/shellsec/lx-music-source) | 多源收集（屿溪/墨澜/杰翔/HYW/长青等） |
+| `lingeng` | [Lingeng27/lx-music-1010-source](https://github.com/Lingeng27/lx-music-1010-source) | 1010 音源 |
+| `younger` | [younger-lgte1/lx-music-source](https://github.com/younger-lgte1/lx-music-source) | 个人音源，覆盖 QQ/酷我/酷狗 |
 
 ## 每日流程
 
@@ -87,6 +90,8 @@ Runner 固定为 Ubuntu 24.04，Actions 固定到完整 commit SHA；Dependabot 
 允许动态执行的宿主仍保留子源显式使用 `eval`/`Function` 时的作用域兼容处理，但加载器本身不调用它们。
 只声明同一份源码实测通过的平台/音质，重复 SHA256 的脚本合并覆盖范围后只加载、嵌入一次。
 `embed.maxSources` 限制的是验证通过的独立脚本数；重复脚本和加载失败的候选不占名额。
+`embed.maxSourceBytes` / `embed.maxEmbedBytes` 限制单个子源与全部子源的源码字节数
+（每份源码在产物中出现两次），超预算的源只做巡检、不嵌入，避免产物超出客户端 2 MiB 上限。
 
 见 `templates/merged-source.js`。
 

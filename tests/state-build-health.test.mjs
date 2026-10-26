@@ -153,6 +153,19 @@ test('duplicate scripts do not consume maxSources slots', async t => {
   assert.equal(new Set(result.subs.map(s => s.sha256)).size, 2)
 })
 
+test('embedded byte budgets skip oversized sources without blocking smaller ones', async t => {
+  const big = sourceCode("return 'https://example.test/big.mp3';") + '\n//' + 'x'.repeat(4096)
+  const f = await buildFixture(t, big)
+  await addBuildSource(f, 'z-small', sourceCode("return 'https://example.test/small.mp3';"))
+  f.config.embed.maxSourceBytes = 2048
+  const single = await buildSource(f)
+  assert.deepEqual(single.subs.map(s => s.key), ['z-small'])
+  f.config.embed.maxSourceBytes = 0
+  f.config.embed.maxEmbedBytes = Buffer.byteLength(big)
+  const total = await buildSource(f)
+  assert.deepEqual(total.subs.map(s => s.key), ['fixture'])
+})
+
 test('a failed candidate cannot prevent a lower-ranked valid source from filling maxSources', async t => {
   const f = await buildFixture(t, "throw new Error('broken preferred source')")
   await addBuildSource(f, 'z-good', sourceCode("return 'https://example.test/good.mp3';"))

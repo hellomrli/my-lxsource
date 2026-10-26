@@ -105,6 +105,9 @@ export async function buildSource({ statePath = 'state.json', reportPath = 'repo
   const candidates = [...healthy.values()].sort((a, b) => Object.keys(b.healthy).length - Object.keys(a.healthy).length ||
     Object.values(b.healthy).flat().length - Object.values(a.healthy).flat().length || a.id.localeCompare(b.id))
   const maxSources = boundedNumber(cfg.embed?.maxSources, 0, 1, 40)
+  // A sub-source appears twice in the artifact (metadata and runner), so budget by its source size.
+  const maxEmbedBytes = boundedNumber(cfg.embed?.maxEmbedBytes, 0, 0, 8 * 1024 * 1024)
+  const maxSourceBytes = boundedNumber(cfg.embed?.maxSourceBytes, 0, 0, 8 * 1024 * 1024)
   if (!candidates.length) throw new Error('No L3-passing sources; previous artifact preserved')
   const loaded = await pool(candidates, 3, async candidate => {
     let rt
@@ -123,12 +126,27 @@ export async function buildSource({ statePath = 'state.json', reportPath = 'repo
       const meta = parseMeta(code)
       return { key: candidate.id, name: meta.name || entry.name || candidate.id, version: meta.version || '',
         description: meta.description || '', author: meta.author || '', homepage: meta.homepage || '',
-        sha256: sha256(code), healthy: verified, code }
+        sha256: sha256(code), bytes: Buffer.byteLength(code), healthy: verified, code }
     } catch (error) { console.warn(`Skipping ${candidate.id}: ${error.message}`); return null }
     finally { rt?.dispose() }
   })
-  const subs = loaded.filter(Boolean).slice(0, maxSources || undefined)
+  const subs = []
+  let embedBytes = 0
+  for (const sub of loaded.filter(Boolean)) {
+    if (maxSources && subs.length >= maxSources) break
+    if (maxSourceBytes && sub.bytes > maxSourceBytes) {
+      console.warn(`Skipping ${sub.key}: per-source budget exceeded`)
+      continue
+    }
+    if (maxEmbedBytes && embedBytes + sub.bytes > maxEmbedBytes) {
+      console.warn(`Skipping ${sub.key}: embedded source budget exceeded`)
+      continue
+    }
+    subs.push(sub)
+    embedBytes += sub.bytes
+  }
   if (!subs.length) throw new Error('All candidate sources failed validation; previous artifact preserved')
+  for (const sub of subs) delete sub.bytes
   const template = await fs.readFile(templatePath, 'utf8')
   const output = renderSource(template, subs, cfg, new Date(now).toISOString())
   // Syntax alone cannot detect a broken loader/shim. Load the actual merged artifact before publishing it.

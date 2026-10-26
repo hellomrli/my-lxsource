@@ -7,6 +7,9 @@ export const UPSTREAMS = {
   lxs: { repo: 'hwxlikemi/lxs', branch: 'main' },
   xinghai: { repo: 'cdyUuu/lx-music-xinghai-source', branch: 'main' },
   'sixyin-cc': { repo: 'cc2415/lx-custom-music-source', branch: 'main' },
+  shellsec: { repo: 'shellsec/lx-music-source', branch: 'master' },
+  lingeng: { repo: 'Lingeng27/lx-music-1010-source', branch: 'main' },
+  younger: { repo: 'younger-lgte1/lx-music-source', branch: 'main' },
 }
 const encodePath = value => value.split('/').map(encodeURIComponent).join('/')
 const githubHeaders = { 'User-Agent': 'my-lxsource', Accept: 'application/vnd.github+json' }
