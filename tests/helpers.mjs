@@ -40,12 +40,12 @@ export async function server(t, handler) {
   return `http://127.0.0.1:${instance.address().port}`
 }
 
-export async function mergedHarness(t, subs, { request, fetch, config, globals = {}, allowCodeGeneration = false } = {}) {
+export async function mergedHarness(t, subs, { request, fetch, utils = {}, config, globals = {}, allowCodeGeneration = false } = {}) {
   const timers = new Set(), handlers = []
   let initialized
   const ready = new Promise(resolve => { initialized = resolve })
   const lx = {
-    version: 2, env: 'desktop', platform: 'linux', utils: {},
+    version: 2, env: 'desktop', platform: 'linux', utils,
     EVENT_NAMES: { request: 'request', inited: 'inited', updateAlert: 'updateAlert' },
     on: (event, handler) => { if (event === 'request') handlers.push(handler) },
     send: (event, data) => { if (event === 'inited') initialized(data); return Promise.resolve() },

@@ -102,6 +102,8 @@ Runner 固定为 Ubuntu 24.04，Actions 固定到完整 commit SHA；Dependabot 
 `HEAD` 检查 HTTP 状态与音频 content-type，避免宿主忽略 Range 后下载整首歌。
 `HEAD` 无法检查魔数/位深，因此这类宿主不声明或接受 `flac24bit`；普通 FLAC 仅能核对 content-type。
 部分 CDN 不支持 `HEAD`，这类探测失败会继续回退，不会被当作验证成功。
+lxserver 的可选有界探针集成见 `integrations/lxserver/README.md`，用真实音频字节处理
+FLAC 被 CDN 标为 `audio/mpeg` 的情况，不放宽无损或音频验证。
 所有宿主的 L3/位深都在每日巡检中检查；巡检通过仍不保证所有曲目或一天内不会失效。
 
 客户端作用域隔离解决兼容性与串扰，不是恶意 JavaScript 的安全边界。

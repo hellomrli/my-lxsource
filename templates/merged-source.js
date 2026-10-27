@@ -26,6 +26,7 @@ const SUB_REQUEST_TIMEOUT_MS = {{REQUEST_TIMEOUT_MS}}
 const TOTAL_TIMEOUT_MS = {{TOTAL_TIMEOUT_MS}}
 const VERIFY_TIMEOUT_MS = {{VERIFY_TIMEOUT_MS}}
 const PROBE_BYTES = 4096
+const HAS_HOST_PROBE = !!(LX.utils && typeof LX.utils.audioProbe === 'function')
 const HAS_STREAMING_FETCH = typeof HOST.fetch === 'function' && typeof HOST.AbortController === 'function' &&
   typeof HOST.ReadableStream === 'function' && HOST.ReadableStream.prototype &&
   typeof HOST.ReadableStream.prototype.getReader === 'function'
@@ -33,7 +34,7 @@ const HAS_STREAMING_FETCH = typeof HOST.fetch === 'function' && typeof HOST.Abor
 {{AUDIO_HELPERS}}
 
 function canVerifyQuality(quality) {
-  return quality !== 'flac24bit' || HAS_STREAMING_FETCH
+  return quality !== 'flac24bit' || HAS_STREAMING_FETCH || HAS_HOST_PROBE
 }
 
 function httpUrl(url) {
@@ -204,6 +205,44 @@ async function verifyWithFetch(url, quality, timeoutMs, control) {
   }
 }
 
+// lxserver can expose a bounded broker without granting scripts a general fetch API.
+function verifyWithHostProbe(url, quality, timeoutMs, control) {
+  return new Promise((resolve, reject) => {
+    let cancel, settled = false
+    const finish = error => {
+      if (settled) return
+      settled = true
+      control.cancel = null
+      HOST.clearTimeout(timer)
+      if (cancel) { try { cancel() } catch (_) {} }
+      if (error) reject(error)
+      else resolve()
+    }
+    const timer = HOST.setTimeout(() => finish(new Error('Playback probe timeout')), timeoutMs)
+    control.cancel = () => finish(new Error('Playback probe cancelled'))
+    try {
+      cancel = LX.utils.audioProbe(url, { timeout: timeoutMs, maxBytes: PROBE_BYTES }, (error, response) => {
+        if (error) { finish(error); return }
+        try {
+          if (!response || (response.statusCode !== 200 && response.statusCode !== 206)) {
+            throw new Error('Playback HTTP ' + (response && response.statusCode))
+          }
+          if (!audioContentTypeAllowed(String(response.contentType || '').toLowerCase())) {
+            throw new Error('Playback content type is not audio')
+          }
+          const prefix = new Uint8Array(response.bytes || [])
+          const magic = sniffAudio(prefix)
+          if (!magic || !qualityMatchesAudio(quality, magic, prefix)) {
+            throw new Error('Playback audio/quality verification failed')
+          }
+          finish()
+        } catch (error) { finish(error) }
+      })
+      if (settled && cancel) cancel()
+    } catch (error) { finish(error) }
+  })
+}
+
 // Limited LX hosts buffer lx.request bodies. A HEAD-only probe avoids downloading a whole song there.
 function verifyWithHead(url, quality, timeoutMs, control) {
   if (!canVerifyQuality(quality)) return Promise.reject(new Error('HEAD cannot verify 24-bit audio'))
@@ -240,7 +279,9 @@ function verifyWithHead(url, quality, timeoutMs, control) {
 
 async function verifyPlayback(url, quality, timeoutMs, control) {
   if (!httpUrl(url)) throw new Error('Invalid playback URL')
-  if (HAS_STREAMING_FETCH) {
+  if (HAS_HOST_PROBE) {
+    await verifyWithHostProbe(url, quality, timeoutMs, control)
+  } else if (HAS_STREAMING_FETCH) {
     await verifyWithFetch(url, quality, timeoutMs, control)
   } else await verifyWithHead(url, quality, timeoutMs, control)
 }

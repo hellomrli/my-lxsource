@@ -144,6 +144,51 @@ test('buffered fetch implementations use HEAD without downloading a song', async
   assert.equal(fetches, 0)
 })
 
+test('host prefix probes verify real FLAC even when the CDN labels it audio/mpeg', async t => {
+  let probes = 0
+  const qualitys = ['flac', 'flac24bit']
+  const host = await mergedHarness(t, [sub('real', sourceCode("return 'https://example.test/real.flac';", qualitys), { wy: qualitys })], {
+    request: () => { throw new Error('HEAD must not be used') },
+    utils: { audioProbe: (url, options, callback) => {
+      probes++
+      assert.equal(options.maxBytes, 4096)
+      queueMicrotask(() => callback(null, { statusCode: 206, contentType: 'audio/mpeg', bytes: Array.from(flac(24)) }))
+      return () => {}
+    } },
+  })
+  assert.deepEqual(Array.from(host.inited.sources.wy.qualitys), qualitys)
+  assert.equal(await host.call('wy', 'flac24bit'), 'https://example.test/real.flac')
+  assert.equal(probes, 1)
+})
+
+test('a hanging host probe is cancelled before falling back', async t => {
+  let cancelled = false
+  const h = await mergedHarness(t, ['stall', 'real'].map(name =>
+    sub(name, sourceCode("return 'https://example.test/" + name + "';"))), {
+    utils: { audioProbe: (url, options, callback) => {
+      if (url.endsWith('stall')) return () => { cancelled = true }
+      queueMicrotask(() => callback(null, { statusCode: 206, contentType: 'audio/mpeg', bytes: Array.from(mp3()) }))
+      return () => {}
+    } },
+  })
+  assert.equal(await h.call(), 'https://example.test/real')
+  assert.equal(cancelled, true)
+})
+
+test('host prefix probes still reject fake lossless and JSON and fall back', async t => {
+  const qualitys = ['flac']
+  const h = await mergedHarness(t, ['mp3', 'json', 'real'].map(name =>
+    sub(name, sourceCode("return 'https://example.test/" + name + "';", qualitys), { wy: qualitys })), {
+    utils: { audioProbe: (url, options, callback) => {
+      queueMicrotask(() => callback(null, { statusCode: 206,
+        contentType: url.endsWith('json') ? 'application/json' : 'application/octet-stream',
+        bytes: Array.from(url.endsWith('mp3') ? mp3() : flac()) }))
+      return () => {}
+    } },
+  })
+  assert.equal(await h.call('wy', 'flac'), 'https://example.test/real')
+})
+
 test('streaming hosts verify 24-bit samples and fall back from 16-bit audio', async t => {
   const qualitys = ['flac24bit']
   const h = await mergedHarness(t, [
