@@ -1,34 +1,33 @@
-# 音源可用性巡检 2026-10-26T18:10:06.802Z UTC
+# 音源可用性巡检 2026-10-26T23:37:51.965Z UTC
 
 只表示探针曲目可用，不保证所有曲目。每个平台独立检测 128k / 320k / flac / flac24bit；无损请求会校验 FLAC 格式，24-bit 还会校验位深。
 
 | 音源 | wy | tx | kw | kg | mg | 可用平台 |
 |---|---|---|---|---|---|---|
 | shellsec:sources/jiexiang/杰翔聚合音源.js | 320k, 128k, flac | 320k, 128k | 320k, 128k, flac, flac24bit | 320k, 128k, flac | 320k, 128k | 5/5 |
-| shellsec:sources/yuxi/屿溪-终章.js | 320k, 128k, flac, flac24bit | 320k, 128k, flac | 320k, 128k, flac | 320k, 128k, flac, flac24bit | 320k, 128k | 5/5 |
-| lingeng:1010-mobile.js | 320k, 128k | 320k, 128k, flac | - | 128k, flac | 320k, 128k | 4/5 |
-| lingeng:1010.js | 320k, 128k | 320k, 128k, flac | - | 320k, 128k, flac | 320k, 128k | 4/5 |
-| lingeng:1010🎵音源-手机版.js | 320k, 128k | 320k, 128k, flac | - | 320k, 128k, flac | 320k, 128k | 4/5 |
-| lingeng:1010🎵音源.js | 320k, 128k | 320k, 128k, flac | - | 128k, flac | 320k, 128k | 4/5 |
-| lingeng:1010音源-手机版.js | 320k, 128k | 320k, 128k, flac | - | 320k, 128k, flac | 320k, 128k | 4/5 |
-| lingeng:1010音源.js | 320k, 128k | 320k, 128k, flac | - | 320k, 128k, flac | 320k, 128k | 4/5 |
+| shellsec:sources/yuxi/屿溪-终章.js | flac, flac24bit | 320k, flac | 320k, 128k, flac | 320k, 128k, flac, flac24bit | 320k, 128k | 5/5 |
+| lingeng:1010-mobile.js | 320k, 128k | 320k, 128k, flac | 320k, 128k | - | 320k, 128k | 4/5 |
+| lingeng:1010.js | 320k, 128k | 320k, 128k, flac | 320k, 128k | - | 320k, 128k | 4/5 |
+| lingeng:1010🎵音源-手机版.js | 320k, 128k | 320k, 128k, flac | 320k, 128k | - | 320k, 128k | 4/5 |
+| lingeng:1010🎵音源.js | 320k, 128k | 320k, 128k, flac | 320k, 128k | - | 320k, 128k | 4/5 |
+| lingeng:1010音源-手机版.js | 320k, 128k | 320k, 128k, flac | 320k, 128k | - | 320k, 128k | 4/5 |
+| lingeng:1010音源.js | 320k, 128k | 320k, 128k, flac | 320k, 128k | - | 320k, 128k | 4/5 |
 | shellsec:sources/changqing/长青SVIP音源(二改修复版).js | 320k, 128k, flac, flac24bit | 320k, 128k, flac | 320k, 128k, flac | 320k, 128k, flac, flac24bit | - | 4/5 |
-| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | 320k, 128k, flac, flac24bit | 320k, 128k, flac | - | 128k, flac | 320k, 128k | 4/5 |
-| shellsec:sources/hyw/HYWmusic_公益版.js | 320k, 128k, flac24bit | 320k, 128k, flac | - | 320k, 128k, flac, flac24bit | 128k | 4/5 |
+| shellsec:sources/fish-music/fish_music.js | 320k, 128k, flac | 320k, 128k | - | 320k, 128k, flac | 320k, 128k | 4/5 |
+| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | 320k, 128k, flac, flac24bit | 320k, 128k, flac | - | 320k, 128k, flac | 320k, 128k | 4/5 |
 | shellsec:sources/molan/墨澜聚合音源.js | 320k, 128k, flac | - | 320k, 128k, flac | 320k, 128k, flac | 320k, 128k | 4/5 |
-| younger:lx-source.js | 128k, flac, flac24bit | 320k, 128k, flac | 320k, 128k, flac | 320k, 128k, flac, flac24bit | - | 4/5 |
+| younger:lx-source.js | 320k, 128k, flac, flac24bit | 320k, 128k, flac | 320k, 128k, flac | 320k, 128k, flac, flac24bit | - | 4/5 |
+| pdone:xinghai/latest.js | 320k, 128k, flac | - | 320k, 128k, flac | - | 320k, 128k | 3/5 |
 | shellsec:sources/appx64/Appx64 Clear Music.js | 320k, 128k, flac, flac24bit | - | 320k, 128k, flac | - | 128k | 3/5 |
-| shellsec:sources/fish-music/fish_music.js | 320k, 128k, flac | 320k, 128k | - | 320k, 128k, flac | - | 3/5 |
-| shellsec:sources/kxh/K×H测试.js | 320k | - | 320k, 128k, flac, flac24bit | 320k, 128k | - | 3/5 |
+| shellsec:sources/kxh/K×H测试.js | 128k | - | 320k, 128k, flac, flac24bit | 320k, 128k | - | 3/5 |
+| shellsec:sources/xinghai/星海音乐源.js | 320k, 128k, flac | - | 320k, 128k, flac | - | 320k, 128k | 3/5 |
 | xinghai:xinghai-music-source.js | 320k, 128k, flac, flac24bit | - | 320k, 128k, flac | - | 320k, 128k | 3/5 |
 | xinghai:xinghai-music-sourcev2.3.12.js | 320k, 128k, flac, flac24bit | - | 320k, 128k, flac | - | 320k, 128k | 3/5 |
-| pdone:xinghai/latest.js | 320k, 128k, flac | - | - | - | 320k, 128k | 2/5 |
-| shellsec:sources/xinghai/星海音乐源.js | 320k, 128k, flac | - | - | - | 320k, 128k | 2/5 |
-| lxs:lx-玉宁熙.js | 320k, 128k | - | - | - | - | 1/5 |
+| lxs:lx-玉宁熙.js | 320k, 128k | - | 320k, 128k | - | - | 2/5 |
+| lxs:溯音音源 v1.js | 320k, 128k | - | 320k, 128k | - | - | 2/5 |
+| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | - | - | 320k, 128k | - | 320k, 128k | 2/5 |
 | lxs:xinghai-music-source2.3.0.js | 320k, 128k, flac, flac24bit | - | - | - | - | 1/5 |
 | lxs:全豆要-聚合音源-V4.1.js | 320k, 128k, flac | - | - | - | - | 1/5 |
-| lxs:忆音音源 v1.js | 320k | - | - | - | - | 1/5 |
-| lxs:溯音音源 v1.js | 320k, 128k | - | - | - | - | 1/5 |
 | lxs:统一音乐源.js | 320k, 128k, flac | - | - | - | - | 1/5 |
 | lxs:非常刀.js | 320k, 128k | - | - | - | - | 1/5 |
 | pdone:qdy/latest.js | 320k, 128k, flac | - | - | - | - | 1/5 |
@@ -36,6 +35,7 @@
 | xinghai:xinghai-music-sourcev2.3.8.js | 320k, 128k, flac, flac24bit | - | - | - | - | 1/5 |
 | lxs:fish-music音源.js | - | - | - | - | - | 0/5 |
 | lxs:HUIBQ音源.js | - | - | - | - | - | 0/5 |
+| lxs:忆音音源 v1.js | - | - | - | - | - | 0/5 |
 | lxs:念心音源-V1.0.1.js | - | - | - | - | - | 0/5 |
 | lxs:收集の聚合接口.js | - | - | - | - | - | 0/5 |
 | lxs:聚合API.js | - | - | - | - | - | 0/5 |
@@ -51,7 +51,7 @@
 | pdone:sixyin/latest.js | - | - | - | - | - | 0/5 |
 | shellsec:sources/animemusic/lx-animemusic.js | - | - | - | - | - | 0/5 |
 | shellsec:sources/grass/野草🌾.js | - | - | - | - | - | 0/5 |
-| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | - | - | - | - | - | 0/5 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | - | - | - | - | - | 0/5 |
 | sixyin-cc:sixyin-music-source-v1.0.7.js | - | - | - | - | - | 0/5 |
 
 ## 明细
@@ -246,9 +246,9 @@
 | pdone:sixyin/latest.js | tx | 128k | - | - | - | L1 Invalid HTTP URL |
 | pdone:sixyin/latest.js | tx | flac | - | - | - | L1 Invalid HTTP URL |
 | pdone:sixyin/latest.js | tx | flac24bit | - | - | - | Platform or quality not declared |
-| pdone:sixyin/latest.js | kw | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| pdone:sixyin/latest.js | kw | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| pdone:sixyin/latest.js | kw | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| pdone:sixyin/latest.js | kw | 320k | - | - | - | L1 failed |
+| pdone:sixyin/latest.js | kw | 128k | - | - | - | L1 failed |
+| pdone:sixyin/latest.js | kw | flac | - | - | - | L1 failed |
 | pdone:sixyin/latest.js | kw | flac24bit | - | - | - | Platform or quality not declared |
 | pdone:sixyin/latest.js | kg | 320k | - | - | - | L1 Invalid HTTP URL |
 | pdone:sixyin/latest.js | kg | 128k | - | - | - | L1 Invalid HTTP URL |
@@ -263,12 +263,12 @@
 | pdone:xinghai/latest.js | wy | flac | OK | OK | OK | OK 206 flac 4096B |
 | pdone:xinghai/latest.js | wy | flac24bit | - | - | - | Platform or quality not declared |
 | pdone:xinghai/latest.js | tx | 320k | - | - | - | L1 后端失败: QQ音乐 暂时无法获取，请稍后重试 |
-| pdone:xinghai/latest.js | tx | 128k | OK | - | - | HTTP 404 ct=audio/mpeg magic=- |
-| pdone:xinghai/latest.js | tx | flac | OK | - | - | HTTP 404 ct=audio/x-ogg magic=- quality mismatch |
+| pdone:xinghai/latest.js | tx | 128k | - | - | - | L1 后端失败: QQ音乐 暂时无法获取，请稍后重试 |
+| pdone:xinghai/latest.js | tx | flac | - | - | - | L1 后端失败: QQ音乐 暂时无法获取，请稍后重试 |
 | pdone:xinghai/latest.js | tx | flac24bit | - | - | - | Platform or quality not declared |
-| pdone:xinghai/latest.js | kw | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| pdone:xinghai/latest.js | kw | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| pdone:xinghai/latest.js | kw | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| pdone:xinghai/latest.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| pdone:xinghai/latest.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| pdone:xinghai/latest.js | kw | flac | OK | OK | OK | OK 206 flac 4096B |
 | pdone:xinghai/latest.js | kw | flac24bit | - | - | - | Platform or quality not declared |
 | pdone:xinghai/latest.js | kg | 320k | - | - | - | L1 后端失败: 所有音质(128k)均获取失败 |
 | pdone:xinghai/latest.js | kg | 128k | - | - | - | L1 后端失败: 所有音质(128k)均获取失败 |
@@ -326,18 +326,18 @@
 | lxs:lx-玉宁熙.js | tx | 128k | - | - | - | L1 QQ音乐所有接口均无可用地址 |
 | lxs:lx-玉宁熙.js | tx | flac | - | - | - | L1 QQ音乐所有接口均无可用地址 |
 | lxs:lx-玉宁熙.js | tx | flac24bit | - | - | - | L1 QQ音乐所有接口均无可用地址 |
-| lxs:lx-玉宁熙.js | kw | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lxs:lx-玉宁熙.js | kw | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lxs:lx-玉宁熙.js | kw | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lxs:lx-玉宁熙.js | kw | flac24bit | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| lxs:lx-玉宁熙.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lxs:lx-玉宁熙.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lxs:lx-玉宁熙.js | kw | flac | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
+| lxs:lx-玉宁熙.js | kw | flac24bit | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | lxs:lx-玉宁熙.js | kg | 320k | - | - | - | L1 未获取到有效播放链接 |
 | lxs:lx-玉宁熙.js | kg | 128k | - | - | - | L1 未获取到有效播放链接 |
-| lxs:lx-玉宁熙.js | kg | flac | - | - | - | L1 未获取到有效播放链接 |
+| lxs:lx-玉宁熙.js | kg | flac | - | - | - | L1 请求超时 |
 | lxs:lx-玉宁熙.js | kg | flac24bit | - | - | - | L1 未获取到有效播放链接 |
-| lxs:lx-玉宁熙.js | mg | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lxs:lx-玉宁熙.js | mg | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lxs:lx-玉宁熙.js | mg | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lxs:lx-玉宁熙.js | mg | flac24bit | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| lxs:lx-玉宁熙.js | mg | 320k | - | - | - | L1 未返回有效播放地址 |
+| lxs:lx-玉宁熙.js | mg | 128k | - | - | - | L1 未返回有效播放地址 |
+| lxs:lx-玉宁熙.js | mg | flac | - | - | - | L1 未返回有效播放地址 |
+| lxs:lx-玉宁熙.js | mg | flac24bit | - | - | - | L1 未返回有效播放地址 |
 | lxs:xinghai-music-source2.3.0.js | wy | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lxs:xinghai-music-source2.3.0.js | wy | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lxs:xinghai-music-source2.3.0.js | wy | flac | OK | OK | OK | OK 206 flac 4096B |
@@ -378,7 +378,7 @@
 | lxs:全豆要-聚合音源-V4.1.js | mg | 128k | OK | - | - | HTTP 404 ct=text/html magic=- |
 | lxs:全豆要-聚合音源-V4.1.js | mg | flac | OK | - | - | HTTP 404 ct=text/html magic=- quality mismatch |
 | lxs:全豆要-聚合音源-V4.1.js | mg | flac24bit | - | - | - | Platform or quality not declared |
-| lxs:忆音音源 v1.js | wy | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lxs:忆音音源 v1.js | wy | 320k | OK | - | - | HTTP 522 ct=- magic=- |
 | lxs:忆音音源 v1.js | wy | 128k | - | - | - | Platform or quality not declared |
 | lxs:忆音音源 v1.js | wy | flac | - | - | - | Platform or quality not declared |
 | lxs:忆音音源 v1.js | wy | flac24bit | - | - | - | Platform or quality not declared |
@@ -446,8 +446,8 @@
 | lxs:溯音音源 v1.js | tx | 128k | - | - | - | L1 所有音质尝试均失败 |
 | lxs:溯音音源 v1.js | tx | flac | - | - | - | L1 所有音质尝试均失败 |
 | lxs:溯音音源 v1.js | tx | flac24bit | - | - | - | Platform or quality not declared |
-| lxs:溯音音源 v1.js | kw | 320k | OK | - | - | HTTP 410 ct=- magic=- |
-| lxs:溯音音源 v1.js | kw | 128k | OK | - | - | HTTP 410 ct=- magic=- |
+| lxs:溯音音源 v1.js | kw | 320k | OK | OK | OK | OK 206 ogg 4096B |
+| lxs:溯音音源 v1.js | kw | 128k | OK | OK | OK | OK 206 ogg 4096B |
 | lxs:溯音音源 v1.js | kw | flac | OK | - | - | HTTP 410 ct=- magic=- quality mismatch |
 | lxs:溯音音源 v1.js | kw | flac24bit | - | - | - | Platform or quality not declared |
 | lxs:溯音音源 v1.js | kg | 320k | - | - | - | Platform or quality not declared |
@@ -543,8 +543,8 @@
 | xinghai:xinghai-music-source.js | wy | flac | OK | OK | OK | OK 206 flac 4096B |
 | xinghai:xinghai-music-source.js | wy | flac24bit | OK | OK | OK | OK 206 flac 4096B |
 | xinghai:xinghai-music-source.js | tx | 320k | - | - | - | L1 后端失败: QQ音乐 暂时无法获取，请稍后重试 |
-| xinghai:xinghai-music-source.js | tx | 128k | OK | - | - | HTTP 404 ct=audio/mpeg magic=- |
-| xinghai:xinghai-music-source.js | tx | flac | OK | - | - | HTTP 404 ct=audio/x-ogg magic=- quality mismatch |
+| xinghai:xinghai-music-source.js | tx | 128k | - | - | - | L1 后端失败: QQ音乐 暂时无法获取，请稍后重试 |
+| xinghai:xinghai-music-source.js | tx | flac | - | - | - | L1 后端失败: QQ音乐 暂时无法获取，请稍后重试 |
 | xinghai:xinghai-music-source.js | tx | flac24bit | - | - | - | Platform or quality not declared |
 | xinghai:xinghai-music-source.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | xinghai:xinghai-music-source.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -563,8 +563,8 @@
 | xinghai:xinghai-music-sourcev2.3.12.js | wy | flac | OK | OK | OK | OK 206 flac 4096B |
 | xinghai:xinghai-music-sourcev2.3.12.js | wy | flac24bit | OK | OK | OK | OK 206 flac 4096B |
 | xinghai:xinghai-music-sourcev2.3.12.js | tx | 320k | - | - | - | L1 后端失败: QQ音乐 暂时无法获取，请稍后重试 |
-| xinghai:xinghai-music-sourcev2.3.12.js | tx | 128k | OK | - | - | HTTP 404 ct=audio/mpeg magic=- |
-| xinghai:xinghai-music-sourcev2.3.12.js | tx | flac | OK | - | - | HTTP 404 ct=audio/x-ogg magic=- quality mismatch |
+| xinghai:xinghai-music-sourcev2.3.12.js | tx | 128k | - | - | - | L1 后端失败: QQ音乐 暂时无法获取，请稍后重试 |
+| xinghai:xinghai-music-sourcev2.3.12.js | tx | flac | - | - | - | L1 后端失败: QQ音乐 暂时无法获取，请稍后重试 |
 | xinghai:xinghai-music-sourcev2.3.12.js | tx | flac24bit | - | - | - | Platform or quality not declared |
 | xinghai:xinghai-music-sourcev2.3.12.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | xinghai:xinghai-music-sourcev2.3.12.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -686,17 +686,17 @@
 | shellsec:sources/fish-music/fish_music.js | tx | 128k | OK | OK | OK | OK 206 m4a 4096B |
 | shellsec:sources/fish-music/fish_music.js | tx | flac | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=m4a quality mismatch |
 | shellsec:sources/fish-music/fish_music.js | tx | flac24bit | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=m4a quality mismatch |
-| shellsec:sources/fish-music/fish_music.js | kw | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| shellsec:sources/fish-music/fish_music.js | kw | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| shellsec:sources/fish-music/fish_music.js | kw | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| shellsec:sources/fish-music/fish_music.js | kw | flac24bit | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| shellsec:sources/fish-music/fish_music.js | kw | 320k | - | - | - | L1 kw nuoweida failed: This resource is not available in your region or country due to copyright protection |
+| shellsec:sources/fish-music/fish_music.js | kw | 128k | - | - | - | L1 kw nuoweida failed: This resource is not available in your region or country due to copyright protection |
+| shellsec:sources/fish-music/fish_music.js | kw | flac | - | - | - | L1 kw nuoweida failed: This resource is not available in your region or country due to copyright protection |
+| shellsec:sources/fish-music/fish_music.js | kw | flac24bit | - | - | - | L1 kw nuoweida failed: This resource is not available in your region or country due to copyright protection |
 | shellsec:sources/fish-music/fish_music.js | kg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/fish-music/fish_music.js | kg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/fish-music/fish_music.js | kg | flac | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/fish-music/fish_music.js | kg | flac24bit | - | - | - | Platform or quality not declared |
-| shellsec:sources/fish-music/fish_music.js | mg | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| shellsec:sources/fish-music/fish_music.js | mg | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| shellsec:sources/fish-music/fish_music.js | mg | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| shellsec:sources/fish-music/fish_music.js | mg | 320k | OK | OK | OK | OK 206 m4a 4096B |
+| shellsec:sources/fish-music/fish_music.js | mg | 128k | OK | OK | OK | OK 206 m4a 4096B |
+| shellsec:sources/fish-music/fish_music.js | mg | flac | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=m4a quality mismatch |
 | shellsec:sources/fish-music/fish_music.js | mg | flac24bit | - | - | - | Platform or quality not declared |
 | shellsec:sources/grass/野草🌾.js | wy | 320k | - | - | - | Platform or quality not declared |
 | shellsec:sources/grass/野草🌾.js | wy | 128k | - | - | - | Platform or quality not declared |
@@ -725,12 +725,12 @@
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | tx | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | tx | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | tx | flac | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | tx | flac24bit | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=flac quality mismatch |
-| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kw | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kw | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kw | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kw | flac24bit | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kg | 320k | - | - | - | L1 call timeout |
+| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | tx | flac24bit | OK | - | - | HTTP 404 ct=text/octet magic=- quality mismatch |
+| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kw | 320k | - | - | - | L1 Invalid HTTP URL |
+| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kw | 128k | - | - | - | L1 Invalid HTTP URL |
+| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kw | flac | - | - | - | L1 Invalid HTTP URL |
+| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kw | flac24bit | - | - | - | L1 Invalid HTTP URL |
+| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kg | flac | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kg | flac24bit | - | - | - | Platform or quality not declared |
@@ -738,24 +738,24 @@
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | mg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | mg | flac | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | mg | flac24bit | - | - | - | Platform or quality not declared |
-| shellsec:sources/hyw/HYWmusic_公益版.js | wy | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/hyw/HYWmusic_公益版.js | wy | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/hyw/HYWmusic_公益版.js | wy | flac | - | - | - | L1 网易云音源暂时不可用（平台熔断保护中，通常 1-3 分钟内自动恢复） |
-| shellsec:sources/hyw/HYWmusic_公益版.js | wy | flac24bit | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/hyw/HYWmusic_公益版.js | tx | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/hyw/HYWmusic_公益版.js | tx | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/hyw/HYWmusic_公益版.js | tx | flac | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/hyw/HYWmusic_公益版.js | tx | flac24bit | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=flac quality mismatch |
-| shellsec:sources/hyw/HYWmusic_公益版.js | kw | 320k | OK | - | - | HTTP 410 ct=- magic=- |
-| shellsec:sources/hyw/HYWmusic_公益版.js | kw | 128k | OK | - | - | HTTP 410 ct=- magic=- |
-| shellsec:sources/hyw/HYWmusic_公益版.js | kw | flac | OK | - | - | HTTP 410 ct=- magic=- quality mismatch |
-| shellsec:sources/hyw/HYWmusic_公益版.js | kw | flac24bit | OK | OK | - | HTTP 206 ct=application/octet-stream magic=flac quality mismatch |
-| shellsec:sources/hyw/HYWmusic_公益版.js | kg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/hyw/HYWmusic_公益版.js | kg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/hyw/HYWmusic_公益版.js | kg | flac | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/hyw/HYWmusic_公益版.js | kg | flac24bit | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/hyw/HYWmusic_公益版.js | mg | 320k | - | - | - | L1 call timeout |
-| shellsec:sources/hyw/HYWmusic_公益版.js | mg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/hyw/HYWmusic_公益版.js | wy | 320k | - | - | - | L1 服务端返回非 JSON 数据 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | wy | 128k | - | - | - | L1 服务端返回非 JSON 数据 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | wy | flac | - | - | - | L1 服务端返回非 JSON 数据 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | wy | flac24bit | - | - | - | L1 服务端返回非 JSON 数据 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | tx | 320k | - | - | - | L1 服务端返回非 JSON 数据 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | tx | 128k | - | - | - | L1 服务端返回非 JSON 数据 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | tx | flac | - | - | - | L1 服务端返回非 JSON 数据 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | tx | flac24bit | - | - | - | L1 服务端返回非 JSON 数据 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | kw | 320k | - | - | - | L1 服务端返回非 JSON 数据 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | kw | 128k | - | - | - | L1 服务端返回非 JSON 数据 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | kw | flac | - | - | - | L1 服务端返回非 JSON 数据 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | kw | flac24bit | - | - | - | L1 服务端返回非 JSON 数据 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | kg | 320k | - | - | - | L1 服务端返回非 JSON 数据 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | kg | 128k | - | - | - | L1 服务端返回非 JSON 数据 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | kg | flac | - | - | - | L1 服务端返回非 JSON 数据 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | kg | flac24bit | - | - | - | L1 服务端返回非 JSON 数据 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | mg | 320k | - | - | - | L1 服务端返回非 JSON 数据 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | mg | 128k | - | - | - | L1 服务端返回非 JSON 数据 |
 | shellsec:sources/hyw/HYWmusic_公益版.js | mg | flac | - | - | - | Platform or quality not declared |
 | shellsec:sources/hyw/HYWmusic_公益版.js | mg | flac24bit | - | - | - | Platform or quality not declared |
 | shellsec:sources/jiexiang/杰翔聚合音源.js | wy | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -778,12 +778,12 @@
 | shellsec:sources/jiexiang/杰翔聚合音源.js | mg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/jiexiang/杰翔聚合音源.js | mg | flac | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | shellsec:sources/jiexiang/杰翔聚合音源.js | mg | flac24bit | - | - | - | Platform or quality not declared |
-| shellsec:sources/kxh/K×H测试.js | wy | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/kxh/K×H测试.js | wy | 128k | OK | OK | - | HTTP 200 ct=text/html;charset=utf8 magic=- |
-| shellsec:sources/kxh/K×H测试.js | wy | flac | OK | OK | - | HTTP 200 ct=text/html;charset=utf8 magic=- quality mismatch |
-| shellsec:sources/kxh/K×H测试.js | wy | flac24bit | OK | OK | - | HTTP 200 ct=text/html;charset=utf8 magic=- quality mismatch |
+| shellsec:sources/kxh/K×H测试.js | wy | 320k | OK | OK | - | HTTP 200 ct=text/html;charset=utf8 magic=- |
+| shellsec:sources/kxh/K×H测试.js | wy | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/kxh/K×H测试.js | wy | flac | OK | OK | - | HTTP 206 ct=audio/mpeg; charset=utf-8 magic=mp3(ID3) quality mismatch |
+| shellsec:sources/kxh/K×H测试.js | wy | flac24bit | OK | OK | - | HTTP 206 ct=audio/mpeg; charset=utf-8 magic=mp3(ID3) quality mismatch |
 | shellsec:sources/kxh/K×H测试.js | tx | 320k | - | - | - | L1 call timeout |
-| shellsec:sources/kxh/K×H测试.js | tx | 128k | - | - | - | L1 call timeout |
+| shellsec:sources/kxh/K×H测试.js | tx | 128k | - | - | - | L1 所有API均失败 (v1.7.1 已尝试音质降级) |
 | shellsec:sources/kxh/K×H测试.js | tx | flac | - | - | - | L1 call timeout |
 | shellsec:sources/kxh/K×H测试.js | tx | flac24bit | - | - | - | L1 call timeout |
 | shellsec:sources/kxh/K×H测试.js | kw | 320k | OK | OK | OK | OK 206 flac 4096B |
@@ -842,13 +842,13 @@
 | shellsec:sources/xinghai/星海音乐源.js | wy | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/xinghai/星海音乐源.js | wy | flac | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/xinghai/星海音乐源.js | wy | flac24bit | - | - | - | Platform or quality not declared |
-| shellsec:sources/xinghai/星海音乐源.js | tx | 320k | OK | - | - | HTTP 404 ct=text/octet magic=- |
-| shellsec:sources/xinghai/星海音乐源.js | tx | 128k | OK | - | - | HTTP 404 ct=audio/mpeg magic=- |
-| shellsec:sources/xinghai/星海音乐源.js | tx | flac | OK | - | - | HTTP 404 ct=audio/x-ogg magic=- quality mismatch |
+| shellsec:sources/xinghai/星海音乐源.js | tx | 320k | - | - | - | L1 后端失败: QQ音乐 暂时无法获取，请稍后重试 |
+| shellsec:sources/xinghai/星海音乐源.js | tx | 128k | - | - | - | L1 后端失败: QQ音乐 暂时无法获取，请稍后重试 |
+| shellsec:sources/xinghai/星海音乐源.js | tx | flac | - | - | - | L1 后端失败: QQ音乐 暂时无法获取，请稍后重试 |
 | shellsec:sources/xinghai/星海音乐源.js | tx | flac24bit | - | - | - | Platform or quality not declared |
-| shellsec:sources/xinghai/星海音乐源.js | kw | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| shellsec:sources/xinghai/星海音乐源.js | kw | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| shellsec:sources/xinghai/星海音乐源.js | kw | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| shellsec:sources/xinghai/星海音乐源.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/xinghai/星海音乐源.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/xinghai/星海音乐源.js | kw | flac | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/xinghai/星海音乐源.js | kw | flac24bit | - | - | - | Platform or quality not declared |
 | shellsec:sources/xinghai/星海音乐源.js | kg | 320k | - | - | - | L1 后端失败: 所有音质(128k)均获取失败 |
 | shellsec:sources/xinghai/星海音乐源.js | kg | 128k | - | - | - | L1 后端失败: 所有音质(128k)均获取失败 |
@@ -866,24 +866,24 @@
 | shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | tx | 128k | - | - | - | L1 QQ音乐所有接口均无可用地址 |
 | shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | tx | flac | - | - | - | L1 QQ音乐所有接口均无可用地址 |
 | shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | tx | flac24bit | - | - | - | L1 QQ音乐所有接口均无可用地址 |
-| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | kw | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | kw | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | kw | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | kw | flac24bit | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | kw | flac | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
+| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | kw | flac24bit | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | kg | 320k | - | - | - | L1 酷狗所有接口未获取到有效播放链接 |
 | shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | kg | 128k | - | - | - | L1 酷狗所有接口未获取到有效播放链接 |
-| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | kg | flac | - | - | - | L1 call timeout |
+| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | kg | flac | - | - | - | L1 酷狗所有接口未获取到有效播放链接 |
 | shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | kg | flac24bit | - | - | - | L1 酷狗所有接口未获取到有效播放链接 |
-| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | mg | 320k | - | - | - | L1 服务器错误 503: [URL redacted] |
-| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | mg | 128k | - | - | - | L1 服务器错误 503: [URL redacted] |
-| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | mg | flac | - | - | - | L1 服务器错误 503: [URL redacted] |
-| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | mg | flac24bit | - | - | - | L1 服务器错误 503: [URL redacted] |
-| shellsec:sources/yuxi/屿溪-终章.js | wy | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/yuxi/屿溪-终章.js | wy | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | mg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | mg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | mg | flac | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
+| shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | mg | flac24bit | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
+| shellsec:sources/yuxi/屿溪-终章.js | wy | 320k | - | - | - | L1 无可用播放链接 |
+| shellsec:sources/yuxi/屿溪-终章.js | wy | 128k | - | - | - | L1 无可用播放链接 |
 | shellsec:sources/yuxi/屿溪-终章.js | wy | flac | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/yuxi/屿溪-终章.js | wy | flac24bit | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/yuxi/屿溪-终章.js | tx | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/yuxi/屿溪-终章.js | tx | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/yuxi/屿溪-终章.js | tx | 128k | - | - | - | L1 无可用播放链接 |
 | shellsec:sources/yuxi/屿溪-终章.js | tx | flac | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/yuxi/屿溪-终章.js | tx | flac24bit | - | - | - | L1 QQ音源无可用播放链接 |
 | shellsec:sources/yuxi/屿溪-终章.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -906,13 +906,13 @@
 | lingeng:1010-mobile.js | tx | 128k | OK | OK | OK | OK 206 mp3(frame) 4096B |
 | lingeng:1010-mobile.js | tx | flac | OK | OK | OK | OK 206 flac 4096B |
 | lingeng:1010-mobile.js | tx | flac24bit | - | - | - | Platform or quality not declared |
-| lingeng:1010-mobile.js | kw | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lingeng:1010-mobile.js | kw | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lingeng:1010-mobile.js | kw | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| lingeng:1010-mobile.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010-mobile.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010-mobile.js | kw | flac | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | lingeng:1010-mobile.js | kw | flac24bit | - | - | - | Platform or quality not declared |
-| lingeng:1010-mobile.js | kg | 320k | - | - | - | L1 全部链路失败 → HYW:请求失败:HTTP deadline exceeded \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
-| lingeng:1010-mobile.js | kg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010-mobile.js | kg | flac | OK | OK | OK | OK 206 flac 4096B |
+| lingeng:1010-mobile.js | kg | 320k | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
+| lingeng:1010-mobile.js | kg | 128k | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
+| lingeng:1010-mobile.js | kg | flac | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010-mobile.js | kg | flac24bit | - | - | - | Platform or quality not declared |
 | lingeng:1010-mobile.js | mg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lingeng:1010-mobile.js | mg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -926,13 +926,13 @@
 | lingeng:1010.js | tx | 128k | OK | OK | OK | OK 206 mp3(frame) 4096B |
 | lingeng:1010.js | tx | flac | OK | OK | OK | OK 206 flac 4096B |
 | lingeng:1010.js | tx | flac24bit | - | - | - | Platform or quality not declared |
-| lingeng:1010.js | kw | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lingeng:1010.js | kw | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lingeng:1010.js | kw | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| lingeng:1010.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010.js | kw | flac | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | lingeng:1010.js | kw | flac24bit | - | - | - | Platform or quality not declared |
-| lingeng:1010.js | kg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010.js | kg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010.js | kg | flac | OK | OK | OK | OK 206 flac 4096B |
+| lingeng:1010.js | kg | 320k | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
+| lingeng:1010.js | kg | 128k | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
+| lingeng:1010.js | kg | flac | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010.js | kg | flac24bit | - | - | - | Platform or quality not declared |
 | lingeng:1010.js | mg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lingeng:1010.js | mg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -946,13 +946,13 @@
 | lingeng:1010音源-手机版.js | tx | 128k | OK | OK | OK | OK 206 mp3(frame) 4096B |
 | lingeng:1010音源-手机版.js | tx | flac | OK | OK | OK | OK 206 flac 4096B |
 | lingeng:1010音源-手机版.js | tx | flac24bit | - | - | - | Platform or quality not declared |
-| lingeng:1010音源-手机版.js | kw | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lingeng:1010音源-手机版.js | kw | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lingeng:1010音源-手机版.js | kw | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| lingeng:1010音源-手机版.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010音源-手机版.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010音源-手机版.js | kw | flac | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | lingeng:1010音源-手机版.js | kw | flac24bit | - | - | - | Platform or quality not declared |
-| lingeng:1010音源-手机版.js | kg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010音源-手机版.js | kg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010音源-手机版.js | kg | flac | OK | OK | OK | OK 206 flac 4096B |
+| lingeng:1010音源-手机版.js | kg | 320k | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
+| lingeng:1010音源-手机版.js | kg | 128k | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
+| lingeng:1010音源-手机版.js | kg | flac | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010音源-手机版.js | kg | flac24bit | - | - | - | Platform or quality not declared |
 | lingeng:1010音源-手机版.js | mg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lingeng:1010音源-手机版.js | mg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -966,13 +966,13 @@
 | lingeng:1010音源.js | tx | 128k | OK | OK | OK | OK 206 mp3(frame) 4096B |
 | lingeng:1010音源.js | tx | flac | OK | OK | OK | OK 206 flac 4096B |
 | lingeng:1010音源.js | tx | flac24bit | - | - | - | Platform or quality not declared |
-| lingeng:1010音源.js | kw | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lingeng:1010音源.js | kw | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lingeng:1010音源.js | kw | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| lingeng:1010音源.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010音源.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010音源.js | kw | flac | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | lingeng:1010音源.js | kw | flac24bit | - | - | - | Platform or quality not declared |
-| lingeng:1010音源.js | kg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010音源.js | kg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010音源.js | kg | flac | OK | OK | OK | OK 206 flac 4096B |
+| lingeng:1010音源.js | kg | 320k | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
+| lingeng:1010音源.js | kg | 128k | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
+| lingeng:1010音源.js | kg | flac | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010音源.js | kg | flac24bit | - | - | - | Platform or quality not declared |
 | lingeng:1010音源.js | mg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lingeng:1010音源.js | mg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -986,13 +986,13 @@
 | lingeng:1010🎵音源-手机版.js | tx | 128k | OK | OK | OK | OK 206 mp3(frame) 4096B |
 | lingeng:1010🎵音源-手机版.js | tx | flac | OK | OK | OK | OK 206 flac 4096B |
 | lingeng:1010🎵音源-手机版.js | tx | flac24bit | - | - | - | Platform or quality not declared |
-| lingeng:1010🎵音源-手机版.js | kw | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lingeng:1010🎵音源-手机版.js | kw | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lingeng:1010🎵音源-手机版.js | kw | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| lingeng:1010🎵音源-手机版.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010🎵音源-手机版.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010🎵音源-手机版.js | kw | flac | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | lingeng:1010🎵音源-手机版.js | kw | flac24bit | - | - | - | Platform or quality not declared |
-| lingeng:1010🎵音源-手机版.js | kg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010🎵音源-手机版.js | kg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010🎵音源-手机版.js | kg | flac | OK | OK | OK | OK 206 flac 4096B |
+| lingeng:1010🎵音源-手机版.js | kg | 320k | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
+| lingeng:1010🎵音源-手机版.js | kg | 128k | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
+| lingeng:1010🎵音源-手机版.js | kg | flac | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010🎵音源-手机版.js | kg | flac24bit | - | - | - | Platform or quality not declared |
 | lingeng:1010🎵音源-手机版.js | mg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lingeng:1010🎵音源-手机版.js | mg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -1006,19 +1006,19 @@
 | lingeng:1010🎵音源.js | tx | 128k | OK | OK | OK | OK 206 mp3(frame) 4096B |
 | lingeng:1010🎵音源.js | tx | flac | OK | OK | OK | OK 206 flac 4096B |
 | lingeng:1010🎵音源.js | tx | flac24bit | - | - | - | Platform or quality not declared |
-| lingeng:1010🎵音源.js | kw | 320k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lingeng:1010🎵音源.js | kw | 128k | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
-| lingeng:1010🎵音源.js | kw | flac | - | - | - | L1 Source failed: Cannot read properties of undefined (reading 'raw') |
+| lingeng:1010🎵音源.js | kw | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010🎵音源.js | kw | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010🎵音源.js | kw | flac | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | lingeng:1010🎵音源.js | kw | flac24bit | - | - | - | Platform or quality not declared |
-| lingeng:1010🎵音源.js | kg | 320k | - | - | - | L1 全部链路失败 → HYW:请求失败:HTTP deadline exceeded \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
-| lingeng:1010🎵音源.js | kg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010🎵音源.js | kg | flac | OK | OK | OK | OK 206 flac 4096B |
+| lingeng:1010🎵音源.js | kg | 320k | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
+| lingeng:1010🎵音源.js | kg | 128k | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
+| lingeng:1010🎵音源.js | kg | flac | - | - | - | L1 全部链路失败 → HYW:HTTP 502 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010🎵音源.js | kg | flac24bit | - | - | - | Platform or quality not declared |
 | lingeng:1010🎵音源.js | mg | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lingeng:1010🎵音源.js | mg | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lingeng:1010🎵音源.js | mg | flac | - | - | - | Platform or quality not declared |
 | lingeng:1010🎵音源.js | mg | flac24bit | - | - | - | Platform or quality not declared |
-| younger:lx-source.js | wy | 320k | - | - | - | L1 播放地址解析失败 |
+| younger:lx-source.js | wy | 320k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | younger:lx-source.js | wy | 128k | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | younger:lx-source.js | wy | flac | OK | OK | OK | OK 206 flac 4096B |
 | younger:lx-source.js | wy | flac24bit | OK | OK | OK | OK 206 flac 4096B |
