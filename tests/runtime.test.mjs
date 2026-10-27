@@ -17,6 +17,20 @@ test('the sandbox can emulate clients that prohibit eval and Function', async t 
   }
 })
 
+test('common console methods used by source scripts are available in the sandbox', async t => {
+  const rt = await loadSource(sourceCode(`
+    console.group('source init');
+    console.table([{ platform: 'wy' }]);
+    console.time('init');
+    console.timeEnd('init');
+    console.groupEnd();
+    return 'https://example.test/audio.mp3';
+  `), { timeoutMs: 1000 })
+  t.after(() => rt.dispose())
+  assert.equal(rt.error, null)
+  assert.equal(await rt.callMusicUrl('wy', {}, '320k'), 'https://example.test/audio.mp3')
+})
+
 test('source execution cannot read host secrets or spawn child processes even after a VM escape', async t => {
   process.env.LX_TEST_SECRET = 'must-not-leak'
   t.after(() => { delete process.env.LX_TEST_SECRET })

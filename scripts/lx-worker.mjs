@@ -13,6 +13,13 @@ process.on('uncaughtException', fatal)
 let context, loadId, inited = false, evaluationDone = false, declared, timeoutMs = 30000, requestId = 0
 const callbacks = new Map(), timers = new Map(), requests = []
 const EVENT_NAMES = Object.freeze({ inited: 'inited', request: 'request', updateAlert: 'updateAlert' })
+const noop = () => {}
+// Source scripts may use the standard browser/Node console API during initialization.
+const consoleShim = Object.fromEntries([
+  'assert', 'clear', 'count', 'countReset', 'debug', 'dir', 'dirxml', 'error', 'group',
+  'groupCollapsed', 'groupEnd', 'info', 'log', 'profile', 'profileEnd', 'table', 'time',
+  'timeEnd', 'timeLog', 'trace', 'warn',
+].map(method => [method, noop]))
 
 function httpRequest(url, options, callback) {
   if (typeof options === 'function') { callback = options; options = {} }
@@ -72,7 +79,7 @@ function load(message) {
     },
   }
   const globals = {
-    lx, console: { log() {}, warn() {}, error() {}, info() {}, debug() {} },
+    lx, console: consoleShim,
     setTimeout: (fn, ms, ...args) => schedule(fn, ms, false, ...args),
     setInterval: (fn, ms, ...args) => schedule(fn, ms, true, ...args),
     clearTimeout: cancelTimer, clearInterval: cancelTimer,
