@@ -25,6 +25,7 @@ const SUB_INIT_TIMEOUT_MS = {{INIT_TIMEOUT_MS}}
 const SUB_REQUEST_TIMEOUT_MS = {{REQUEST_TIMEOUT_MS}}
 const TOTAL_TIMEOUT_MS = {{TOTAL_TIMEOUT_MS}}
 const VERIFY_TIMEOUT_MS = {{VERIFY_TIMEOUT_MS}}
+const COOLDOWN_MS = {{COOLDOWN_MS}}
 const PROBE_BYTES = 4096
 const HAS_HOST_PROBE = !!(LX.utils && typeof LX.utils.audioProbe === 'function')
 const HAS_STREAMING_FETCH = typeof HOST.fetch === 'function' && typeof HOST.AbortController === 'function' &&
@@ -34,7 +35,7 @@ const HAS_STREAMING_FETCH = typeof HOST.fetch === 'function' && typeof HOST.Abor
 {{AUDIO_HELPERS}}
 
 function canVerifyQuality(quality) {
-  return quality !== 'flac24bit' || HAS_STREAMING_FETCH || HAS_HOST_PROBE
+  return (quality !== 'flac' && quality !== 'flac24bit') || HAS_STREAMING_FETCH || HAS_HOST_PROBE
 }
 
 function httpUrl(url) {
@@ -65,7 +66,7 @@ function scopedEvaluator(scope) {
 }
 
 function loadEntry(sub, index) {
-  const entry = { sub, handlers: [], declared: {}, status: 'pending', timers: new Set(), requests: new Set() }
+  const entry = { sub, handlers: [], declared: {}, status: 'pending', timers: new Set(), requests: new Set(), cooldowns: new Map() }
   entry.ready = new Promise(resolve => {
     let settled = false
     const finish = error => {
@@ -75,6 +76,11 @@ function loadEntry(sub, index) {
       if (error) disableEntry(entry, error)
       else entry.status = 'ready'
       resolve(entry)
+    }
+    const callbackError = error => {
+      // A callback for one song must not disable every platform or cancel other songs.
+      entry.error = error
+      if (!settled) finish(error)
     }
     const shim = {
       version: LX.version, env: LX.env, platform: LX.platform, EVENT_NAMES, utils: LX.utils,
@@ -108,8 +114,8 @@ function loadEntry(sub, index) {
             entry.requests.delete(pending)
             try {
               const result = callback.call(world, error, response, body)
-              if (result && typeof result.catch === 'function') result.catch(err => { disableEntry(entry, err); finish(err) })
-            } catch (err) { disableEntry(entry, err); finish(err) }
+              if (result && typeof result.catch === 'function') result.catch(callbackError)
+            } catch (err) { callbackError(err) }
           })
         } catch (err) { entry.requests.delete(pending); throw err }
         return function() {
@@ -153,8 +159,8 @@ function loadEntry(sub, index) {
         if (entry.status === 'error') return
         try {
           const result = callback.apply(world, args)
-          if (result && typeof result.catch === 'function') result.catch(err => { disableEntry(entry, err); finish(err) })
-        } catch (err) { disableEntry(entry, err); finish(err) }
+          if (result && typeof result.catch === 'function') result.catch(callbackError)
+        } catch (err) { callbackError(err) }
       }
       const id = repeat ? HOST.setInterval(run, Math.max(10, Number(delay) || 0)) : HOST.setTimeout(run, Number(delay) || 0)
       entry.timers.add(id)
@@ -243,9 +249,11 @@ function verifyWithHostProbe(url, quality, timeoutMs, control) {
   })
 }
 
-// Limited LX hosts buffer lx.request bodies. A HEAD-only probe avoids downloading a whole song there.
+// Limited LX hosts buffer lx.request bodies. HEAD is a connectivity check, not
+// evidence of a codec. Binary MIME or lack of HEAD support is inconclusive for
+// ordinary audio; only a byte-capable host advertises lossless qualities.
 function verifyWithHead(url, quality, timeoutMs, control) {
-  if (!canVerifyQuality(quality)) return Promise.reject(new Error('HEAD cannot verify 24-bit audio'))
+  if (!canVerifyQuality(quality)) return Promise.reject(new Error('Lossless audio requires a bounded byte probe'))
   return new Promise((resolve, reject) => {
     let cancel, settled = false
     const finish = error => {
@@ -265,10 +273,10 @@ function verifyWithHead(url, quality, timeoutMs, control) {
         const status = response && response.statusCode
         const headers = response && response.headers || {}
         const ct = String(headers['content-type'] || headers['Content-Type'] || '').toLowerCase()
+        if (status === 405 || status === 501) { finish(); return }
         if (status !== 200 && status !== 206) { finish(new Error('Playback HTTP ' + status)); return }
-        if (!/^audio\//.test(ct) || !audioContentTypeAllowed(ct)) { finish(new Error('HEAD did not confirm an audio content type')); return }
-        if ((quality === 'flac' || quality === 'flac24bit') && !/flac/.test(ct)) {
-          finish(new Error('HEAD did not confirm a lossless content type')); return
+        if (!audioContentTypeAllowed(ct) || (ct && !/^(?:audio\/|application\/(?:octet-stream|binary)(?:\s*;|$)|binary\/octet-stream(?:\s*;|$))/.test(ct))) {
+          finish(new Error('Playback content type is not audio')); return
         }
         finish()
       })
@@ -288,42 +296,59 @@ async function verifyPlayback(url, quality, timeoutMs, control) {
 
 const ENTRIES = SUBS.map(loadEntry)
 
+async function withDeadline(work, timeoutMs, control, message) {
+  if (timeoutMs <= 0) throw new Error('Playback total timeout')
+  let timer
+  try {
+    return await Promise.race([
+      Promise.resolve().then(work),
+      new Promise((_, reject) => {
+        timer = HOST.setTimeout(() => {
+          control.active = false
+          if (control.cancel) control.cancel()
+          reject(new Error(message))
+        }, timeoutMs)
+      }),
+    ])
+  } finally { HOST.clearTimeout(timer) }
+}
+
 LX.on(EVENT_NAMES.request, async ({ source, action, info }) => {
   if (action !== 'musicUrl') throw new Error('Only musicUrl is supported')
   const quality = info && info.type || '320k'
-  if (!canVerifyQuality(quality) || !SOURCES[source] || !SOURCES[source].qualitys.includes(quality)) {
-    throw new Error('Platform/quality was not health-verified or cannot be verified on this host')
-  }
+  if (!SOURCES[source] || !SOURCES[source].qualitys.includes(quality)) throw new Error('Platform/quality was not health-verified')
+  if (!canVerifyQuality(quality)) throw new Error('Lossless audio requires a bounded byte probe on this host; select 320k or install the lxserver audio probe')
   const started = Date.now()
   const errors = []
-  for (const entry of ENTRIES) {
-    if (entry.status !== 'ready' || !entry.sub.healthy[source] || !entry.sub.healthy[source].includes(quality) ||
-      !entry.declared[source] || !entry.declared[source].qualitys.includes(quality) || !entry.handlers[0]) continue
-    const remaining = TOTAL_TIMEOUT_MS - (Date.now() - started)
-    if (remaining <= 0) break
-    let timer
-    const control = { cancel: null }
+  const key = source + ':' + quality
+  // Recent failures lose priority only for this platform/quality. They remain a last
+  // resort for a different song, and regain their normal priority after cooldown.
+  const candidates = ENTRIES.filter(entry => entry.status === 'ready' && entry.sub.healthy[source] &&
+    entry.sub.healthy[source].includes(quality) && entry.declared[source] &&
+    entry.declared[source].qualitys.includes(quality) && entry.handlers[0])
+    .sort((a, b) => Number((a.cooldowns.get(key) || 0) > started) - Number((b.cooldowns.get(key) || 0) > started) ||
+      ((b.sub.reliability && b.sub.reliability[source] && b.sub.reliability[source][quality]) || 0) -
+      ((a.sub.reliability && a.sub.reliability[source] && a.sub.reliability[source][quality]) || 0))
+  const remaining = () => TOTAL_TIMEOUT_MS - (Date.now() - started)
+  for (const entry of candidates) {
+    if (remaining() <= 0) break
+    const control = { cancel: null, active: true }
     try {
-      const attempt = Promise.resolve().then(async () => {
-        const url = await entry.handlers[0].call(entry.world, { source, action, info: {
+      const url = await withDeadline(() => entry.handlers[0].call(entry.world, { source, action, info: {
           type: quality, musicInfo: JSON.parse(JSON.stringify(info && info.musicInfo || {})),
-        } })
-        if (entry.status !== 'ready') throw new Error('Subsource became unavailable')
-        await verifyPlayback(url, quality, Math.min(VERIFY_TIMEOUT_MS, remaining), control)
-        return url
-      })
-      const deadline = new Promise((_, reject) => {
-        timer = HOST.setTimeout(() => {
-          const error = new Error('Subsource request timeout')
-          if (control.cancel) control.cancel()
-          disableEntry(entry, error)
-          reject(error)
-        }, Math.min(SUB_REQUEST_TIMEOUT_MS, remaining))
-      })
-      return await Promise.race([attempt, deadline])
-    } catch (error) { errors.push(entry.sub.name + ': ' + String(error && error.message || error).slice(0, 120)) }
+        } }), Math.min(SUB_REQUEST_TIMEOUT_MS, remaining()), control, 'Subsource request timeout')
+      if (!control.active || entry.status !== 'ready') throw new Error('Subsource request expired')
+      const verifyTimeout = Math.min(VERIFY_TIMEOUT_MS, remaining())
+      await withDeadline(() => verifyPlayback(url, quality, verifyTimeout, control), verifyTimeout,
+        control, 'Playback probe timeout')
+      entry.cooldowns.delete(key)
+      return url
+    } catch (error) {
+      entry.cooldowns.set(key, Date.now() + COOLDOWN_MS)
+      errors.push(entry.sub.name + ': ' + String(error && error.message || error).slice(0, 120))
+    }
     finally {
-      HOST.clearTimeout(timer)
+      control.active = false
       if (control.cancel) control.cancel()
     }
   }

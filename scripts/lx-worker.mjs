@@ -21,12 +21,12 @@ const consoleShim = Object.fromEntries([
   'timeEnd', 'timeLog', 'trace', 'warn',
 ].map(method => [method, noop]))
 
-function httpRequest(url, options, callback) {
+function httpRequest(url, options, callback, probe = false) {
   if (typeof options === 'function') { callback = options; options = {} }
   if (typeof callback !== 'function') throw new Error('Missing HTTP callback')
   const id = ++requestId
-  callbacks.set(id, callback)
-  send({ type: 'http', id, url, options: options || {} })
+  callbacks.set(id, { callback, probe })
+  send({ type: probe ? 'audioProbe' : 'http', id, url, options: options || {} })
   return () => { callbacks.delete(id); send({ type: 'cancelHttp', id }) }
 }
 
@@ -85,6 +85,7 @@ function load(message) {
     clearTimeout: cancelTimer, clearInterval: cancelTimer,
     Buffer, URL, URLSearchParams, TextEncoder, TextDecoder, atob, btoa,
   }
+  if (message.audioProbe) lx.utils.audioProbe = (url, options, callback) => httpRequest(url, options, callback, true)
   context = vm.createContext(globals, { codeGeneration: { strings: message.allowCodeGeneration !== false, wasm: false } })
   vm.runInContext('globalThis.window = globalThis; globalThis.self = globalThis; globalThis.global = globalThis', context)
   new vm.Script(message.script, { filename: 'source.js' }).runInContext(context, { timeout: timeoutMs })
@@ -106,12 +107,17 @@ async function handle(message) {
       send({ type: 'result', id: message.id, value: await result })
     } catch (error) { send({ type: 'result', id: message.id, error: error.message }) }
   } else if (message.type === 'httpResult') {
-    const callback = callbacks.get(message.id)
+    const pending = callbacks.get(message.id)
     callbacks.delete(message.id)
-    if (!callback) return
+    if (!pending) return
+    const { callback, probe } = pending
     if (message.error) { callback(new Error(message.error), null, null); return }
     const data = message.response
     const raw = Buffer.from(data.raw, 'base64')
+    if (probe) {
+      callback(null, { statusCode: data.statusCode, contentType: String(data.headers['content-type'] || ''), bytes: Array.from(raw) })
+      return
+    }
     const text = raw.toString('utf8')
     let body = text
     try { body = JSON.parse(text) } catch {}

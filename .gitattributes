@@ -1,2 +1,2 @@
 # Keep embedded upstream code verbatim and hide generated bundles in reviews.
-dist/merged-source.js -whitespace linguist-generated=true
+dist/merged-source.js -text -whitespace linguist-generated=true

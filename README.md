@@ -20,7 +20,9 @@
 
 覆盖 `wy/tx/kw/kg/mg` 五个平台和 `128k/320k/flac/flac24bit` 四种音质。
 酷狗探针同时携带 `songmid` 与 `hash`；咪咕探针区分 `songmid` 与 `copyrightId`。
-每个组合分别记录结果，未声明的音质会标为跳过，不会生成虚假的支持声明。
+每个平台默认检测《晴天》和《海阔天空》两个不同歌手/曲库的样本；可以配置 2–5 首不同歌曲。
+每个组合分别记录每首歌的结果，报告显示音质的通过数/检测数，未声明的音质标为跳过。
+一个组合至少一首 L3 通过才作为候选，部分通过不代表整个曲库可用；播放优先尝试该平台/音质探针通过率更高的源。
 
 ## 跟踪的上游仓库
 
@@ -39,11 +41,11 @@
 ```
 fetch-upstream  固定各上游 commit，缓存源码并计算 SHA256 → 得出变更
      ↓
-test-sources    对每个 源×平台×音质: L1(取URL) → L2(连通) → L3(音频校验)
+test-sources    对每个 源×平台×音质×歌曲: L1(取URL) → L2(连通) → L3(音频校验)
      ↓
-build           核对完整检测矩阵/runId/报告时间/SHA256，验证子源和整合源，再原子写入产物
+build           核对多曲目矩阵/超时预算/runId/报告时间/SHA256，验证子源及整合包真实播放，再写入产物
      ↓
-publish         仅提交 reports/health.md + dist/merged-source.js
+publish         提交 reports/health.md + reports/playback.md + dist/merged-source.js
 ```
 
 ## 目录
@@ -53,6 +55,9 @@ publish         仅提交 reports/health.md + dist/merged-source.js
 .github/dependabot.yml       Actions 依赖更新检查
 scripts/fetch-upstream.mjs    上游抓取与变更检测
 scripts/test-sources.mjs      三层可用性检测
+scripts/probes.mjs            多曲目原生元数据与探针验证
+scripts/playback-policy.mjs   巡检和播放共用的超时预算
+scripts/validate-merged.mjs   整合包在字节探针/HEAD 宿主下的真实播放验收
 scripts/build-source.mjs     生成整合音源脚本
 scripts/lx-runtime.mjs       无头 LX API 兼容运行时
 scripts/lx-worker.mjs        无网络、无宿主凭据的隔离子进程
@@ -63,10 +68,11 @@ templates/merged-source.js   整合音源模板（LX 自定义源格式）
 tests/                      离线回归测试
 config.json                 项目配置（直接修改此文件）
 reports/health.md            最新可读巡检报告
+reports/playback.md          最新整合包播放验收报告，含产物 SHA256
 dist/merged-source.js        生成的整合音源（供客户端导入）
 ```
 
-`state.json`、`reports/health.json` 与 `.cache/sources/` 是运行时生成的中间数据，不提交到 Git。
+`state.json`、`reports/*.json` 与 `.cache/sources/` 是运行时生成的中间数据，不提交到 Git。
 Actions 用缓存保存上次巡检快照，并用保留 7 天的 `diagnostics` 附件保存完整报告；
 缓存未命中时会重新发现全部音源，不影响检测和构建。
 播放 URL 不写进健康报告，避免将临时签名或查询参数长期公开。
@@ -74,6 +80,8 @@ Actions 用缓存保存上次巡检快照，并用保留 7 天的 `diagnostics` 
 
 巡检与发布在两个独立的 Actions job 中运行：巡检只有仓库读取权限，
 发布 job 只复制并提交指定产物，不执行音源脚本。
+构建会在有界字节探针和普通 HEAD 两种宿主模式下调用整合包的 `musicUrl`，并独立读取返回地址的音频字节；
+每个实际声明的平台/音质都必须至少有一首探针通过，否则保留上一份发布产物。报告区分两种宿主及其曲目覆盖。
 巡检前先通过 Node.js 22/24 双版本离线回归测试；Pull Request 只运行离线测试，不抓取上游或发布产物。
 Runner 固定为 Ubuntu 24.04，Actions 固定到完整 commit SHA；Dependabot 每月将更新集中到一条 PR，不自动合并。
 巡检或构建失败时，工作流会失败，仓库里的上一个成功产物保持不变。
@@ -85,6 +93,9 @@ Runner 固定为 Ubuntu 24.04，Actions 固定到完整 commit SHA；Dependabot 
 所以「整合」= 把多个 L3 通过的上游脚本内联进一个自包含脚本：每个子源绑定稳定的
 `globalThis/window/self/global/lx` 作用域，不修改宿主的 `globalThis.lx`；
 初始化和播放请求都有超时，晚到的回调不会注册到其他子源。
+取地址与音频验证各有独立预算（默认 12 秒和 8 秒），完整回退链另受 45 秒总预算限制；巡检复用相同配置。
+单次播放失败不会禁用整个子源或取消其他并发歌曲。失败只让对应平台/音质在默认 30 秒内降低优先级，
+仍可作为最后的回退选择；成功即恢复，冷却到期后自动恢复正常优先级。初始化失败仍会禁用该次加载。
 子源在构建时转换为静态函数，不通过运行时 `eval`/`new Function` 加载，兼容禁止动态代码执行的客户端。
 巡检与构建会在禁用字符串代码生成的环境中验证子源和最终产物；依赖动态执行的初始化或播放请求不会计为可用。
 允许动态执行的宿主仍保留子源显式使用 `eval`/`Function` 时的作用域兼容处理，但加载器本身不调用它们。
@@ -92,6 +103,7 @@ Runner 固定为 Ubuntu 24.04，Actions 固定到完整 commit SHA；Dependabot 
 `embed.maxSources` 限制的是验证通过的独立脚本数；重复脚本和加载失败的候选不占名额。
 `embed.maxSourceBytes` / `embed.maxEmbedBytes` 限制单个子源与全部子源的源码字节数
 （每份源码在产物中出现两次），超预算的源只做巡检、不嵌入，避免产物超出客户端 2 MiB 上限。
+元数据兼容 LF、CRLF、CR 换行，解析时不改写缓存源码或 SHA256。
 同一品牌（同名，或去掉 `Pro`/`Plus`/`手机版`/`桌面版` 等后缀后同名）只嵌入版本号最新的可用脚本；
 最新版初始化失败时自动回退到该品牌下一个可用版本。
 
@@ -99,12 +111,13 @@ Runner 固定为 Ubuntu 24.04，Actions 固定到完整 commit SHA；Dependabot 
 
 播放时遇到子源卡住、404、HTML 响应或音频校验失败会尝试下一个子源。
 有流式 `fetch`/`ReadableStream` 的宿主限量读取 4096 字节并取消请求；缺少流式 API 的 LX 宿主使用
-`HEAD` 检查 HTTP 状态与音频 content-type，避免宿主忽略 Range 后下载整首歌。
-`HEAD` 无法检查魔数/位深，因此这类宿主不声明或接受 `flac24bit`；普通 FLAC 仅能核对 content-type。
-部分 CDN 不支持 `HEAD`，这类探测失败会继续回退，不会被当作验证成功。
-lxserver 的可选有界探针集成见 `integrations/lxserver/README.md`，用真实音频字节处理
-FLAC 被 CDN 标为 `audio/mpeg` 的情况，不放宽无损或音频验证。
-所有宿主的 L3/位深都在每日巡检中检查；巡检通过仍不保证所有曲目或一天内不会失效。
+`HEAD` 检查连通性并排除明确的 HTML/JSON/视频，避免宿主忽略 Range 后下载整首歌。
+普通音质遇到二进制或缺失 MIME、405/501（不支持 HEAD）时视为无法判断，交给播放器处理，不据此判定死链。
+这种 HEAD 降级模式**不是 L3 音频校验**：它保留普通音质，但不声明或接受 `flac` / `flac24bit`。
+能读取真实字节的宿主才启用无损，并继续校验 FLAC 格式和位深。
+lxserver 可以通过 [安装工具或派生镜像](integrations/lxserver/README.md) 接入有界字节探针，
+从而正确处理 FLAC 被 CDN 标为 `audio/mpeg`、音频标为 `application/octet-stream` 的情况。
+每日巡检和整合包验收都读取真实字节；巡检通过仍不保证所有曲目或一天内不会失效。
 
 客户端作用域隔离解决兼容性与串扰，不是恶意 JavaScript 的安全边界。
 同步死循环无法在同一 LX JavaScript 线程内抢占；巡检进程使用独立 OS 沙箱来处理这类故障。
@@ -112,7 +125,7 @@ FLAC 被 CDN 标为 `audio/mpeg` 的情况，不放宽无损或音频验证。
 ## 用法
 
 1. 在 Actions 里手动跑一次，或等每日定时
-2. 看 `reports/health.md` 了解各源状态
+2. 看 `reports/health.md` 了解各源状态，`reports/playback.md` 了解实际整合包在两种宿主下的播放结果
 3. 客户端导入 `dist/merged-source.js` 的 raw 地址：
 
    `https://raw.githubusercontent.com/hellomrli/my-lxsource/master/dist/merged-source.js`
@@ -140,8 +153,11 @@ npm run all
 
 也可以按 `npm run fetch` → `npm run health` → `npm run build` 的顺序执行。
 首次运行必须先抓取、再巡检，不能只依赖仓库中保留的可读报告构建。
-`config.json` 可设置子源/总请求/验证超时、报告最长有效期和巡检并发数；
-可用 `health.probes` 提供五个平台的探针元数据，默认探针在 `scripts/test-sources.mjs`。
+`config.json` 的 `embed` 可设置取地址/总请求/验证超时、`cooldownMs` 与报告最长有效期；
+巡检直接复用播放预算，`health.concurrency` 控制巡检并发数。
+可用 `health.probes` 提供五个平台的探针数组，每个平台 2–5 首不同歌曲，字段见 `scripts/probes.mjs`；
+酷狗必须提供 `hash`，咪咕必须提供独立的 `copyrightId`，所有曲目需要 `songmid/name/singer`。
+旧版单曲目报告不再用于构建，需要重新执行抓取和巡检。
 
 ## 安全说明
 
