@@ -43,11 +43,12 @@ test('static strict-mode sources retain independent globals, asynchronous closur
   assert.equal(vm.runInContext('ENTRIES[0].world.lx.currentScriptInfo.rawScript', h.context), code)
 })
 
-test('a hanging first source falls back and is disabled without affecting other sources', async t => {
+test('a hanging first source falls back and loses priority without being disabled', async t => {
   const h = await mergedHarness(t, [sub('hang', sourceCode('return await new Promise(()=>{});')),
     sub('good', sourceCode("return 'https://example.test/good.mp3';"))])
   assert.equal(await h.call(), 'https://example.test/good.mp3')
-  assert.equal(vm.runInContext('ENTRIES[0].status', h.context), 'error')
+  assert.equal(vm.runInContext('ENTRIES[0].status', h.context), 'ready')
+  assert.equal(vm.runInContext('ENTRIES[0].cooldowns.size', h.context), 1)
   assert.equal(await h.call(), 'https://example.test/good.mp3')
 })
 
@@ -118,7 +119,7 @@ test('unhealthy platforms and undeclared qualities are not advertised or dispatc
   await assert.rejects(h.call('wy', 'flac'), /not health-verified/)
 })
 
-test('HEAD-only hosts do not advertise or accept unverifiable 24-bit quality', async t => {
+test('HEAD-only hosts advertise ordinary audio and explain how to enable lossless', async t => {
   let requests = 0
   const qualitys = ['320k', 'flac', 'flac24bit']
   const h = await mergedHarness(t, [sub('lossless', sourceCode("return 'https://example.test/good.flac';", qualitys), { wy: qualitys })], {
@@ -128,10 +129,11 @@ test('HEAD-only hosts do not advertise or accept unverifiable 24-bit quality', a
       return () => {}
     },
   })
-  assert.deepEqual(Array.from(h.inited.sources.wy.qualitys), ['320k', 'flac'])
-  await assert.rejects(h.call('wy', 'flac24bit'), /not health-verified/)
+  assert.deepEqual(Array.from(h.inited.sources.wy.qualitys), ['320k'])
+  await assert.rejects(h.call('wy', 'flac24bit'), /requires a bounded byte probe/)
+  await assert.rejects(h.call('wy', 'flac'), /requires a bounded byte probe/)
   assert.equal(requests, 0)
-  assert.equal(await h.call('wy', 'flac'), 'https://example.test/good.flac')
+  assert.equal(await h.call('wy', '320k'), 'https://example.test/good.flac')
 })
 
 test('buffered fetch implementations use HEAD without downloading a song', async t => {
@@ -209,7 +211,9 @@ test('playback total deadline bounds a long fallback chain', async t => {
   const start = Date.now()
   await assert.rejects(h.call(), /All embedded sources failed/)
   assert.ok(Date.now() - start < 500)
-  assert.ok(vm.runInContext('ENTRIES.filter(e=>e.status === "error").length', h.context) < 10)
+  const attempted = vm.runInContext('ENTRIES.filter(e=>e.cooldowns.size).length', h.context)
+  assert.ok(attempted > 0 && attempted < 10)
+  assert.equal(vm.runInContext('ENTRIES.every(e=>e.status === "ready")', h.context), true)
 })
 
 test('streaming playback verification is bounded even when Range is ignored', async t => {
@@ -243,4 +247,92 @@ test('a source mutating request metadata cannot change fallback input', async t 
   const h = await mergedHarness(t, [sub('mutate', sourceCode("input.info.musicInfo.songmid='wrong'; throw new Error('failed');")),
     sub('good', sourceCode("return 'https://example.test/' + input.info.musicInfo.songmid + '.mp3';"))])
   assert.equal(await h.call('wy', '320k', { songmid: 'original' }), 'https://example.test/original.mp3')
+})
+
+test('a timeout on one song does not prevent the same source from playing another', async t => {
+  const h = await mergedHarness(t, [sub('recover', sourceCode(`
+    if(input.info.musicInfo.songmid === 'slow') return await new Promise(()=>{});
+    return 'https://example.test/good.mp3';
+  `))])
+  await assert.rejects(h.call('wy', '320k', { songmid: 'slow' }), /request timeout/)
+  assert.equal(await h.call('wy', '320k', { songmid: 'fast' }), 'https://example.test/good.mp3')
+  assert.equal(vm.runInContext('ENTRIES[0].cooldowns.size', h.context), 0)
+})
+
+test('URL acquisition and audio verification have separate deadlines', async t => {
+  const h = await mergedHarness(t, [sub('slow', sourceCode(`
+    await new Promise(resolve=>setTimeout(resolve,60)); return 'https://example.test/good.mp3';
+  `))], {
+    config: { embed: { requestTimeoutMs: 100, verifyTimeoutMs: 100, totalTimeoutMs: 300 } },
+    request: (url, options, callback) => {
+      const id = setTimeout(() => callback(null, { statusCode: 200, headers: { 'content-type': 'audio/mpeg' } }), 60)
+      return () => clearTimeout(id)
+    },
+  })
+  assert.equal(await h.call(), 'https://example.test/good.mp3')
+})
+
+test('one request timeout cannot cancel a concurrent successful song on the same source', async t => {
+  const h = await mergedHarness(t, [sub('concurrent', sourceCode(`
+    if(input.info.musicInfo.songmid === 'slow') return await new Promise(()=>{});
+    await new Promise(resolve=>setTimeout(resolve,70)); return 'https://example.test/good.mp3';
+  `))], { config: { embed: { requestTimeoutMs: 100, verifyTimeoutMs: 80, totalTimeoutMs: 300 } } })
+  const slow = assert.rejects(h.call('wy', '320k', { songmid: 'slow' }), /request timeout/)
+  await new Promise(resolve => setTimeout(resolve, 50))
+  const fast = h.call('wy', '320k', { songmid: 'fast' })
+  await slow
+  assert.equal(await fast, 'https://example.test/good.mp3')
+})
+
+test('a late URL after timeout never starts a playback probe', async t => {
+  const urls = []
+  const h = await mergedHarness(t, [sub('late', sourceCode(`
+    if(input.info.musicInfo.songmid === 'slow') await new Promise(resolve=>setTimeout(resolve,140));
+    return 'https://example.test/' + input.info.musicInfo.songmid + '.mp3';
+  `))], { request: (url, options, callback) => {
+    urls.push(url)
+    queueMicrotask(() => callback(null, { statusCode: 200, headers: { 'content-type': 'audio/mpeg' } }))
+    return () => {}
+  } })
+  await assert.rejects(h.call('wy', '320k', { songmid: 'slow' }), /request timeout/)
+  await h.call('wy', '320k', { songmid: 'fast' })
+  await new Promise(resolve => setTimeout(resolve, 100))
+  assert.deepEqual(urls, ['https://example.test/fast.mp3'])
+})
+
+test('callback errors after initialization do not permanently disable a source', async t => {
+  const h = await mergedHarness(t, [sub('callback', sourceCode(`
+    if(input.info.musicInfo.songmid === 'bad') return await new Promise(resolve=>
+      lx.request('https://example.test/api',{},()=>{throw new Error('bad response')}));
+    return 'https://example.test/good.mp3';
+  `))])
+  await assert.rejects(h.call('wy', '320k', { songmid: 'bad' }), /request timeout/)
+  assert.equal(await h.call(), 'https://example.test/good.mp3')
+})
+
+test('binary MIME and unsupported HEAD are inconclusive for ordinary audio, not dead links', async t => {
+  for (const response of [
+    { statusCode: 206, headers: { 'content-type': 'application/octet-stream' } },
+    { statusCode: 200, headers: {} }, { statusCode: 405 }, { statusCode: 501 },
+  ]) {
+    const h = await mergedHarness(t, [sub('good', sourceCode("return 'https://example.test/good';"))], {
+      request: (url, options, callback) => {
+        assert.equal(options.method, 'HEAD')
+        queueMicrotask(() => callback(null, response))
+        return () => {}
+      },
+    })
+    assert.equal(await h.call(), 'https://example.test/good')
+  }
+})
+
+test('probe coverage ranks sources per platform/quality, and a cooldown eventually expires', async t => {
+  const low = { ...sub('low', sourceCode("return 'https://example.test/low.mp3';")), reliability: { wy: { '320k': 0.5 } } }
+  const high = { ...sub('high', sourceCode("return 'https://example.test/high.mp3';")), reliability: { wy: { '320k': 1 } } }
+  const h = await mergedHarness(t, [low, high])
+  assert.equal(await h.call(), 'https://example.test/high.mp3')
+  vm.runInContext("ENTRIES[1].cooldowns.set('wy:320k', Date.now()+60)", h.context)
+  assert.equal(await h.call(), 'https://example.test/low.mp3')
+  await new Promise(resolve => setTimeout(resolve, 80))
+  assert.equal(await h.call(), 'https://example.test/high.mp3')
 })

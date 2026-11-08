@@ -12,6 +12,7 @@ on:
       - "scripts/**"
       - "templates/**"
       - "tests/**"
+      - "integrations/**"
       - "config.json"
       - "package.json"
       - ".github/workflows/**"
@@ -57,7 +58,7 @@ jobs:
     needs: test
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -104,6 +105,8 @@ jobs:
             state.json
             reports/health.json
             reports/health.md
+            reports/playback.json
+            reports/playback.md
           retention-days: 7
           if-no-files-found: warn
 
@@ -113,6 +116,7 @@ jobs:
           name: publication
           path: |
             reports/health.md
+            reports/playback.md
             dist/merged-source.js
           retention-days: 7
           if-no-files-found: error
@@ -147,10 +151,11 @@ jobs:
           fi
           mkdir -p reports dist
           cp "$PUBLICATION_DIR/reports/health.md" reports/health.md
+          cp "$PUBLICATION_DIR/reports/playback.md" reports/playback.md
           cp "$PUBLICATION_DIR/dist/merged-source.js" dist/merged-source.js
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add reports/health.md dist/merged-source.js
+          git add reports/health.md reports/playback.md dist/merged-source.js
           if git diff --staged --quiet; then
             echo "no published changes"
             exit 0

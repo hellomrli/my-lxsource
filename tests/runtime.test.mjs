@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { loadSource } from '../scripts/lx-runtime.mjs'
-import { server, sourceCode } from './helpers.mjs'
+import { server, sourceCode, flac } from './helpers.mjs'
 
 test('the sandbox can emulate clients that prohibit eval and Function', async t => {
   const good = await loadSource(sourceCode("return 'https://example.test/audio.mp3';"), {
@@ -113,4 +113,30 @@ test('synchronous errors after inited still reject initialization', async t => {
     "throw new Error('failed after inited')", { timeoutMs: 1000 })
   t.after(() => rt.dispose())
   assert.match(rt.error, /failed after inited/)
+})
+
+test('the worker byte probe uses the bounded broker and preserves FLAC bytes despite inaccurate MIME', async t => {
+  const url = await server(t, (req, res) => {
+    assert.equal(req.headers.range, 'bytes=0-4095')
+    res.writeHead(200, { 'content-type': 'audio/mpeg', 'content-length': 10000000 })
+    res.write(flac(24))
+  })
+  const rt = await loadSource(sourceCode(`return await new Promise((resolve,reject)=>lx.utils.audioProbe(
+    ${JSON.stringify(url)}, {maxBytes:4096,timeout:500}, (err,result)=>err?reject(err):resolve(JSON.stringify(result))));`),
+  { timeoutMs: 1000, allowPrivateNetwork: true })
+  t.after(() => rt.dispose())
+  const result = JSON.parse(await rt.callMusicUrl('wy', {}, '320k'))
+  assert.equal(result.contentType, 'audio/mpeg')
+  assert.equal(result.bytes.length, 4096)
+  assert.equal(Buffer.from(result.bytes).subarray(0, 4).toString(), 'fLaC')
+})
+
+test('HEAD-only inspection profiles do not expose a byte probe and call deadlines are independent of initialization', async t => {
+  const rt = await loadSource(sourceCode(`
+    if(lx.utils.audioProbe) throw new Error('Unexpected byte probe');
+    await new Promise(resolve=>setTimeout(resolve,120)); return 'https://example.test/audio.mp3';
+  `), { timeoutMs: 80, callTimeoutMs: 500, audioProbe: false })
+  t.after(() => rt.dispose())
+  assert.equal(rt.error, null)
+  assert.equal(await rt.callMusicUrl('wy', {}, '320k'), 'https://example.test/audio.mp3')
 })

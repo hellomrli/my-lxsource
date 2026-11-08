@@ -48,7 +48,8 @@ function encodeBody(options, headers) {
 }
 
 /** The VM is only an API shim; OS namespaces and the HTTP broker form the security boundary. */
-export async function loadSource(script, { timeoutMs = 30000, allowPrivateNetwork = false, allowCodeGeneration = true } = {}) {
+export async function loadSource(script, { timeoutMs = 30000, callTimeoutMs = timeoutMs,
+  audioProbe = true, allowPrivateNetwork = false, allowCodeGeneration = true, request = requestBytes } = {}) {
   const meta = parseMeta(script)
   const timeout = boundedNumber(timeoutMs, 30000)
   let child
@@ -95,12 +96,16 @@ export async function loadSource(script, { timeoutMs = 30000, allowPrivateNetwor
     requests.set(id, controller)
     try {
       const options = message.options || {}
-      const headers = { ...options.headers }
-      const body = encodeBody(options, headers)
-      const response = await requestBytes(message.url, {
-        method: options.method || 'GET', headers, body, signal: controller.signal,
+      const probe = message.type === 'audioProbe'
+      if (probe && !audioProbe) throw new Error('Audio probe unavailable on this host')
+      const maxBytes = probe ? boundedNumber(options.maxBytes, 4096, 1, 4096) : 1048576
+      const headers = probe ? { 'User-Agent': 'Mozilla/5.0', 'Accept-Encoding': 'identity',
+        Range: `bytes=0-${maxBytes - 1}` } : { ...options.headers }
+      const body = probe ? undefined : encodeBody(options, headers)
+      const response = await request(message.url, {
+        method: probe ? 'GET' : options.method || 'GET', headers, body, signal: controller.signal,
         timeoutMs: boundedNumber(options.timeout, 20000, 1, 20000),
-        maxBytes: 1048576, allowPrivateNetwork,
+        maxBytes, prefix: probe, allowPrivateNetwork,
       })
       send({ type: 'httpResult', id, response: {
         statusCode: response.statusCode, headers: response.headers, url: response.url,
@@ -133,7 +138,7 @@ export async function loadSource(script, { timeoutMs = 30000, allowPrivateNetwor
           clearTimeout(item.timer)
           item.timer = setTimeout(() => stop(new Error('Source initialization timeout')), item.deadline)
         }
-      } else if (message.type === 'http') void broker(message)
+      } else if (message.type === 'http' || message.type === 'audioProbe') void broker(message)
       else if (message.type === 'cancelHttp') requests.get(message.id)?.abort()
       else if (message.type === 'fatal') stop(new Error(`Source failed: ${String(message.error).slice(0, 300)}`))
       else if (message.type === 'result') {
@@ -147,12 +152,12 @@ export async function loadSource(script, { timeoutMs = 30000, allowPrivateNetwor
     }
   })
   try {
-    const declared = await rpc('load', { script, meta, timeoutMs: timeout, allowCodeGeneration })
+    const declared = await rpc('load', { script, meta, timeoutMs: timeout, allowCodeGeneration, audioProbe })
     const sources = normalizeSources(declared)
     return {
       meta, sources, error: null,
       get closed() { return closed },
-      callMusicUrl: (source, musicInfo, quality) => rpc('call', { source, musicInfo, quality }),
+      callMusicUrl: (source, musicInfo, quality) => rpc('call', { source, musicInfo, quality }, boundedNumber(callTimeoutMs, timeout)),
       dispose: () => stop(),
     }
   } catch (error) {

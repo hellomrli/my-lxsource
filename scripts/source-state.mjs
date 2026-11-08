@@ -15,7 +15,8 @@ export function isMain(url) {
 export function parseMeta(script) {
   const comment = script.match(/\/\*!?([\s\S]*?)\*\//)
   const meta = {}
-  for (const line of (comment?.[1] || '').split('\n')) {
+  // Parse metadata independently of the immutable source's original line endings.
+  for (const line of (comment?.[1] || '').split(/\r\n?|\n/)) {
     const match = line.match(/^\s*\*?\s*@(\w+)\s+(.*)$/)
     if (match) meta[match[1]] = match[2].trim()
   }

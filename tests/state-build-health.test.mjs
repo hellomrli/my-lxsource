@@ -3,17 +3,24 @@ import test from 'node:test'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import vm from 'node:vm'
-import { PLATFORMS, QUALITIES, sha256, cacheScript, readSnapshot, normalizeSources } from '../scripts/source-state.mjs'
+import { PLATFORMS, QUALITIES, sha256, cacheScript, readSnapshot, normalizeSources, parseMeta } from '../scripts/source-state.mjs'
 import { runFetch, diffState } from '../scripts/fetch-upstream.mjs'
 import { buildSource, validateReport, renderSource } from '../scripts/build-source.mjs'
 import { PROBES, testOne, runHealth, healthMarkdown } from '../scripts/test-sources.mjs'
-import { ROOT, tempDir, sourceCode } from './helpers.mjs'
+import { normalizeProbes } from '../scripts/probes.mjs'
+import { playbackPolicy } from '../scripts/playback-policy.mjs'
+import { loadSource } from '../scripts/lx-runtime.mjs'
+import { ROOT, tempDir, sourceCode, mp3 } from './helpers.mjs'
+
+const successfulProbe = async () => ({ ok: true, connected: true, status: 206, magic: 'mp3(ID3)', bytes: 4096 })
+const runtimeStub = sources => ({ error: null, sources, dispose() {}, callMusicUrl: async () => 'https://example.test/audio.mp3' })
+const fixtureRequest = async url => ({ statusCode: 200, headers: { 'content-type': 'audio/mpeg' }, raw: mp3(), url })
 
 function healthResults(source, hash, healthy = [['wy', '320k']]) {
-  return PLATFORMS.flatMap(platform => QUALITIES.map(quality => {
+  return PLATFORMS.flatMap(platform => QUALITIES.flatMap(quality => normalizeProbes()[platform].map(probe => {
     const ok = healthy.some(([p, q]) => p === platform && q === quality)
-    return { source, sha256: hash, platform, quality, l1: ok, l2: ok, l3: ok, skipped: !ok }
-  }))
+    return { source, sha256: hash, platform, quality, probeId: probe.id, l1: ok, l2: ok, l3: ok, skipped: !ok }
+  })))
 }
 
 async function buildFixture(t, code = sourceCode("return 'https://example.test/good.mp3';")) {
@@ -22,14 +29,16 @@ async function buildFixture(t, code = sourceCode("return 'https://example.test/g
   const runId = 'fixture-run', now = Date.now()
   const entry = { sha256: hash, commit: 'a'.repeat(40), url: `https://example.test/${'a'.repeat(40)}/source.js` }
   const state = { schemaVersion: 2, runId, lastRun: new Date(now - 1000).toISOString(), sources: { fixture: entry } }
-  const report = { schemaVersion: 2, runId, generatedAt: new Date(now).toISOString(), sourceHashes: { fixture: hash },
+  const report = { schemaVersion: 3, runId, generatedAt: new Date(now).toISOString(), sourceHashes: { fixture: hash },
+    probes: normalizeProbes(), policy: playbackPolicy(),
     results: healthResults('fixture', hash) }
   const statePath = path.join(dir, 'state.json'), reportPath = path.join(dir, 'health.json')
   const outputPath = path.join(dir, 'merged.js')
   await fs.writeFile(statePath, JSON.stringify(state))
   await fs.writeFile(reportPath, JSON.stringify(report))
   return { dir, cacheDir, state, report, statePath, reportPath, outputPath, now,
-    templatePath: path.join(ROOT, 'templates/merged-source.js'), config: { embed: { initTimeoutMs: 500, probeTimeoutMs: 1000 } } }
+    templatePath: path.join(ROOT, 'templates/merged-source.js'), config: { embed: { initTimeoutMs: 500, probeTimeoutMs: 1000 } },
+    load: (script, options) => loadSource(script, { ...options, request: fixtureRequest }), verify: successfulProbe }
 }
 
 async function addBuildSource(f, id, code, healthy) {
@@ -135,7 +144,7 @@ test('identical scripts are embedded once while preserving healthy coverage from
   let sourceLoads = 0
   const result = await buildSource({ ...f, load: async script => {
     if (script === code) sourceLoads++
-    return { error: null, sources: loaded, dispose() {} }
+    return runtimeStub(loaded)
   } })
   assert.equal(result.subs.length, 1)
   assert.deepEqual(Object.keys(result.sources), ['wy', 'mg'])
@@ -203,10 +212,11 @@ test('candidate and merged validation both request a code-generation-disabled ru
   const f = await buildFixture(t), options = []
   await buildSource({ ...f, load: async (script, config) => {
     options.push(config)
-    return { error: null, sources: { wy: { type: 'music', actions: ['musicUrl'], qualitys: ['320k'] } }, dispose() {} }
+    return runtimeStub({ wy: { type: 'music', actions: ['musicUrl'], qualitys: ['320k'] } })
   } })
-  assert.equal(options.length, 2)
+  assert.equal(options.length, 3)
   assert.ok(options.every(option => option.allowCodeGeneration === false))
+  assert.deepEqual(options.slice(1).map(option => option.audioProbe), [true, false])
 })
 
 test('unknown platforms and invalid quality declarations do not reach LX clients', () => {
@@ -226,14 +236,15 @@ test('rendered comment metadata cannot terminate the script header', async t => 
 })
 
 test('probes include native Kugou hash and separate Migu song/copyright IDs', () => {
-  assert.equal(PROBES.kg.musicInfo.hash, PROBES.kg.musicInfo.songmid)
-  assert.equal(PROBES.mg.musicInfo.songmid, '3790007')
-  assert.equal(PROBES.mg.musicInfo.copyrightId, '60054701923')
+  assert.equal(PROBES.kg[0].musicInfo.hash, PROBES.kg[0].musicInfo.songmid)
+  assert.equal(PROBES.mg[0].musicInfo.songmid, '3790007')
+  assert.equal(PROBES.mg[0].musicInfo.copyrightId, '60054701923')
+  for (const probes of Object.values(normalizeProbes())) assert.ok(new Set(probes.map(p => p.musicInfo.singer)).size >= 2)
 })
 
 test('health uses verified HTTP status rather than the presence of any response', async () => {
   const rt = { sources: { wy: { qualitys: ['320k'] } }, callMusicUrl: async () => 'https://example.test/missing.mp3' }
-  const result = await testOne(rt, { id: 'test', sha256: 'a'.repeat(64) }, 'wy', '320k', PROBES.wy,
+  const result = await testOne(rt, { id: 'test', sha256: 'a'.repeat(64) }, 'wy', '320k', PROBES.wy[0],
     async () => ({ ok: false, connected: false, status: 404 }))
   assert.equal(result.l1, true)
   assert.equal(result.l2, false)
@@ -244,7 +255,7 @@ test('health error details redact signed URLs', async () => {
   const rt = { sources: { wy: { qualitys: ['320k'] } }, callMusicUrl: async () => {
     throw new Error('failed https://example.test/audio?token=secret')
   } }
-  const result = await testOne(rt, { id: 'test', sha256: 'a'.repeat(64) }, 'wy', '320k', PROBES.wy)
+  const result = await testOne(rt, { id: 'test', sha256: 'a'.repeat(64) }, 'wy', '320k', PROBES.wy[0])
   assert.equal(result.detail.includes('secret'), false)
   assert.match(result.detail, /URL redacted/)
 })
@@ -259,18 +270,21 @@ test('health reports cover all five platforms and all four qualities without pub
       assert.equal(options.allowCodeGeneration, false)
       return { error: null, sources: declared, dispose() {},
         callMusicUrl: async (platform, info, quality) => {
-          if (platform === 'kg') assert.equal(info.hash, PROBES.kg.musicInfo.hash)
-          if (platform === 'mg') assert.equal(info.copyrightId, PROBES.mg.musicInfo.copyrightId)
+          if (platform === 'kg') assert.equal(info.hash, info.songmid)
+          if (platform === 'mg') assert.ok(PROBES.mg.some(p => p.musicInfo.copyrightId === info.copyrightId))
           return `https://example.test/audio?token=private-${quality}`
         } }
     },
     verify: async () => ({ ok: true, connected: true, status: 206, magic: 'flac', bytes: 4096 }),
   })
-  assert.equal(report.results.length, 20)
+  assert.equal(report.results.length, 40)
+  assert.equal(report.schemaVersion, 3)
+  assert.equal(report.policy.verifyTimeoutMs, playbackPolicy().verifyTimeoutMs)
   assert.equal(report.summary[0].l3Count, 5)
   assert.equal(report.runId, f.state.runId)
   assert.equal(JSON.stringify(report).includes('token=private'), false)
   assert.equal(healthMarkdown(report).includes('| mg |'), true)
+  assert.equal(healthMarkdown(report).includes('320k (2/2)'), true)
 })
 
 test('health does not count playback handlers that only work with dynamic code execution', async t => {
@@ -284,4 +298,72 @@ test('health does not count playback handlers that only work with dynamic code e
   assert.equal(result.l1, false)
   assert.equal(result.l3, false)
   assert.match(result.detail, /Code generation from strings disallowed/)
+})
+
+test('CRLF and CR metadata parse without changing the original snapshot or consuming brand slots', async t => {
+  const code = brandedSource('杰翔聚合音源', '2.3.0')
+  for (const newline of ['\r\n', '\r']) {
+    assert.equal(parseMeta(code.replace(/\n/g, newline)).name, '杰翔聚合音源')
+    assert.equal(parseMeta(code.replace(/\n/g, newline)).version, '2.3.0')
+  }
+  const f = await buildFixture(t, code)
+  const crlf = code.replace(/\n/g, '\r\n')
+  await addBuildSource(f, 'alias', crlf)
+  await addBuildSource(f, 'other', brandedSource('独立音源', '1.0.0'))
+  f.config.embed.maxSources = 2
+  const built = await buildSource(f)
+  assert.equal(built.subs.length, 2)
+  const brand = built.subs.filter(s => s.name === '杰翔聚合音源')
+  assert.equal(brand.length, 1)
+  assert.equal(brand[0].code, crlf)
+  assert.equal(brand[0].sha256, sha256(crlf))
+})
+
+test('single-song, duplicate-song and unknown-probe reports cannot masquerade as multi-song checks', async t => {
+  const f = await buildFixture(t)
+  const single = structuredClone(f.report.probes)
+  single.wy = single.wy.slice(0, 1)
+  assert.throws(() => validateReport(f.state, { ...f.report, probes: single }), /2–5 distinct/)
+  const duplicate = structuredClone(f.report.probes)
+  duplicate.wy[1] = duplicate.wy[0]
+  assert.throws(() => validateReport(f.state, { ...f.report, probes: duplicate }), /Duplicate/)
+  assert.throws(() => validateReport(f.state, { ...f.report,
+    results: f.report.results.map((r, i) => i ? r : { ...r, probeId: 'unknown' }) }), /Invalid/)
+  assert.throws(() => validateReport(f.state, f.report, { policy: { ...playbackPolicy(), verifyTimeoutMs: 9000 } }), /policies differ/)
+})
+
+test('partial song coverage is visible instead of being presented as full coverage', async t => {
+  const f = await buildFixture(t)
+  const report = await runHealth({ ...f, markdownPath: path.join(f.dir, 'health.md'),
+    load: async () => ({ ...runtimeStub({ wy: { qualitys: ['320k'] } }), callMusicUrl: async (platform, info) => {
+      if (info.songmid !== PROBES.wy[0].musicInfo.songmid) throw new Error('Song not available')
+      return 'https://example.test/audio.mp3'
+    } }),
+  })
+  assert.equal(report.results.filter(r => r.l3).length, 1)
+  assert.deepEqual(report.summary[0].platforms.wy.samples['320k'], { passed: 1, checked: 2 })
+  assert.match(healthMarkdown(report), /320k \(1\/2\)/)
+})
+
+test('successful initialization with unplayable URLs cannot overwrite the last published artifact', async t => {
+  const f = await buildFixture(t)
+  await fs.writeFile(f.outputPath, 'previous good artifact')
+  const brokenRequest = async url => ({ statusCode: 404, headers: { 'content-type': 'text/html' }, raw: Buffer.from('gone'), url })
+  await assert.rejects(buildSource({ ...f,
+    load: (script, options) => loadSource(script, { ...options, request: brokenRequest }),
+  }), /Merged playback validation failed/)
+  assert.equal(await fs.readFile(f.outputPath, 'utf8'), 'previous good artifact')
+})
+
+test('published validation reports cover every advertised quality and both host modes without playback URLs', async t => {
+  const f = await buildFixture(t)
+  const result = await buildSource(f)
+  assert.deepEqual(result.validation.profiles.map(p => p.profile), ['bytes', 'head'])
+  for (const profile of result.validation.profiles) {
+    assert.equal(profile.results.length, 2)
+    assert.ok(profile.results.every(r => r.l3))
+  }
+  assert.equal(result.validation.sha256, sha256(result.output))
+  assert.equal(JSON.stringify(result.validation).includes('https://example.test'), false)
+  assert.match(await fs.readFile(path.join(f.dir, 'playback.md'), 'utf8'), /bytes \| wy \| 320k \| 2\/2/)
 })
