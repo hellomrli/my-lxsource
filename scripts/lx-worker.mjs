@@ -111,7 +111,10 @@ async function handle(message) {
     callbacks.delete(message.id)
     if (!pending) return
     const { callback, probe } = pending
-    if (message.error) { callback(new Error(message.error), null, null); return }
+    if (Object.hasOwn(message, 'error')) {
+      callback(new Error(message.error || 'HTTP request failed'), null, null)
+      return
+    }
     const data = message.response
     const raw = Buffer.from(data.raw, 'base64')
     if (probe) {

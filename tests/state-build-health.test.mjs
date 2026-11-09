@@ -355,6 +355,28 @@ test('successful initialization with unplayable URLs cannot overwrite the last p
   assert.equal(await fs.readFile(f.outputPath, 'utf8'), 'previous good artifact')
 })
 
+test('merged HEAD validation falls back after a network error with an empty message', async t => {
+  const f = await buildFixture(t, sourceCode("return 'https://example.test/unreachable.mp3';"))
+  await addBuildSource(f, 'z-fallback', sourceCode("return 'https://example.test/good.mp3';"))
+  const headRequests = []
+  const request = async (url, options) => {
+    if (options.method === 'HEAD') {
+      headRequests.push(url)
+      if (url.includes('unreachable')) {
+        throw Object.assign(new AggregateError([new Error('connect ETIMEDOUT')]), { code: 'ETIMEDOUT' })
+      }
+    }
+    return fixtureRequest(url)
+  }
+  const result = await buildSource({ ...f,
+    load: (script, options) => loadSource(script, { ...options, request }),
+  })
+  assert.ok(headRequests.includes('https://example.test/unreachable.mp3'))
+  assert.ok(headRequests.includes('https://example.test/good.mp3'))
+  assert.deepEqual(result.validation.profiles.map(p => p.profile), ['bytes', 'head'])
+  assert.ok(result.validation.profiles.every(p => p.results.length === 2 && p.results.every(r => r.l3)))
+})
+
 test('published validation reports cover every advertised quality and both host modes without playback URLs', async t => {
   const f = await buildFixture(t)
   const result = await buildSource(f)
