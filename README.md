@@ -53,6 +53,7 @@ publish         提交 reports/health.md + reports/playback.md + dist/merged-sou
 ```
 .github/workflows/daily.yml   每日定时任务
 .github/dependabot.yml       Actions 依赖更新检查
+.node-version                测试与巡检共用的 Node.js 主版本
 scripts/fetch-upstream.mjs    上游抓取与变更检测
 scripts/test-sources.mjs      三层可用性检测
 scripts/probes.mjs            多曲目原生元数据与探针验证
@@ -82,7 +83,7 @@ Actions 用缓存保存上次巡检快照，并用保留 7 天的 `diagnostics` 
 发布 job 只复制并提交指定产物，不执行音源脚本。
 构建会在有界字节探针和普通 HEAD 两种宿主模式下调用整合包的 `musicUrl`，并独立读取返回地址的音频字节；
 每个实际声明的平台/音质都必须至少有一首探针通过，否则保留上一份发布产物。报告区分两种宿主及其曲目覆盖。
-巡检前先通过 Node.js 22/24 双版本离线回归测试；Pull Request 只运行离线测试，不抓取上游或发布产物。
+巡检前先通过 Node.js 26 离线回归测试；Pull Request 只运行离线测试，不抓取上游或发布产物。
 Runner 固定为 Ubuntu 24.04，Actions 固定到完整 commit SHA；Dependabot 每月将更新集中到一条 PR，不自动合并。
 巡检或构建失败时，工作流会失败，仓库里的上一个成功产物保持不变。
 若 `master` 在巡检期间发生更新，发布会停止，避免旧结果覆盖新代码。
@@ -136,8 +137,9 @@ lxserver 可以通过 [安装工具或派生镜像](integrations/lxserver/README
 
 ## 本地运行
 
-需要 Linux、Node.js 22.13 或更新版本，以及 `bubblewrap` 和 `prlimit`（util-linux）。
-CI 使用 Node.js 22/24 测试、Node.js 24 巡检；没有第三方 npm 依赖。运行时不会回退到不安全的本机执行。
+需要 Linux、Node.js 26.13 或更新版本，以及 `bubblewrap` 和 `prlimit`（util-linux）。
+CI 的测试和巡检统一读取 `.node-version`，每次运行检查并使用 Node.js 26 系列的最新稳定版本。
+没有第三方 npm 依赖。运行时不会回退到不安全的本机执行。
 
 ```sh
 sudo apt-get install bubblewrap util-linux
