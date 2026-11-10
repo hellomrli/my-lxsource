@@ -111,7 +111,11 @@ export async function loadSource(script, { timeoutMs = 30000, callTimeoutMs = ti
         statusCode: response.statusCode, headers: response.headers, url: response.url,
         raw: response.raw.toString('base64'),
       } })
-    } catch (error) { send({ type: 'httpResult', id, error: error.message }) }
+    } catch (error) {
+      // Node's aggregate connection errors can have an empty message; retain the failure and its code.
+      const detail = error?.message || error?.code || (typeof error === 'string' && error) || 'HTTP request failed'
+      send({ type: 'httpResult', id, error: String(detail) })
+    }
     finally { requests.delete(id) }
   }
   child.stderr.on('data', chunk => { stderr = (stderr + chunk).slice(0, 2048) })

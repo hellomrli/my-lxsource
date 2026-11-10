@@ -78,6 +78,31 @@ test('broker timeout includes the API response body', async t => {
   assert.match(await rt.callMusicUrl('wy', {}, '320k'), /deadline/i)
 })
 
+test('network errors with empty messages do not close the source sandbox', async t => {
+  for (const api of ['lx.request', 'lx.utils.audioProbe']) await t.test(api, async t => {
+    const failures = [
+      Object.assign(new AggregateError([new Error('connect ETIMEDOUT')]), { code: 'ETIMEDOUT' }),
+      new Error(''),
+    ]
+    const rt = await loadSource(sourceCode(`return await new Promise((resolve, reject) =>
+      ${api}('https://example.test/audio.flac', {}, (error, response) =>
+        error ? reject(error) : resolve(String(response.statusCode))));`), {
+      timeoutMs: 1000,
+      request: async url => {
+        if (failures.length) throw failures.shift()
+        return { statusCode: 200, headers: { 'content-type': 'audio/flac' }, raw: flac(), url }
+      },
+    })
+    t.after(() => rt.dispose())
+    assert.equal(rt.error, null)
+    for (const message of ['ETIMEDOUT', 'HTTP request failed']) {
+      await assert.rejects(rt.callMusicUrl('wy', {}, '320k'), { message })
+      assert.equal(rt.closed, false)
+    }
+    assert.equal(await rt.callMusicUrl('wy', {}, '320k'), '200')
+  })
+})
+
 test('init loops, sync request loops, and async hangs are bounded; disposal kills all timers', async t => {
   const invalid = await loadSource('while(true) {}', { timeoutMs: 80 })
   assert.match(invalid.error, /timeout|failed/i)
