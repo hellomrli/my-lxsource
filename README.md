@@ -1,172 +1,64 @@
 # my-lxsource
 
-公开项目：每日巡检 **多个** LX 音源上游仓库，
-**三层验证**后生成一个自包含的整合音源脚本。
+为 LX Music 每日巡检多个自定义音源，并生成带播放验证与自动回退的自包含整合脚本。
 
-## 为什么需要「三层验证」
+[导入脚本](dist/merged-source.js) · [音源巡检](reports/health.md) · [整合包验收](reports/playback.md) · [维护文档](docs/index.md)
 
-洛雪音源脚本被调用时只需返回一个 URL 字符串，宿主并不知道这个 URL 是否真的能播。
-实测发现**大量音源脚本会返回 404 的死链**，而客户端/服务端只会把它记为"成功"。
+## 导入到客户端
 
-因此本项目对每个 源 × 平台 组合做三层检测：
+在 LX Music 的自定义音源设置中，导入下面的脚本地址：
 
-| 层 | 检测内容 | 失败含义 |
+```text
+https://raw.githubusercontent.com/hellomrli/my-lxsource/master/dist/merged-source.js
+```
+
+先查看[巡检报告](reports/health.md)和[播放验收报告](reports/playback.md)的时间及平台覆盖，再选择歌曲和音质。仓库中始终保留最后一次成功发布的产物。
+
+客户端保存的是导入时的本地副本。GitHub 更新后，需要重新导入才能使用新脚本。旧版本出现 `Dynamic code execution is not allowed` 时，删除旧的“我的聚合音源”并重新导入；当前加载器使用静态子源函数。
+
+## 支持哪些播放环境
+
+覆盖网易云、QQ、酷我、酷狗、咪咕，即 `wy/tx/kw/kg/mg`。实际声明的平台和音质来自本轮验证结果。
+
+| 宿主能力 | 提供的音质 | 播放校验 |
 |---|---|---|
-| L1 | 脚本加载 + 返回非空 URL | 脚本本身坏了/被删 |
-| L2 | URL 连通性（仅 HTTP 200/206；重定向逐跳检查） | 死链、后端接口下线 |
-| L3 | 音频魔数 + content-type 排除；无损格式与位深校验 | 错误页/JSON/视频、无损降级 |
+| 有界字节探针或流式 fetch | 验证通过的 `128k/320k/flac/flac24bit` | 读取音频前缀，检查格式和无损位深 |
+| 仅普通 LX 请求与 HEAD | 验证通过的 `128k/320k` | 检查连通性和明确的错误类型 |
 
-**只有 L3 通过才计入「可用」。**
+HEAD 无法证明音频格式或位深。lxserver 用户可按[集成指南](integrations/lxserver/README.md)安装有界字节探针。
 
-覆盖 `wy/tx/kw/kg/mg` 五个平台和 `128k/320k/flac/flac24bit` 四种音质。
-酷狗探针同时携带 `songmid` 与 `hash`；咪咕探针区分 `songmid` 与 `copyrightId`。
-每个平台默认检测《晴天》和《海阔天空》两个不同歌手/曲库的样本；可以配置 2–5 首不同歌曲。
-每个组合分别记录每首歌的结果，报告显示音质的通过数/检测数，未声明的音质标为跳过。
-一个组合至少一首 L3 通过才作为候选，部分通过不代表整个曲库可用；播放优先尝试该平台/音质探针通过率更高的源。
+## 巡检与回退
 
-## 跟踪的上游仓库
+- 每个源、平台、音质使用多首歌曲检查：取得 URL、HTTP 连通、真实音频字节，只有第三层通过才记为可用。
+- 播放遇到超时、死链或校验失败时尝试下一子源，并短暂降低失败组合的优先级。
+- 整合脚本内嵌验证过的源码，不需要额外音源代理；子源仍访问各自上游 API。
+- 构建再次验证整合包在字节和 HEAD 两种宿主下的实际播放结果，失败时保留上次产物。
 
-| key | 仓库 | 说明 |
-|---|---|---|
-| `pdone` | [pdone/lx-music-source](https://github.com/pdone/lx-music-source) | 洛雪音乐源（最常见） |
-| `lxs` | [hwxlikemi/lxs](https://github.com/hwxlikemi/lxs) | 收集的精选音源，以最新巡检报告为准 |
-| `xinghai` | [cdyUuu/lx-music-xinghai-source](https://github.com/cdyUuu/lx-music-xinghai-source) | 星海音乐源 |
-| `sixyin-cc` | [cc2415/lx-custom-music-source](https://github.com/cc2415/lx-custom-music-source) | 六音 |
-| `shellsec` | [shellsec/lx-music-source](https://github.com/shellsec/lx-music-source) | 多源收集（屿溪/墨澜/杰翔/HYW/长青等） |
-| `lingeng` | [Lingeng27/lx-music-1010-source](https://github.com/Lingeng27/lx-music-1010-source) | 1010 音源 |
-| `younger` | [younger-lgte1/lx-music-source](https://github.com/younger-lgte1/lx-music-source) | 个人音源，覆盖 QQ/酷我/酷狗 |
-
-## 每日流程
-
-```
-fetch-upstream  固定各上游 commit，缓存源码并计算 SHA256 → 得出变更
-     ↓
-test-sources    对每个 源×平台×音质×歌曲: L1(取URL) → L2(连通) → L3(音频校验)
-     ↓
-build           核对多曲目矩阵/超时预算/runId/报告时间/SHA256，验证子源及整合包真实播放，再写入产物
-     ↓
-publish         提交 reports/health.md + reports/playback.md + dist/merged-source.js
-```
-
-## 目录
-
-```
-.github/workflows/daily.yml   每日定时任务
-.github/dependabot.yml       Actions 依赖更新检查
-.node-version                测试与巡检共用的 Node.js 主版本
-scripts/fetch-upstream.mjs    上游抓取与变更检测
-scripts/test-sources.mjs      三层可用性检测
-scripts/probes.mjs            多曲目原生元数据与探针验证
-scripts/playback-policy.mjs   巡检和播放共用的超时预算
-scripts/validate-merged.mjs   整合包在字节探针/HEAD 宿主下的真实播放验收
-scripts/build-source.mjs     生成整合音源脚本
-scripts/lx-runtime.mjs       无头 LX API 兼容运行时
-scripts/lx-worker.mjs        无网络、无宿主凭据的隔离子进程
-scripts/http.mjs             限时、限量、限制目标地址的 HTTP 通道
-scripts/audio.mjs            音频/无损魔数校验（客户端复用）
-scripts/source-state.mjs     快照缓存、元数据与共用工具
-templates/merged-source.js   整合音源模板（LX 自定义源格式）
-tests/                      离线回归测试
-config.json                 项目配置（直接修改此文件）
-reports/health.md            最新可读巡检报告
-reports/playback.md          最新整合包播放验收报告，含产物 SHA256
-dist/merged-source.js        生成的整合音源（供客户端导入）
-```
-
-`state.json`、`reports/*.json` 与 `.cache/sources/` 是运行时生成的中间数据，不提交到 Git。
-Actions 用缓存保存上次巡检快照，并用保留 7 天的 `diagnostics` 附件保存完整报告；
-缓存未命中时会重新发现全部音源，不影响检测和构建。
-播放 URL 不写进健康报告，避免将临时签名或查询参数长期公开。
-任意上游抓取失败时保留旧快照并中止本轮流程，不把网络故障当作源被删除。
-
-巡检与发布在两个独立的 Actions job 中运行：巡检只有仓库读取权限，
-发布 job 只复制并提交指定产物，不执行音源脚本。
-构建会在有界字节探针和普通 HEAD 两种宿主模式下调用整合包的 `musicUrl`，并独立读取返回地址的音频字节；
-每个实际声明的平台/音质都必须至少有一首探针通过，否则保留上一份发布产物。报告区分两种宿主及其曲目覆盖。
-巡检前先通过 Node.js 26 离线回归测试；Pull Request 只运行离线测试，不抓取上游或发布产物。
-Runner 固定为 Ubuntu 24.04，Actions 固定到完整 commit SHA；Dependabot 每月将更新集中到一条 PR，不自动合并。
-巡检或构建失败时，工作流会失败，仓库里的上一个成功产物保持不变。
-若 `master` 在巡检期间发生更新，发布会停止，避免旧结果覆盖新代码。
-
-## 整合音源的原理
-
-洛雪自定义源脚本**只负责 `musicUrl`（把 songmid 换成播放地址），搜索由客户端 SDK 完成**。
-所以「整合」= 把多个 L3 通过的上游脚本内联进一个自包含脚本：每个子源绑定稳定的
-`globalThis/window/self/global/lx` 作用域，不修改宿主的 `globalThis.lx`；
-初始化和播放请求都有超时，晚到的回调不会注册到其他子源。
-取地址与音频验证各有独立预算（默认 12 秒和 8 秒），完整回退链另受 45 秒总预算限制；巡检复用相同配置。
-单次播放失败不会禁用整个子源或取消其他并发歌曲。失败只让对应平台/音质在默认 30 秒内降低优先级，
-仍可作为最后的回退选择；成功即恢复，冷却到期后自动恢复正常优先级。初始化失败仍会禁用该次加载。
-子源在构建时转换为静态函数，不通过运行时 `eval`/`new Function` 加载，兼容禁止动态代码执行的客户端。
-巡检与构建会在禁用字符串代码生成的环境中验证子源和最终产物；依赖动态执行的初始化或播放请求不会计为可用。
-允许动态执行的宿主仍保留子源显式使用 `eval`/`Function` 时的作用域兼容处理，但加载器本身不调用它们。
-只声明同一份源码实测通过的平台/音质，重复 SHA256 的脚本合并覆盖范围后只加载、嵌入一次。
-`embed.maxSources` 限制的是验证通过的独立脚本数；重复脚本和加载失败的候选不占名额。
-`embed.maxSourceBytes` / `embed.maxEmbedBytes` 限制单个子源与全部子源的源码字节数
-（每份源码在产物中出现两次），超预算的源只做巡检、不嵌入，避免产物超出客户端 2 MiB 上限。
-元数据兼容 LF、CRLF、CR 换行，解析时不改写缓存源码或 SHA256。
-同一品牌（同名，或去掉 `Pro`/`Plus`/`手机版`/`桌面版` 等后缀后同名）只嵌入版本号最新的可用脚本；
-最新版初始化失败时自动回退到该品牌下一个可用版本。
-
-见 `templates/merged-source.js`。
-
-播放时遇到子源卡住、404、HTML 响应或音频校验失败会尝试下一个子源。
-有流式 `fetch`/`ReadableStream` 的宿主限量读取 4096 字节并取消请求；缺少流式 API 的 LX 宿主使用
-`HEAD` 检查连通性并排除明确的 HTML/JSON/视频，避免宿主忽略 Range 后下载整首歌。
-普通音质遇到二进制或缺失 MIME、405/501（不支持 HEAD）时视为无法判断，交给播放器处理，不据此判定死链。
-这种 HEAD 降级模式**不是 L3 音频校验**：它保留普通音质，但不声明或接受 `flac` / `flac24bit`。
-能读取真实字节的宿主才启用无损，并继续校验 FLAC 格式和位深。
-lxserver 可以通过 [安装工具或派生镜像](integrations/lxserver/README.md) 接入有界字节探针，
-从而正确处理 FLAC 被 CDN 标为 `audio/mpeg`、音频标为 `application/octet-stream` 的情况。
-每日巡检和整合包验收都读取真实字节；巡检通过仍不保证所有曲目或一天内不会失效。
-
-客户端作用域隔离解决兼容性与串扰，不是恶意 JavaScript 的安全边界。
-同步死循环无法在同一 LX JavaScript 线程内抢占；巡检进程使用独立 OS 沙箱来处理这类故障。
-
-## 用法
-
-1. 在 Actions 里手动跑一次，或等每日定时
-2. 看 `reports/health.md` 了解各源状态，`reports/playback.md` 了解实际整合包在两种宿主下的播放结果
-3. 客户端导入 `dist/merged-source.js` 的 raw 地址：
-
-   `https://raw.githubusercontent.com/hellomrli/my-lxsource/master/dist/merged-source.js`
-
-客户端保存的是已导入脚本的本地副本，GitHub 更新不会自动替换它。
-如果旧版本提示 `Dynamic code execution is not allowed`，删除旧的「我的聚合音源」后重新导入最新地址即可；
-无需关闭客户端的动态执行安全限制。
+探针通过率是样本结果，不代表全部曲库可用。细节见[验证规则](docs/verification.md)和[整合脚本原理](docs/architecture.md)。
 
 ## 本地运行
 
-需要 Linux、Node.js 26.13 或更新版本，以及 `bubblewrap` 和 `prlimit`（util-linux）。
-CI 的测试和巡检统一读取 `.node-version`，每次运行检查并使用 Node.js 26 系列的最新稳定版本。
-没有第三方 npm 依赖。运行时不会回退到不安全的本机执行。
+需要 Linux、Node.js 26.13.0 或更新版本，以及 `bubblewrap` 和 `prlimit`。当前 CI 使用 `.node-version` 指定的 Node.js 26 系列；没有第三方 npm 依赖。
 
-```sh
+在 Debian/Ubuntu 上安装沙箱工具，再运行离线回归测试：
+
+```bash
+git clone https://github.com/hellomrli/my-lxsource.git
+cd my-lxsource
 sudo apt-get install bubblewrap util-linux
 npm test
 ```
 
-`npm test` 是离线回归测试，仅执行仓库自带的模拟脚本；默认不访问公网。
-真实巡检在 OS 沙箱安装成功后运行：
+测试通过后，运行完整的上游抓取、真实巡检和构建：
 
-```sh
+```bash
 npm run all
 ```
 
-也可以按 `npm run fetch` → `npm run health` → `npm run build` 的顺序执行。
-首次运行必须先抓取、再巡检，不能只依赖仓库中保留的可读报告构建。
-`config.json` 的 `embed` 可设置取地址/总请求/验证超时、`cooldownMs` 与报告最长有效期；
-巡检直接复用播放预算，`health.concurrency` 控制巡检并发数。
-可用 `health.probes` 提供五个平台的探针数组，每个平台 2–5 首不同歌曲，字段见 `scripts/probes.mjs`；
-酷狗必须提供 `hash`，咪咕必须提供独立的 `copyrightId`，所有曲目需要 `songmid/name/singer`。
-旧版单曲目报告不再用于构建，需要重新执行抓取和巡检。
+该命令会联网并生成缓存、报告和脚本。配置、独立步骤、发布流程和失败排查见[维护指南](docs/maintenance.md)。
 
-## 安全说明
+## 上游与反馈
 
-- 仓库公开，产物不含任何服务器凭据
-- `node:vm` 只模拟 LX API。真正边界为每个源独立的 bubblewrap OS 进程：不挂载 home/项目、不继承凭据、隔离 PID/网络、禁用子进程与原生扩展，并限制 CPU/内存/计时器/IPC
-- 上游请求通过可信父进程 HTTP 通道，DNS 地址在连接时固定并检查；私网、回环、保留地址、云元数据与重定向到这些地址均被拒绝
-- 超时包括 DNS、响应头、重定向和响应体；普通 API 响应限制 1 MiB，源码 2 MiB，音频只读取前 4096 字节
-- OS 沙箱不能防范内核漏洞；仍建议使用不带敏感凭据的临时 runner，不给巡检 job 写库权限
-- 仅接受固定 commit 的源码且逐步核对 SHA256、巡检 runId 和报告时间；加载失败或无健康候选时保留上一个成功产物
-- 生成脚本不依赖自建 lxserver 代理，但各子源仍会访问自己的上游 API
+跟踪 [pdone](https://github.com/pdone/lx-music-source)、[lxs](https://github.com/hwxlikemi/lxs)、[星海](https://github.com/cdyUuu/lx-music-xinghai-source)、[六音](https://github.com/cc2415/lx-custom-music-source)、[shellsec](https://github.com/shellsec/lx-music-source)、[1010](https://github.com/Lingeng27/lx-music-1010-source) 和 [younger](https://github.com/younger-lgte1/lx-music-source)。来源、固定 commit 与 SHA256 在抓取阶段记录。
+
+在 [Issues](https://github.com/hellomrli/my-lxsource/issues) 中提供宿主版本、平台、音质、脚本导入时间及脱敏错误信息。仓库目前没有根目录许可证文件，嵌入的上游脚本保留各自来源与元数据。

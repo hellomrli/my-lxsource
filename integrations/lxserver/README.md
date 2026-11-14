@@ -1,54 +1,45 @@
 # lxserver bounded playback probe
 
-lxserver 2.1.4 does not expose streaming fetch inside its custom-source VM.
-Without this integration, the merged source enables ordinary audio only. HEAD
-checks connectivity and explicit error content types; binary/missing MIME and
-405/501 are inconclusive. HEAD cannot establish FLAC format or bit depth.
+Add a bounded audio-byte probe to lxserver so the merged source can verify FLAC format and bit depth inside its custom-source VM.
 
-Install the bounded byte probe into the compiled CommonJS host:
+lxserver 2.1.4 does not expose streaming fetch in that VM. With HEAD alone, the merged source enables ordinary audio; HEAD cannot establish the actual codec. This integration adds `lx.utils.audioProbe` to the compiled CommonJS host.
+
+## Install into an existing host
+
+Run these commands from the my-lxsource repository. Replace the host path with the compiled `userApi.js` in your installation:
 
 ```sh
 node integrations/lxserver/install-probe.mjs /path/to/lxserver/server/server/sources/userApi.js
 node integrations/lxserver/install-probe.mjs /path/to/lxserver/server/server/sources/userApi.js --check
 ```
 
-The installer checks the host layout and JavaScript syntax before modifying it,
-preserves a backup beside the original file, copies the broker, and inserts its
-property into `lxUtils`. Re-running it updates the broker without duplicating the
-property. `--check` is read-only and fails for a missing or outdated installation.
-Unknown layouts or an existing different audioProbe implementation are left alone.
-Restart lxserver after installation, then re-import the current merged source.
+The installer validates the host layout and JavaScript syntax, creates a backup beside the file, copies the broker and adds its property to `lxUtils`. Re-running updates the broker without duplicating the property. Unknown layouts and a different existing `audioProbe` implementation are left intact.
 
-For a persistent container installation, build a derived image using your exact
-existing lxserver image/tag:
+`--check` is read-only and returns failure for a missing or outdated installation. Restart lxserver after installation, then re-import the current [merged source](../../README.md).
+
+## Keep the probe in a container image
+
+Use your deployment's exact lxserver image and tag as the base. Set `LXSERVER_IMAGE` to that value before running:
 
 ```sh
-docker build --build-arg LXSERVER_IMAGE=your-existing-lxserver-image:tag \
+docker build --build-arg LXSERVER_IMAGE="$LXSERVER_IMAGE" \
   -t lxserver-with-audio-probe integrations/lxserver
 ```
 
-The Dockerfile installs and checks the broker during the build. Its default
-`LXSERVER_USER_API` is `/server/server/server/sources/userApi.js`; override that
-build argument if your image uses a different layout. Use the derived image in
-your existing deployment with the same data volume and configuration.
+The [Dockerfile](Dockerfile) installs and checks the probe during the build. Its default `LXSERVER_USER_API` path is `/server/server/server/sources/userApi.js`; supply that build argument if your image uses another layout. Deploy the derived image with your existing configuration and data volume.
 
-The merged source will automatically use `lx.utils.audioProbe` when available.
-The broker follows at most five redirects, reads at most a 4096-byte prefix into
-its result, closes the stream even when Range is ignored, and applies an
-eight-second total deadline including proxy lookup. It uses the existing
-`customSource` proxy configuration and grants no general fetch or module access
-to the custom-source VM. The merged script still checks HTTP status, excludes
-HTML/JSON/video, checks audio magic, and checks real FLAC/24-bit metadata.
+A manual patch is lost when the container or base image is replaced. Rebuild the derived image when upgrading lxserver.
 
-This is a host integration, not a portable LX API. Importing a custom-source script
-cannot install a native broker. Generic clients with streaming fetch can verify
-lossless directly; HEAD-only clients expose 128k/320k. A container recreation or
-image upgrade removes a manual patch; rebuild the derived image when upgrading.
-The project exercises both host modes and publishes `reports/playback.md` with
-the final script's SHA256 and per-song playback results.
+## Check playback
 
-The settings page can also hide a correctly loaded public source:
-`enablePublicSources: false` filters it out. Public-source restriction additionally
-requires an authenticated user or administrator to view the list. Neither a
-successful source initialization nor a successful URL response guarantees that
-the browser will actually play it; test the returned audio path as well.
+The merged script automatically selects the probe when it exists. The broker reads at most 4096 bytes, closes the stream when Range is ignored, follows at most five redirects and applies an eight-second total deadline including proxy lookup. It uses lxserver's existing `customSource` proxy setting.
+
+The script still checks HTTP status, rejects HTML/JSON/video, identifies audio magic and validates FLAC metadata. The probe grants neither general fetch nor module access to the custom-source VM. Importing a source script alone cannot install this host integration.
+
+Results for byte and HEAD hosts appear in [playback.md](../../reports/playback.md), with the final script's SHA256.
+
+## Source loaded but absent from the list
+
+Check lxserver's public-source settings. `enablePublicSources: false` hides public sources; public-source restrictions also require a signed-in user or administrator to view the list. After confirming visibility, test a song: successful initialization or a URL response alone does not establish browser playback.
+
+Return to the [documentation index](../../docs/index.md).
