@@ -79,6 +79,42 @@ test('partial upstream failure preserves previous state instead of reporting rem
   assert.equal(await fs.readFile(statePath, 'utf8'), previous)
 })
 
+test('GitHub authentication is restricted to API discovery and stays out of snapshots', async t => {
+  const dir = await tempDir(t), commit = 'a'.repeat(40)
+  const previousToken = process.env.GITHUB_TOKEN
+  process.env.GITHUB_TOKEN = 'fixture-env-github-token'
+  t.after(() => {
+    if (previousToken === undefined) delete process.env.GITHUB_TOKEN
+    else process.env.GITHUB_TOKEN = previousToken
+  })
+  for (const [githubToken, expectedToken] of [['', ''], ['fixture-github-token', 'fixture-github-token'],
+    [undefined, 'fixture-env-github-token']]) {
+    const calls = []
+    const statePath = path.join(dir, 'state.json'), cacheDir = path.join(dir, 'cache')
+    const snapshot = await runFetch({ githubToken, statePath, cacheDir,
+      upstreams: { mock: { repo: 'owner/repo', branch: 'main' } },
+      download: async (url, options) => {
+        calls.push({ url, headers: options.headers })
+        if (url.includes('/commits/')) return JSON.stringify({ sha: commit })
+        if (url.includes('/git/trees/')) return JSON.stringify({ tree: [{ type: 'blob', path: 'latest.js' }] })
+        return sourceCode("return 'https://example.test/audio.mp3';")
+      },
+    })
+    const apiCalls = calls.filter(call => new URL(call.url).hostname === 'api.github.com')
+    assert.equal(apiCalls.length, 2)
+    for (const call of apiCalls) assert.equal(call.headers.Authorization, expectedToken ? `Bearer ${expectedToken}` : undefined)
+    const rawCalls = calls.filter(call => new URL(call.url).hostname === 'raw.githubusercontent.com')
+    assert.equal(rawCalls.length, 1)
+    assert.ok(rawCalls.every(call => !Object.keys(call.headers).some(key => key.toLowerCase() === 'authorization')))
+    const saved = await fs.readFile(statePath, 'utf8')
+    const cached = await fs.readFile(path.join(cacheDir, `${snapshot.sources['mock:latest.js'].sha256}.js`), 'utf8')
+    for (const token of ['fixture-github-token', 'fixture-env-github-token']) {
+      assert.ok(!saved.includes(token))
+      assert.ok(!cached.includes(token))
+    }
+  }
+})
+
 test('snapshot hash mismatches fail closed; mutable branch URLs are never used', async t => {
   const dir = await tempDir(t), commit = 'a'.repeat(40), code = 'expected'
   const entry = { sha256: sha256(code), commit, url: `https://example.test/${commit}/source.js` }

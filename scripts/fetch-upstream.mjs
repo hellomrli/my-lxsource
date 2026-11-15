@@ -12,9 +12,8 @@ export const UPSTREAMS = {
   younger: { repo: 'younger-lgte1/lx-music-source', branch: 'main' },
 }
 const encodePath = value => value.split('/').map(encodeURIComponent).join('/')
-const githubHeaders = { 'User-Agent': 'my-lxsource', Accept: 'application/vnd.github+json' }
 
-async function fetchRepo(key, { repo, branch }, { download, cacheDir }) {
+async function fetchRepo(key, { repo, branch }, { download, cacheDir, githubHeaders }) {
   const commitInfo = JSON.parse(await download(`https://api.github.com/repos/${repo}/commits/${branch}`, { headers: githubHeaders }))
   const commit = commitInfo.sha
   if (!/^[a-f0-9]{40}$/.test(commit || '')) throw new Error(`Invalid commit for ${repo}`)
@@ -40,11 +39,13 @@ async function fetchRepo(key, { repo, branch }, { download, cacheDir }) {
 }
 
 export async function fetchUpstream({ upstreams = UPSTREAMS, download = requestText,
-  cacheDir = '.cache/sources' } = {}) {
+  cacheDir = '.cache/sources', githubToken = process.env.GITHUB_TOKEN || '' } = {}) {
+  const githubHeaders = { 'User-Agent': 'my-lxsource', Accept: 'application/vnd.github+json' }
+  if (githubToken) githubHeaders.Authorization = `Bearer ${githubToken}`
   const sources = {}, heads = {}, failures = []
   for (const [key, cfg] of Object.entries(upstreams)) {
     try {
-      const result = await fetchRepo(key, cfg, { download, cacheDir })
+      const result = await fetchRepo(key, cfg, { download, cacheDir, githubHeaders })
       Object.assign(sources, result.sources)
       heads[key] = result.head
     } catch (error) { failures.push(`${key}: ${error.message}`) }
