@@ -1,4 +1,4 @@
-# 音源可用性巡检 2026-11-12T02:03:37.817Z UTC
+# 音源可用性巡检 2026-11-15T02:02:06.580Z UTC
 
 每个平台检测多首不同歌手的歌曲。音质后的数字为通过曲目数/检测曲目数；部分通过不代表整个曲库可用。无损校验 FLAC 格式，24-bit 还会校验位深。
 
@@ -6,52 +6,54 @@
 
 | 音源 | wy | tx | kw | kg | mg | 可用平台 |
 |---|---|---|---|---|---|---|
-| lingeng:1010-mobile.js | 320k (2/2), 128k (2/2) | 320k (1/2), 128k (1/2), flac (2/2) | 320k (2/2), 128k (2/2) | 320k (2/2), 128k (2/2), flac (1/2) | 320k (2/2), 128k (2/2) | 5/5 |
-| lingeng:1010.js | 320k (2/2), 128k (2/2) | 320k (1/2), 128k (1/2), flac (2/2) | 320k (2/2), 128k (2/2) | 320k (2/2), 128k (2/2), flac (1/2) | 320k (2/2), 128k (2/2) | 5/5 |
-| lingeng:1010🎵音源-手机版.js | 320k (2/2), 128k (2/2) | 320k (1/2), 128k (1/2), flac (2/2) | 320k (2/2), 128k (2/2) | 320k (2/2), 128k (2/2), flac (1/2) | 320k (2/2), 128k (2/2) | 5/5 |
-| lingeng:1010🎵音源.js | 320k (2/2), 128k (2/2) | 320k (1/2), 128k (1/2), flac (2/2) | 320k (2/2), 128k (2/2) | 320k (2/2), 128k (2/2), flac (1/2) | 320k (2/2), 128k (2/2) | 5/5 |
-| lingeng:1010音源-手机版.js | 320k (2/2), 128k (2/2) | 320k (1/2), 128k (1/2), flac (2/2) | 320k (2/2), 128k (2/2) | 320k (2/2), 128k (2/2), flac (1/2) | 320k (2/2), 128k (2/2) | 5/5 |
-| lingeng:1010音源.js | 320k (2/2), 128k (2/2) | 320k (1/2), 128k (1/2), flac (2/2) | 320k (2/2), 128k (2/2) | 320k (2/2), 128k (2/2), flac (1/2) | 320k (2/2), 128k (2/2) | 5/5 |
-| pdone:jiexiang/latest.js | 320k (2/2), 128k (2/2), flac (2/2) | 320k (1/2), 128k (1/2) | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (1/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 5/5 |
-| pdone:xinglan/latest.js | 320k (2/2), 128k (2/2), flac (2/2) | 320k (1/2), 128k (1/2) | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (1/2) | 320k (2/2), 128k (2/2), flac (1/2) | 320k (2/2), 128k (2/2), flac (2/2) | 5/5 |
-| shellsec:sources/jiexiang/杰翔聚合音源.js | 320k (2/2), 128k (2/2), flac (2/2) | 320k (1/2), 128k (1/2) | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (1/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 5/5 |
+| lingeng:1010-mobile.js | 320k (2/2), 128k (2/2) | 320k (1/2), 128k (1/2), flac (2/2) | 320k (2/2), 128k (2/2) | 320k (2/2), 128k (1/2), flac (1/2) | 320k (2/2), 128k (2/2) | 5/5 |
+| lingeng:1010.js | 320k (2/2), 128k (2/2) | 320k (1/2), 128k (1/2), flac (2/2) | 320k (2/2), 128k (2/2) | 320k (2/2), 128k (1/2), flac (1/2) | 320k (2/2), 128k (2/2) | 5/5 |
+| lingeng:1010🎵音源-手机版.js | 320k (2/2), 128k (2/2) | 320k (1/2), 128k (1/2), flac (2/2) | 320k (2/2), 128k (2/2) | 320k (2/2) | 320k (2/2), 128k (2/2) | 5/5 |
+| lingeng:1010🎵音源.js | 320k (2/2), 128k (2/2) | 320k (1/2), 128k (1/2), flac (2/2) | 320k (2/2), 128k (2/2) | 320k (1/2), 128k (1/2), flac (1/2) | 320k (2/2), 128k (2/2) | 5/5 |
+| lingeng:1010音源-手机版.js | 320k (2/2), 128k (2/2) | 320k (1/2), 128k (1/2), flac (2/2) | 320k (2/2), 128k (2/2) | 320k (2/2), 128k (1/2), flac (1/2) | 320k (2/2), 128k (2/2) | 5/5 |
+| lingeng:1010音源.js | 320k (2/2), 128k (2/2) | 320k (1/2), 128k (1/2), flac (2/2) | 320k (2/2), 128k (2/2) | 320k (2/2), 128k (1/2), flac (1/2) | 320k (2/2), 128k (2/2) | 5/5 |
+| pdone:jiexiang/latest.js | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (1/2) | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (1/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 5/5 |
+| pdone:xinglan/latest.js | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (1/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 5/5 |
+| shellsec:sources/jiexiang/杰翔聚合音源.js | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (1/2) | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (1/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 5/5 |
 | shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | 320k (1/2), 128k (1/2) | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (1/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 5/5 |
-| shellsec:sources/molan/墨澜聚合音源.js | 320k (2/2), 128k (2/2), flac (2/2) | flac (1/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 5/5 |
-| shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | 320k (2/2), 128k (2/2), flac (2/2) | 320k (1/2), 128k (1/2) | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (1/2) | 320k (2/2), 128k (2/2), flac (1/2) | 320k (2/2), 128k (2/2), flac (2/2) | 5/5 |
+| shellsec:sources/molan/墨澜聚合音源.js | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (1/2) | 5/5 |
+| shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (1/2) | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (1/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 5/5 |
 | pdone:fish/latest.js | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (1/2) | - | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2) | 4/5 |
-| pdone:hyw/latest.js | 320k (1/2), 128k (2/2), flac (2/2) | 320k (1/2) | 320k (1/2), 128k (2/2), flac (1/2) | 320k (2/2), 128k (2/2), flac (1/2), flac24bit (1/2) | - | 4/5 |
 | pdone:xinghai/latest.js | 320k (2/2), 128k (2/2), flac (2/2) | - | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 4/5 |
-| shellsec:sources/animemusic/lx-animemusic.js | 320k (1/2), 128k (1/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (1/2), 128k (1/2), flac (1/2), flac24bit (2/2) | - | 4/5 |
+| shellsec:sources/animemusic/lx-animemusic.js | 320k (1/2), 128k (1/2) | 128k (1/2) | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (1/2) | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | - | 4/5 |
 | shellsec:sources/appx64/Appx64 Clear Music.js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | - | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 4/5 |
 | shellsec:sources/fish-music/fish_music.js | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (1/2) | - | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2) | 4/5 |
-| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | 320k (1/2), 128k (1/2) | - | 320k (2/2), 128k (2/2), flac (1/2) | 320k (2/2), 128k (2/2), flac (2/2) | 4/5 |
-| shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | 128k (1/2), flac (1/2) | - | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 4/5 |
-| shellsec:sources/hyw/HYWmusic_公益版.js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (1/2) | 320k (1/2) | 320k (1/2), 128k (1/2), flac (1/2), flac24bit (1/2) | 320k (2/2), 128k (2/2), flac (1/2), flac24bit (1/2) | - | 4/5 |
-| shellsec:sources/xinghai/星海音乐源.js | 320k (2/2), 128k (1/2), flac (2/2) | - | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 4/5 |
+| shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | - | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (1/2) | 4/5 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | 320k (1/2), 128k (2/2), flac (2/2), flac24bit (2/2) | - | 320k (1/2), 128k (1/2), flac (1/2), flac24bit (1/2) | 320k (2/2), 128k (2/2), flac (2/2) | 128k (1/2) | 4/5 |
+| shellsec:sources/xinghai/星海音乐源.js | 320k (2/2), 128k (2/2), flac (2/2) | - | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 4/5 |
 | xinghai:xinghai-music-source.js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | - | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 4/5 |
 | xinghai:xinghai-music-sourcev2.3.12.js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | - | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 4/5 |
 | lxs:lx-玉宁熙.js | 320k (2/2), 128k (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2) | - | - | 3/5 |
-| pdone:helloworld/latest.js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | - | - | 320k (2/2), 128k (2/2), flac (1/2) | 320k (2/2), 128k (2/2), flac (2/2) | 3/5 |
+| pdone:helloworld/latest.js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | - | - | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 3/5 |
 | pdone:huibq/latest.js | 320k (2/2), 128k (2/2) | 320k (2/2), 128k (2/2) | 320k (2/2) | - | - | 3/5 |
+| pdone:hyw/latest.js | 320k (1/2), 128k (2/2), flac (2/2) | - | 320k (1/2), 128k (1/2), flac (1/2), flac24bit (1/2) | 320k (2/2), 128k (2/2), flac (2/2) | - | 3/5 |
 | pdone:yuningxi/latest.js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | - | 320k (2/2), 128k (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | - | 3/5 |
-| shellsec:sources/kxh/K×H测试.js | 320k (1/2), 128k (2/2) | - | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | - | 3/5 |
+| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | - | - | 320k (2/2), 128k (2/2), flac (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | 3/5 |
+| shellsec:sources/kxh/K×H测试.js | 320k (2/2), 128k (2/2) | - | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (1/2) | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | - | 3/5 |
 | shellsec:sources/yuningxi/lx-玉宁熙-Pro.js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | - | 320k (2/2), 128k (2/2) | 320k (2/2), 128k (2/2), flac (2/2) | - | 3/5 |
-| lxs:全豆要-聚合音源-V4.1.js | 320k (2/2), 128k (2/2), flac (2/2) | - | 320k (1/2) | - | - | 2/5 |
 | lxs:溯音音源 v1.js | 320k (2/2), 128k (2/2) | - | 320k (2/2), 128k (1/2) | - | - | 2/5 |
-| lxs:非常刀.js | 320k (2/2), 128k (2/2) | - | 320k (1/2) | - | - | 2/5 |
-| pdone:feichangdao/latest.js | 320k (2/2), 128k (2/2) | - | 320k (1/2) | - | - | 2/5 |
-| pdone:qdy/latest.js | 320k (2/2), 128k (2/2), flac (2/2) | - | 320k (1/2) | - | - | 2/5 |
 | pdone:qingliang/latest.js | 320k (2/2), 128k (2/2), flac (2/2) | - | 320k (2/2), 128k (2/2), flac (2/2) | - | - | 2/5 |
 | pdone:suyin/latest.js | 320k (2/2), 128k (2/2) | - | 320k (2/2), 128k (1/2) | - | - | 2/5 |
-| shellsec:sources/feichangdao/非常刀.js | 320k (2/2), 128k (2/2) | - | 320k (1/2) | - | - | 2/5 |
-| shellsec:sources/hei/Hei Music聚合源.js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | - | - | - | 320k (2/2), 128k (1/2), flac (2/2) | 2/5 |
-| shellsec:sources/qdy/全豆要[聚合音源].js | 320k (2/2), 128k (2/2), flac (2/2) | - | 320k (1/2) | - | - | 2/5 |
+| shellsec:sources/hei/Hei Music聚合源.js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | - | - | - | 320k (2/2), 128k (2/2), flac (2/2) | 2/5 |
 | lxs:xinghai-music-source2.3.0.js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | - | - | - | - | 1/5 |
+| lxs:全豆要-聚合音源-V4.1.js | 320k (2/2), 128k (2/2), flac (2/2) | - | - | - | - | 1/5 |
 | lxs:收集の聚合接口.js | - | 320k (2/2), 128k (2/2) | - | - | - | 1/5 |
 | lxs:统一音乐源.js | 320k (2/2), 128k (2/2), flac (2/2) | - | - | - | - | 1/5 |
 | lxs:聚合API.js | - | 320k (1/2), 128k (1/2) | - | - | - | 1/5 |
+| lxs:非常刀.js | 320k (2/2), 128k (2/2) | - | - | - | - | 1/5 |
+| pdone:feichangdao/latest.js | 320k (2/2), 128k (2/2) | - | - | - | - | 1/5 |
 | pdone:juhe/latest.js | - | 320k (1/2), 128k (1/2) | - | - | - | 1/5 |
+| pdone:lx/latest.js | - | - | 320k (2/2), 128k (2/2), flac (2/2) | - | - | 1/5 |
+| pdone:qdy/latest.js | 320k (2/2), 128k (2/2), flac (2/2) | - | - | - | - | 1/5 |
 | shellsec:sources/annie/安妮独家音源.js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | - | - | - | - | 1/5 |
+| shellsec:sources/feichangdao/非常刀.js | 320k (2/2), 128k (2/2) | - | - | - | - | 1/5 |
+| shellsec:sources/lx/独家音源.js | - | - | 320k (2/2), 128k (2/2), flac (2/2) | - | - | 1/5 |
+| shellsec:sources/qdy/全豆要[聚合音源].js | 320k (2/2), 128k (2/2), flac (2/2) | - | - | - | - | 1/5 |
 | shellsec:sources/yuxi/屿溪-终章.js | - | - | - | - | 320k (2/2), 128k (2/2), flac (2/2) | 1/5 |
 | xinghai:xinghai-music-sourcev2.3.8.js | 320k (2/2), 128k (2/2), flac (2/2), flac24bit (2/2) | - | - | - | - | 1/5 |
 | lxs:fish-music音源.js | - | - | - | - | - | 0/5 |
@@ -64,13 +66,11 @@
 | pdone:grass/latest.js | - | - | - | - | - | 0/5 |
 | pdone:huanyin/latest.js | - | - | - | - | - | 0/5 |
 | pdone:ikun/latest.js | - | - | - | - | - | 0/5 |
-| pdone:lx/latest.js | - | - | - | - | - | 0/5 |
 | pdone:sixyin/latest.js | - | - | - | - | - | 0/5 |
 | shellsec:sources/changqing/长青SVIP音源(二改修复版).js | - | - | - | - | - | 0/5 |
 | shellsec:sources/doubao/豆包定制[聚合音源].js | - | - | - | - | - | 0/5 |
 | shellsec:sources/gd-studio/gdstudio音乐源.js | - | - | - | - | - | 0/5 |
 | shellsec:sources/grass/野草🌾.js | - | - | - | - | - | 0/5 |
-| shellsec:sources/lx/独家音源.js | - | - | - | - | - | 0/5 |
 | shellsec:sources/nianxin/念心音源.js | - | - | - | - | - | 0/5 |
 | sixyin-cc:sixyin-music-source-v1.0.7.js | - | - | - | - | - | 0/5 |
 | younger:lx-source.js | - | - | - | - | - | 0/5 |
@@ -79,44 +79,44 @@
 
 | 音源 | 平台 | 音质 | 探针 | L1 | L2 | L3 | 说明 |
 |---|---|---|---|---|---|---|---|
-| pdone:changqing/latest.js | wy | 320k | wy:2652820720 | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | wy | 320k | wy:1357375695 | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | wy | 128k | wy:2652820720 | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | wy | 128k | wy:1357375695 | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | wy | flac | wy:2652820720 | OK | - | - | HTTP 404 ct=text/html magic=- quality mismatch |
-| pdone:changqing/latest.js | wy | flac | wy:1357375695 | OK | - | - | HTTP 404 ct=text/html magic=- quality mismatch |
+| pdone:changqing/latest.js | wy | 320k | wy:2652820720 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | wy | 320k | wy:1357375695 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | wy | 128k | wy:2652820720 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | wy | 128k | wy:1357375695 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | wy | flac | wy:2652820720 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | wy | flac | wy:1357375695 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
 | pdone:changqing/latest.js | wy | flac24bit | wy:2652820720 | - | - | - | Platform or quality not declared |
 | pdone:changqing/latest.js | wy | flac24bit | wy:1357375695 | - | - | - | Platform or quality not declared |
-| pdone:changqing/latest.js | tx | 320k | tx:0039MnYb0qxYhV | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | tx | 320k | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | tx | 128k | tx:0039MnYb0qxYhV | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | tx | 128k | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | tx | flac | tx:0039MnYb0qxYhV | OK | - | - | HTTP 404 ct=text/html magic=- quality mismatch |
-| pdone:changqing/latest.js | tx | flac | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/html magic=- quality mismatch |
+| pdone:changqing/latest.js | tx | 320k | tx:0039MnYb0qxYhV | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | tx | 320k | tx:001yS0N33yPm1B | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | tx | 128k | tx:0039MnYb0qxYhV | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | tx | 128k | tx:001yS0N33yPm1B | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | tx | flac | tx:0039MnYb0qxYhV | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | tx | flac | tx:001yS0N33yPm1B | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
 | pdone:changqing/latest.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | Platform or quality not declared |
 | pdone:changqing/latest.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | Platform or quality not declared |
-| pdone:changqing/latest.js | kw | 320k | kw:228908 | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | kw | 320k | kw:5886682 | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | kw | 128k | kw:228908 | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | kw | 128k | kw:5886682 | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | kw | flac | kw:228908 | OK | - | - | HTTP 404 ct=text/html magic=- quality mismatch |
-| pdone:changqing/latest.js | kw | flac | kw:5886682 | OK | - | - | HTTP 404 ct=text/html magic=- quality mismatch |
+| pdone:changqing/latest.js | kw | 320k | kw:228908 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | kw | 320k | kw:5886682 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | kw | 128k | kw:228908 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | kw | 128k | kw:5886682 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | kw | flac | kw:228908 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | kw | flac | kw:5886682 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
 | pdone:changqing/latest.js | kw | flac24bit | kw:228908 | - | - | - | Platform or quality not declared |
 | pdone:changqing/latest.js | kw | flac24bit | kw:5886682 | - | - | - | Platform or quality not declared |
-| pdone:changqing/latest.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | - | - | HTTP 404 ct=text/html magic=- quality mismatch |
-| pdone:changqing/latest.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | OK | - | - | HTTP 404 ct=text/html magic=- quality mismatch |
+| pdone:changqing/latest.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
 | pdone:changqing/latest.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | Platform or quality not declared |
 | pdone:changqing/latest.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | Platform or quality not declared |
-| pdone:changqing/latest.js | mg | 320k | mg:3790007 | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | mg | 320k | mg:1135162566 | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | mg | 128k | mg:3790007 | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | mg | 128k | mg:1135162566 | OK | - | - | HTTP 404 ct=text/html magic=- |
-| pdone:changqing/latest.js | mg | flac | mg:3790007 | OK | - | - | HTTP 404 ct=text/html magic=- quality mismatch |
-| pdone:changqing/latest.js | mg | flac | mg:1135162566 | OK | - | - | HTTP 404 ct=text/html magic=- quality mismatch |
+| pdone:changqing/latest.js | mg | 320k | mg:3790007 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | mg | 320k | mg:1135162566 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | mg | 128k | mg:3790007 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | mg | 128k | mg:1135162566 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | mg | flac | mg:3790007 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| pdone:changqing/latest.js | mg | flac | mg:1135162566 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
 | pdone:changqing/latest.js | mg | flac24bit | mg:3790007 | - | - | - | Platform or quality not declared |
 | pdone:changqing/latest.js | mg | flac24bit | mg:1135162566 | - | - | - | Platform or quality not declared |
 | pdone:feichangdao/latest.js | wy | 320k | wy:2652820720 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -136,7 +136,7 @@
 | pdone:feichangdao/latest.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | L1 所有音源均失败 |
 | pdone:feichangdao/latest.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | L1 所有音源均失败 |
 | pdone:feichangdao/latest.js | kw | 320k | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- |
-| pdone:feichangdao/latest.js | kw | 320k | kw:5886682 | OK | OK | OK | OK 206 m4a 4096B |
+| pdone:feichangdao/latest.js | kw | 320k | kw:5886682 | OK | - | - | HTTP 410 ct=- magic=- |
 | pdone:feichangdao/latest.js | kw | 128k | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- |
 | pdone:feichangdao/latest.js | kw | 128k | kw:5886682 | OK | - | - | HTTP 410 ct=- magic=- |
 | pdone:feichangdao/latest.js | kw | flac | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- quality mismatch |
@@ -291,9 +291,9 @@
 | pdone:helloworld/latest.js | tx | 320k | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
 | pdone:helloworld/latest.js | tx | 128k | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
 | pdone:helloworld/latest.js | tx | 128k | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
-| pdone:helloworld/latest.js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/x-ogg magic=- quality mismatch |
+| pdone:helloworld/latest.js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=m4a quality mismatch |
 | pdone:helloworld/latest.js | tx | flac | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=audio/x-ogg magic=- quality mismatch |
-| pdone:helloworld/latest.js | tx | flac24bit | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=flac quality mismatch |
+| pdone:helloworld/latest.js | tx | flac24bit | tx:0039MnYb0qxYhV | OK | - | - | HTTP 403 ct=application/octet-stream magic=- quality mismatch |
 | pdone:helloworld/latest.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | L1 call timeout |
 | pdone:helloworld/latest.js | kw | 320k | kw:228908 | - | - | - | L1 Invalid HTTP URL |
 | pdone:helloworld/latest.js | kw | 320k | kw:5886682 | - | - | - | L1 Invalid HTTP URL |
@@ -307,7 +307,7 @@
 | pdone:helloworld/latest.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:helloworld/latest.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:helloworld/latest.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| pdone:helloworld/latest.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
+| pdone:helloworld/latest.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 flac 4096B |
 | pdone:helloworld/latest.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 flac 4096B |
 | pdone:helloworld/latest.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | Platform or quality not declared |
 | pdone:helloworld/latest.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | Platform or quality not declared |
@@ -399,38 +399,38 @@
 | pdone:huibq/latest.js | mg | flac | mg:1135162566 | - | - | - | Platform or quality not declared |
 | pdone:huibq/latest.js | mg | flac24bit | mg:3790007 | - | - | - | Platform or quality not declared |
 | pdone:huibq/latest.js | mg | flac24bit | mg:1135162566 | - | - | - | Platform or quality not declared |
-| pdone:hyw/latest.js | wy | 320k | wy:2652820720 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| pdone:hyw/latest.js | wy | 320k | wy:1357375695 | - | - | - | L1 call timeout |
+| pdone:hyw/latest.js | wy | 320k | wy:2652820720 | OK | OK | - | HTTP 200 ct=text/html;charset=utf8 magic=- |
+| pdone:hyw/latest.js | wy | 320k | wy:1357375695 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:hyw/latest.js | wy | 128k | wy:2652820720 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:hyw/latest.js | wy | 128k | wy:1357375695 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:hyw/latest.js | wy | flac | wy:2652820720 | OK | OK | OK | OK 206 flac 4096B |
 | pdone:hyw/latest.js | wy | flac | wy:1357375695 | OK | OK | OK | OK 206 flac 4096B |
 | pdone:hyw/latest.js | wy | flac24bit | wy:2652820720 | - | - | - | L1 call timeout |
 | pdone:hyw/latest.js | wy | flac24bit | wy:1357375695 | - | - | - | L1 call timeout |
-| pdone:hyw/latest.js | tx | 320k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
+| pdone:hyw/latest.js | tx | 320k | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
 | pdone:hyw/latest.js | tx | 320k | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
 | pdone:hyw/latest.js | tx | 128k | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
 | pdone:hyw/latest.js | tx | 128k | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
-| pdone:hyw/latest.js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/x-ogg magic=- quality mismatch |
+| pdone:hyw/latest.js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=m4a quality mismatch |
 | pdone:hyw/latest.js | tx | flac | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=audio/x-ogg magic=- quality mismatch |
-| pdone:hyw/latest.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | L1 QQ音乐所有音源均获取失败 |
+| pdone:hyw/latest.js | tx | flac24bit | tx:0039MnYb0qxYhV | OK | - | - | HTTP 403 ct=application/octet-stream magic=- quality mismatch |
 | pdone:hyw/latest.js | tx | flac24bit | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=mp3(ID3) quality mismatch |
 | pdone:hyw/latest.js | kw | 320k | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- |
 | pdone:hyw/latest.js | kw | 320k | kw:5886682 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| pdone:hyw/latest.js | kw | 128k | kw:228908 | OK | OK | OK | OK 206 ogg 4096B |
+| pdone:hyw/latest.js | kw | 128k | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- |
 | pdone:hyw/latest.js | kw | 128k | kw:5886682 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:hyw/latest.js | kw | flac | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- quality mismatch |
 | pdone:hyw/latest.js | kw | flac | kw:5886682 | OK | OK | OK | OK 206 flac 4096B |
-| pdone:hyw/latest.js | kw | flac24bit | kw:228908 | - | - | - | L1 call timeout |
-| pdone:hyw/latest.js | kw | flac24bit | kw:5886682 | OK | - | - | HTTP 403 ct=application/json magic=- quality mismatch |
+| pdone:hyw/latest.js | kw | flac24bit | kw:228908 | OK | OK | OK | OK 206 flac 4096B |
+| pdone:hyw/latest.js | kw | flac24bit | kw:5886682 | OK | OK | - | HTTP 206 ct=audio/x-flac magic=flac quality mismatch |
 | pdone:hyw/latest.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:hyw/latest.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:hyw/latest.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:hyw/latest.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| pdone:hyw/latest.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 call timeout |
+| pdone:hyw/latest.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 flac 4096B |
 | pdone:hyw/latest.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 flac 4096B |
-| pdone:hyw/latest.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 flac 4096B |
-| pdone:hyw/latest.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | - | HTTP 206 ct=application/octet-stream magic=mp3(ID3) quality mismatch |
+| pdone:hyw/latest.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 call timeout |
+| pdone:hyw/latest.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | - | HTTP 206 ct=application/octet-stream magic=flac quality mismatch |
 | pdone:hyw/latest.js | mg | 320k | mg:3790007 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
 | pdone:hyw/latest.js | mg | 320k | mg:1135162566 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
 | pdone:hyw/latest.js | mg | 128k | mg:3790007 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
@@ -444,9 +444,9 @@
 | pdone:ikun/latest.js | wy | 128k | wy:2652820720 | - | - | - | L1 Source failed: getaddrinfo ENOTFOUND api.ikunshare.com |
 | pdone:ikun/latest.js | wy | 128k | wy:1357375695 | - | - | - | L1 Source failed: getaddrinfo ENOTFOUND api.ikunshare.com |
 | pdone:ikun/latest.js | wy | flac | wy:2652820720 | - | - | - | L1 Source failed: getaddrinfo ENOTFOUND api.ikunshare.com |
-| pdone:ikun/latest.js | wy | flac | wy:1357375695 | - | - | - | L1 getaddrinfo ENOTFOUND api.ikunshare.com |
+| pdone:ikun/latest.js | wy | flac | wy:1357375695 | - | - | - | L1 Source failed: getaddrinfo ENOTFOUND api.ikunshare.com |
 | pdone:ikun/latest.js | wy | flac24bit | wy:2652820720 | - | - | - | L1 Source failed: getaddrinfo ENOTFOUND api.ikunshare.com |
-| pdone:ikun/latest.js | wy | flac24bit | wy:1357375695 | - | - | - | L1 getaddrinfo ENOTFOUND api.ikunshare.com |
+| pdone:ikun/latest.js | wy | flac24bit | wy:1357375695 | - | - | - | L1 Source failed: getaddrinfo ENOTFOUND api.ikunshare.com |
 | pdone:ikun/latest.js | tx | 320k | tx:0039MnYb0qxYhV | - | - | - | Platform or quality not declared |
 | pdone:ikun/latest.js | tx | 320k | tx:001yS0N33yPm1B | - | - | - | Platform or quality not declared |
 | pdone:ikun/latest.js | tx | 128k | tx:0039MnYb0qxYhV | - | - | - | Platform or quality not declared |
@@ -456,13 +456,13 @@
 | pdone:ikun/latest.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | Platform or quality not declared |
 | pdone:ikun/latest.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | Platform or quality not declared |
 | pdone:ikun/latest.js | kw | 320k | kw:228908 | - | - | - | L1 Source failed: getaddrinfo ENOTFOUND api.ikunshare.com |
-| pdone:ikun/latest.js | kw | 320k | kw:5886682 | - | - | - | L1 getaddrinfo ENOTFOUND api.ikunshare.com |
+| pdone:ikun/latest.js | kw | 320k | kw:5886682 | - | - | - | L1 Source failed: getaddrinfo ENOTFOUND api.ikunshare.com |
 | pdone:ikun/latest.js | kw | 128k | kw:228908 | - | - | - | L1 Source failed: getaddrinfo ENOTFOUND api.ikunshare.com |
 | pdone:ikun/latest.js | kw | 128k | kw:5886682 | - | - | - | L1 Source failed: getaddrinfo ENOTFOUND api.ikunshare.com |
 | pdone:ikun/latest.js | kw | flac | kw:228908 | - | - | - | L1 Source failed: getaddrinfo ENOTFOUND api.ikunshare.com |
 | pdone:ikun/latest.js | kw | flac | kw:5886682 | - | - | - | L1 Source failed: getaddrinfo ENOTFOUND api.ikunshare.com |
 | pdone:ikun/latest.js | kw | flac24bit | kw:228908 | - | - | - | L1 Source failed: getaddrinfo ENOTFOUND api.ikunshare.com |
-| pdone:ikun/latest.js | kw | flac24bit | kw:5886682 | - | - | - | L1 getaddrinfo ENOTFOUND api.ikunshare.com |
+| pdone:ikun/latest.js | kw | flac24bit | kw:5886682 | - | - | - | L1 Source failed: getaddrinfo ENOTFOUND api.ikunshare.com |
 | pdone:ikun/latest.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | Platform or quality not declared |
 | pdone:ikun/latest.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | Platform or quality not declared |
 | pdone:ikun/latest.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | Platform or quality not declared |
@@ -488,11 +488,11 @@
 | pdone:jiexiang/latest.js | wy | flac24bit | wy:2652820720 | - | - | - | Platform or quality not declared |
 | pdone:jiexiang/latest.js | wy | flac24bit | wy:1357375695 | - | - | - | Platform or quality not declared |
 | pdone:jiexiang/latest.js | tx | 320k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
-| pdone:jiexiang/latest.js | tx | 320k | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| pdone:jiexiang/latest.js | tx | 320k | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 ogg 4096B |
 | pdone:jiexiang/latest.js | tx | 128k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
-| pdone:jiexiang/latest.js | tx | 128k | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| pdone:jiexiang/latest.js | tx | 128k | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:jiexiang/latest.js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(frame) quality mismatch |
-| pdone:jiexiang/latest.js | tx | flac | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- quality mismatch |
+| pdone:jiexiang/latest.js | tx | flac | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 flac 4096B |
 | pdone:jiexiang/latest.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | Platform or quality not declared |
 | pdone:jiexiang/latest.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | Platform or quality not declared |
 | pdone:jiexiang/latest.js | kw | 320k | kw:228908 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -528,13 +528,13 @@
 | pdone:juhe/latest.js | wy | flac24bit | wy:2652820720 | - | - | - | L1 get url failed |
 | pdone:juhe/latest.js | wy | flac24bit | wy:1357375695 | - | - | - | L1 get url failed |
 | pdone:juhe/latest.js | tx | 320k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
-| pdone:juhe/latest.js | tx | 320k | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| pdone:juhe/latest.js | tx | 320k | tx:001yS0N33yPm1B | - | - | - | L1 Invalid HTTP URL |
 | pdone:juhe/latest.js | tx | 128k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
-| pdone:juhe/latest.js | tx | 128k | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| pdone:juhe/latest.js | tx | 128k | tx:001yS0N33yPm1B | - | - | - | L1 Invalid HTTP URL |
 | pdone:juhe/latest.js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(frame) quality mismatch |
-| pdone:juhe/latest.js | tx | flac | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- quality mismatch |
+| pdone:juhe/latest.js | tx | flac | tx:001yS0N33yPm1B | - | - | - | L1 Invalid HTTP URL |
 | pdone:juhe/latest.js | tx | flac24bit | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(frame) quality mismatch |
-| pdone:juhe/latest.js | tx | flac24bit | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- quality mismatch |
+| pdone:juhe/latest.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | L1 Invalid HTTP URL |
 | pdone:juhe/latest.js | kw | 320k | kw:228908 | - | - | - | L1 Invalid HTTP URL |
 | pdone:juhe/latest.js | kw | 320k | kw:5886682 | - | - | - | L1 Invalid HTTP URL |
 | pdone:juhe/latest.js | kw | 128k | kw:228908 | - | - | - | L1 Invalid HTTP URL |
@@ -558,47 +558,47 @@
 | pdone:juhe/latest.js | mg | flac | mg:3790007 | - | - | - | L1 TypeError: Cannot read properties of undefined (reading 'startsWith') |
 | pdone:juhe/latest.js | mg | flac | mg:1135162566 | - | - | - | L1 TypeError: Cannot read properties of undefined (reading 'startsWith') |
 | pdone:juhe/latest.js | mg | flac24bit | mg:3790007 | - | - | - | L1 TypeError: Cannot read properties of undefined (reading 'startsWith') |
-| pdone:juhe/latest.js | mg | flac24bit | mg:1135162566 | - | - | - | L1 TypeError: Cannot read properties of undefined (reading 'startsWith') |
-| pdone:lx/latest.js | wy | 320k | wy:2652820720 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | wy | 320k | wy:1357375695 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | wy | 128k | wy:2652820720 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | wy | 128k | wy:1357375695 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | wy | flac | wy:2652820720 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | wy | flac | wy:1357375695 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | wy | flac24bit | wy:2652820720 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | wy | flac24bit | wy:1357375695 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | tx | 320k | tx:0039MnYb0qxYhV | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | tx | 320k | tx:001yS0N33yPm1B | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | tx | 128k | tx:0039MnYb0qxYhV | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | tx | 128k | tx:001yS0N33yPm1B | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | tx | flac | tx:0039MnYb0qxYhV | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | tx | flac | tx:001yS0N33yPm1B | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | kw | 320k | kw:228908 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | kw | 320k | kw:5886682 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | kw | 128k | kw:228908 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | kw | 128k | kw:5886682 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | kw | flac | kw:228908 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | kw | flac | kw:5886682 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | kw | flac24bit | kw:228908 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | kw | flac24bit | kw:5886682 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | mg | 320k | mg:3790007 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | mg | 320k | mg:1135162566 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | mg | 128k | mg:3790007 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | mg | 128k | mg:1135162566 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | mg | flac | mg:3790007 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | mg | flac | mg:1135162566 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | mg | flac24bit | mg:3790007 | - | - | - | L1 certificate has expired |
-| pdone:lx/latest.js | mg | flac24bit | mg:1135162566 | - | - | - | L1 certificate has expired |
+| pdone:juhe/latest.js | mg | flac24bit | mg:1135162566 | - | - | - | L1 Error: ETIMEDOUT |
+| pdone:lx/latest.js | wy | 320k | wy:2652820720 | - | - | - | L1 unknow error |
+| pdone:lx/latest.js | wy | 320k | wy:1357375695 | - | - | - | L1 unknow error |
+| pdone:lx/latest.js | wy | 128k | wy:2652820720 | - | - | - | L1 unknow error |
+| pdone:lx/latest.js | wy | 128k | wy:1357375695 | - | - | - | L1 unknow error |
+| pdone:lx/latest.js | wy | flac | wy:2652820720 | - | - | - | L1 unknow error |
+| pdone:lx/latest.js | wy | flac | wy:1357375695 | - | - | - | L1 unknow error |
+| pdone:lx/latest.js | wy | flac24bit | wy:2652820720 | - | - | - | L1 unknow error |
+| pdone:lx/latest.js | wy | flac24bit | wy:1357375695 | - | - | - | L1 unknow error |
+| pdone:lx/latest.js | tx | 320k | tx:0039MnYb0qxYhV | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | tx | 320k | tx:001yS0N33yPm1B | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | tx | 128k | tx:0039MnYb0qxYhV | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | tx | 128k | tx:001yS0N33yPm1B | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | tx | flac | tx:0039MnYb0qxYhV | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | tx | flac | tx:001yS0N33yPm1B | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | kw | 320k | kw:228908 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| pdone:lx/latest.js | kw | 320k | kw:5886682 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| pdone:lx/latest.js | kw | 128k | kw:228908 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| pdone:lx/latest.js | kw | 128k | kw:5886682 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| pdone:lx/latest.js | kw | flac | kw:228908 | OK | OK | OK | OK 206 flac 4096B |
+| pdone:lx/latest.js | kw | flac | kw:5886682 | OK | OK | OK | OK 206 flac 4096B |
+| pdone:lx/latest.js | kw | flac24bit | kw:228908 | - | - | - | L1 unknow error |
+| pdone:lx/latest.js | kw | flac24bit | kw:5886682 | - | - | - | L1 unknow error |
+| pdone:lx/latest.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | mg | 320k | mg:3790007 | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | mg | 320k | mg:1135162566 | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | mg | 128k | mg:3790007 | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | mg | 128k | mg:1135162566 | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | mg | flac | mg:3790007 | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | mg | flac | mg:1135162566 | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | mg | flac24bit | mg:3790007 | - | - | - | L1 get music url failed |
+| pdone:lx/latest.js | mg | flac24bit | mg:1135162566 | - | - | - | L1 get music url failed |
 | pdone:qdy/latest.js | wy | 320k | wy:2652820720 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:qdy/latest.js | wy | 320k | wy:1357375695 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:qdy/latest.js | wy | 128k | wy:2652820720 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -616,7 +616,7 @@
 | pdone:qdy/latest.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | Platform or quality not declared |
 | pdone:qdy/latest.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | Platform or quality not declared |
 | pdone:qdy/latest.js | kw | 320k | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- |
-| pdone:qdy/latest.js | kw | 320k | kw:5886682 | OK | OK | OK | OK 206 m4a 4096B |
+| pdone:qdy/latest.js | kw | 320k | kw:5886682 | OK | - | - | HTTP 410 ct=- magic=- |
 | pdone:qdy/latest.js | kw | 128k | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- |
 | pdone:qdy/latest.js | kw | 128k | kw:5886682 | OK | - | - | HTTP 410 ct=- magic=- |
 | pdone:qdy/latest.js | kw | flac | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- quality mismatch |
@@ -649,8 +649,8 @@
 | pdone:qingliang/latest.js | wy | flac24bit | wy:1357375695 | - | - | - | Platform or quality not declared |
 | pdone:qingliang/latest.js | tx | 320k | tx:0039MnYb0qxYhV | - | - | - | Platform or quality not declared |
 | pdone:qingliang/latest.js | tx | 320k | tx:001yS0N33yPm1B | - | - | - | Platform or quality not declared |
-| pdone:qingliang/latest.js | tx | 128k | tx:0039MnYb0qxYhV | - | - | - | L1 当前歌曲未找到可播链接：qq-lzm:128k: 返回的不是音频；qq-dedicated: 接口超时；same-song:wwwweb:128k: 没有找到歌名、歌手和版本一致的备用歌曲；same-song:kuwo-direct:128k: 没有找到歌名、歌手和版本一致的备用歌曲；wwwweb:tx:128k: 返回的是短片段或提示音 |
-| pdone:qingliang/latest.js | tx | 128k | tx:001yS0N33yPm1B | - | - | - | L1 当前歌曲未找到可播链接：qq-lzm:128k: 返回的不是音频；wwwweb:tx:128k: 返回的是短片段或提示音；qq-dedicated: 返回的不是音频；same-song:wwwweb:128k: 没有找到歌名、歌手和版本一致的备用歌曲；same-song:kuwo-direct:128k: 没有找到歌名、歌手和版本一致的备用歌曲 |
+| pdone:qingliang/latest.js | tx | 128k | tx:0039MnYb0qxYhV | - | - | - | L1 当前歌曲未找到可播链接：qq-lzm:128k: 返回的不是音频；qq-dedicated: 返回的不是音频；same-song:wwwweb:128k: 没有找到歌名、歌手和版本一致的备用歌曲；same-song:kuwo-direct:128k: 没有找到歌名、歌手和版本一致的备用歌曲；wwwweb:tx:128k: 返回的是短片段或提示音 |
+| pdone:qingliang/latest.js | tx | 128k | tx:001yS0N33yPm1B | - | - | - | L1 当前歌曲未找到可播链接：qq-lzm:128k: 返回的不是音频；qq-dedicated: 返回的不是音频；wwwweb:tx:128k: 返回的是短片段或提示音；same-song:wwwweb:128k: 没有找到歌名、歌手和版本一致的备用歌曲；same-song:kuwo-direct:128k: 没有找到歌名、歌手和版本一致的备用歌曲 |
 | pdone:qingliang/latest.js | tx | flac | tx:0039MnYb0qxYhV | - | - | - | Platform or quality not declared |
 | pdone:qingliang/latest.js | tx | flac | tx:001yS0N33yPm1B | - | - | - | Platform or quality not declared |
 | pdone:qingliang/latest.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | Platform or quality not declared |
@@ -663,11 +663,11 @@
 | pdone:qingliang/latest.js | kw | flac | kw:5886682 | OK | OK | OK | OK 206 flac 4096B |
 | pdone:qingliang/latest.js | kw | flac24bit | kw:228908 | - | - | - | Platform or quality not declared |
 | pdone:qingliang/latest.js | kw | flac24bit | kw:5886682 | - | - | - | Platform or quality not declared |
-| pdone:qingliang/latest.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 当前歌曲未找到可播链接：kg-mobile:320k: 酷狗 playInfo 没有返回播放地址；wwwweb:kg:320k: 返回的是短片段或提示音；same-song:wwwweb:320k: 没有找到歌名、歌手和版本一致的备用歌曲；same-song:kuwo-direct:320k: 没有找到歌名、歌手和版本一致的备用歌曲；kg-webapi:320k: 网络请求失败 |
+| pdone:qingliang/latest.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 当前歌曲未找到可播链接：wwwweb:kg:320k: 返回的是短片段或提示音；kg-mobile:320k: 酷狗 playInfo 没有返回播放地址；same-song:wwwweb:320k: 没有找到歌名、歌手和版本一致的备用歌曲；same-song:kuwo-direct:320k: 没有找到歌名、歌手和版本一致的备用歌曲；kg-webapi:320k: 酷狗接口没有返回播放地址 |
 | pdone:qingliang/latest.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 当前歌曲未找到可播链接：kg-mobile:320k: 酷狗 playInfo 没有返回播放地址；wwwweb:kg:320k: 返回的是短片段或提示音；kg-webapi:320k: 酷狗接口没有返回播放地址；same-song:wwwweb:320k: 没有找到歌名、歌手和版本一致的备用歌曲；same-song:kuwo-direct:320k: 没有找到歌名、歌手和版本一致的备用歌曲 |
 | pdone:qingliang/latest.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 当前歌曲未找到可播链接：kg-mobile:128k: 酷狗 playInfo 没有返回播放地址；kg-webapi:128k: 酷狗接口没有返回播放地址；wwwweb:kg:128k: 返回的是短片段或提示音；same-song:wwwweb:128k: 没有找到歌名、歌手和版本一致的备用歌曲；same-song:kuwo-direct:128k: 没有找到歌名、歌手和版本一致的备用歌曲 |
 | pdone:qingliang/latest.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 当前歌曲未找到可播链接：kg-mobile:128k: 酷狗 playInfo 没有返回播放地址；kg-webapi:128k: 酷狗接口没有返回播放地址；wwwweb:kg:128k: 返回的是短片段或提示音；same-song:wwwweb:128k: 没有找到歌名、歌手和版本一致的备用歌曲；same-song:kuwo-direct:128k: 没有找到歌名、歌手和版本一致的备用歌曲 |
-| pdone:qingliang/latest.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 当前歌曲未找到可播链接：kg-mobile:flac: 酷狗 playInfo 没有返回播放地址；wwwweb:kg:flac: 返回的是短片段或提示音；kg-webapi:flac: 酷狗接口没有返回播放地址；same-song:wwwweb:flac: 没有找到歌名、歌手和版本一致的备用歌曲；same-song:kuwo-direct:flac: 没有找到歌名、歌手和版本一致的备用歌曲 |
+| pdone:qingliang/latest.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 当前歌曲未找到可播链接：kg-mobile:flac: 酷狗 playInfo 没有返回播放地址；kg-webapi:flac: 酷狗接口没有返回播放地址；wwwweb:kg:flac: 返回的是短片段或提示音；same-song:wwwweb:flac: 没有找到歌名、歌手和版本一致的备用歌曲；same-song:kuwo-direct:flac: 没有找到歌名、歌手和版本一致的备用歌曲 |
 | pdone:qingliang/latest.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 当前歌曲未找到可播链接：kg-mobile:flac: 酷狗 playInfo 没有返回播放地址；kg-webapi:flac: 酷狗接口没有返回播放地址；wwwweb:kg:flac: 返回的是短片段或提示音；same-song:wwwweb:flac: 没有找到歌名、歌手和版本一致的备用歌曲；same-song:kuwo-direct:flac: 没有找到歌名、歌手和版本一致的备用歌曲 |
 | pdone:qingliang/latest.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | Platform or quality not declared |
 | pdone:qingliang/latest.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | Platform or quality not declared |
@@ -808,26 +808,26 @@
 | pdone:xinglan/latest.js | wy | flac24bit | wy:2652820720 | - | - | - | Platform or quality not declared |
 | pdone:xinglan/latest.js | wy | flac24bit | wy:1357375695 | - | - | - | Platform or quality not declared |
 | pdone:xinglan/latest.js | tx | 320k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
-| pdone:xinglan/latest.js | tx | 320k | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| pdone:xinglan/latest.js | tx | 320k | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:xinglan/latest.js | tx | 128k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
-| pdone:xinglan/latest.js | tx | 128k | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| pdone:xinglan/latest.js | tx | 128k | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:xinglan/latest.js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(frame) quality mismatch |
-| pdone:xinglan/latest.js | tx | flac | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- quality mismatch |
+| pdone:xinglan/latest.js | tx | flac | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 flac 4096B |
 | pdone:xinglan/latest.js | tx | flac24bit | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(frame) quality mismatch |
-| pdone:xinglan/latest.js | tx | flac24bit | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- quality mismatch |
+| pdone:xinglan/latest.js | tx | flac24bit | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=flac quality mismatch |
 | pdone:xinglan/latest.js | kw | 320k | kw:228908 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:xinglan/latest.js | kw | 320k | kw:5886682 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:xinglan/latest.js | kw | 128k | kw:228908 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:xinglan/latest.js | kw | 128k | kw:5886682 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:xinglan/latest.js | kw | flac | kw:228908 | OK | OK | OK | OK 206 flac 4096B |
 | pdone:xinglan/latest.js | kw | flac | kw:5886682 | OK | OK | OK | OK 206 flac 4096B |
-| pdone:xinglan/latest.js | kw | flac24bit | kw:228908 | OK | OK | OK | OK 206 flac 4096B |
-| pdone:xinglan/latest.js | kw | flac24bit | kw:5886682 | OK | OK | - | HTTP 206 ct=audio/x-flac magic=flac quality mismatch |
+| pdone:xinglan/latest.js | kw | flac24bit | kw:228908 | OK | OK | - | HTTP 206 ct=audio/mp4 magic=m4a quality mismatch |
+| pdone:xinglan/latest.js | kw | flac24bit | kw:5886682 | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- quality mismatch |
 | pdone:xinglan/latest.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:xinglan/latest.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:xinglan/latest.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | pdone:xinglan/latest.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| pdone:xinglan/latest.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
+| pdone:xinglan/latest.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 flac 4096B |
 | pdone:xinglan/latest.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 flac 4096B |
 | pdone:xinglan/latest.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | Platform or quality not declared |
 | pdone:xinglan/latest.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | Platform or quality not declared |
@@ -1056,7 +1056,7 @@
 | lxs:全豆要-聚合音源-V4.1.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | Platform or quality not declared |
 | lxs:全豆要-聚合音源-V4.1.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | Platform or quality not declared |
 | lxs:全豆要-聚合音源-V4.1.js | kw | 320k | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- |
-| lxs:全豆要-聚合音源-V4.1.js | kw | 320k | kw:5886682 | OK | OK | OK | OK 206 m4a 4096B |
+| lxs:全豆要-聚合音源-V4.1.js | kw | 320k | kw:5886682 | OK | - | - | HTTP 410 ct=- magic=- |
 | lxs:全豆要-聚合音源-V4.1.js | kw | 128k | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- |
 | lxs:全豆要-聚合音源-V4.1.js | kw | 128k | kw:5886682 | OK | - | - | HTTP 410 ct=- magic=- |
 | lxs:全豆要-聚合音源-V4.1.js | kw | flac | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- quality mismatch |
@@ -1121,7 +1121,7 @@
 | lxs:忆音音源 v1.js | mg | flac24bit | mg:1135162566 | - | - | - | Platform or quality not declared |
 | lxs:念心音源-V1.0.1.js | wy | 320k | wy:2652820720 | OK | - | - | HTTP 520 ct=- magic=- |
 | lxs:念心音源-V1.0.1.js | wy | 320k | wy:1357375695 | OK | - | - | HTTP 520 ct=- magic=- |
-| lxs:念心音源-V1.0.1.js | wy | 128k | wy:2652820720 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| lxs:念心音源-V1.0.1.js | wy | 128k | wy:2652820720 | OK | - | - | HTTP 520 ct=- magic=- |
 | lxs:念心音源-V1.0.1.js | wy | 128k | wy:1357375695 | OK | - | - | HTTP 520 ct=- magic=- |
 | lxs:念心音源-V1.0.1.js | wy | flac | wy:2652820720 | OK | - | - | HTTP 520 ct=- magic=- quality mismatch |
 | lxs:念心音源-V1.0.1.js | wy | flac | wy:1357375695 | OK | - | - | HTTP 520 ct=- magic=- quality mismatch |
@@ -1288,13 +1288,13 @@
 | lxs:聚合API.js | wy | flac24bit | wy:2652820720 | - | - | - | L1 get url failed |
 | lxs:聚合API.js | wy | flac24bit | wy:1357375695 | - | - | - | L1 get url failed |
 | lxs:聚合API.js | tx | 320k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
-| lxs:聚合API.js | tx | 320k | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| lxs:聚合API.js | tx | 320k | tx:001yS0N33yPm1B | - | - | - | L1 Invalid HTTP URL |
 | lxs:聚合API.js | tx | 128k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
-| lxs:聚合API.js | tx | 128k | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| lxs:聚合API.js | tx | 128k | tx:001yS0N33yPm1B | - | - | - | L1 Invalid HTTP URL |
 | lxs:聚合API.js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(frame) quality mismatch |
-| lxs:聚合API.js | tx | flac | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- quality mismatch |
+| lxs:聚合API.js | tx | flac | tx:001yS0N33yPm1B | - | - | - | L1 Invalid HTTP URL |
 | lxs:聚合API.js | tx | flac24bit | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(frame) quality mismatch |
-| lxs:聚合API.js | tx | flac24bit | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- quality mismatch |
+| lxs:聚合API.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | L1 Invalid HTTP URL |
 | lxs:聚合API.js | kw | 320k | kw:228908 | - | - | - | L1 Invalid HTTP URL |
 | lxs:聚合API.js | kw | 320k | kw:5886682 | - | - | - | L1 Invalid HTTP URL |
 | lxs:聚合API.js | kw | 128k | kw:228908 | - | - | - | L1 Invalid HTTP URL |
@@ -1376,7 +1376,7 @@
 | lxs:非常刀.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | L1 所有音源均失败 |
 | lxs:非常刀.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | L1 所有音源均失败 |
 | lxs:非常刀.js | kw | 320k | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- |
-| lxs:非常刀.js | kw | 320k | kw:5886682 | OK | OK | OK | OK 206 m4a 4096B |
+| lxs:非常刀.js | kw | 320k | kw:5886682 | OK | - | - | HTTP 410 ct=- magic=- |
 | lxs:非常刀.js | kw | 128k | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- |
 | lxs:非常刀.js | kw | 128k | kw:5886682 | OK | - | - | HTTP 410 ct=- magic=- |
 | lxs:非常刀.js | kw | flac | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- quality mismatch |
@@ -1567,27 +1567,27 @@
 | shellsec:sources/animemusic/lx-animemusic.js | wy | flac | wy:1357375695 | OK | OK | - | HTTP 206 ct=audio/mpeg; charset=utf-8 magic=mp3(ID3) quality mismatch |
 | shellsec:sources/animemusic/lx-animemusic.js | wy | flac24bit | wy:2652820720 | OK | OK | - | HTTP 200 ct=text/html;charset=utf8 magic=- quality mismatch |
 | shellsec:sources/animemusic/lx-animemusic.js | wy | flac24bit | wy:1357375695 | OK | OK | - | HTTP 206 ct=audio/mpeg; charset=utf-8 magic=mp3(ID3) quality mismatch |
-| shellsec:sources/animemusic/lx-animemusic.js | tx | 320k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/animemusic/lx-animemusic.js | tx | 320k | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/animemusic/lx-animemusic.js | tx | 128k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/animemusic/lx-animemusic.js | tx | 128k | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/animemusic/lx-animemusic.js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/animemusic/lx-animemusic.js | tx | flac | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/animemusic/lx-animemusic.js | tx | flac24bit | tx:0039MnYb0qxYhV | OK | - | - | HTTP 403 ct=- magic=- quality mismatch |
-| shellsec:sources/animemusic/lx-animemusic.js | tx | flac24bit | tx:001yS0N33yPm1B | OK | - | - | HTTP 403 ct=application/octet-stream magic=- quality mismatch |
+| shellsec:sources/animemusic/lx-animemusic.js | tx | 320k | tx:0039MnYb0qxYhV | - | - | - | L1 获取URL失败, 获取URL失败 |
+| shellsec:sources/animemusic/lx-animemusic.js | tx | 320k | tx:001yS0N33yPm1B | - | - | - | L1 获取URL失败, 获取URL失败 |
+| shellsec:sources/animemusic/lx-animemusic.js | tx | 128k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
+| shellsec:sources/animemusic/lx-animemusic.js | tx | 128k | tx:001yS0N33yPm1B | - | - | - | L1 获取URL失败, 获取URL失败 |
+| shellsec:sources/animemusic/lx-animemusic.js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(frame) quality mismatch |
+| shellsec:sources/animemusic/lx-animemusic.js | tx | flac | tx:001yS0N33yPm1B | - | - | - | L1 获取URL失败, 获取URL失败 |
+| shellsec:sources/animemusic/lx-animemusic.js | tx | flac24bit | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(frame) quality mismatch |
+| shellsec:sources/animemusic/lx-animemusic.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | L1 获取URL失败, 获取URL失败 |
 | shellsec:sources/animemusic/lx-animemusic.js | kw | 320k | kw:228908 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/animemusic/lx-animemusic.js | kw | 320k | kw:5886682 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/animemusic/lx-animemusic.js | kw | 128k | kw:228908 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/animemusic/lx-animemusic.js | kw | 128k | kw:5886682 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/animemusic/lx-animemusic.js | kw | flac | kw:228908 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/animemusic/lx-animemusic.js | kw | flac | kw:5886682 | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/animemusic/lx-animemusic.js | kw | flac24bit | kw:228908 | OK | OK | - | HTTP 206 ct=audio/mp4 magic=m4a quality mismatch |
-| shellsec:sources/animemusic/lx-animemusic.js | kw | flac24bit | kw:5886682 | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- quality mismatch |
-| shellsec:sources/animemusic/lx-animemusic.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | - | - | HTTP 0 ct=- magic=- Hostname/IP does not match certificate's altnames: Host: fsdg360.tx.kugou.com. is not in the cert's altnames: DNS:*.cdn.myqcloud.com, DNS:*.2144.cn, DNS:*.2144.com, DNS:*.4399.com, DNS:*.5054399.com, DNS:*.58cdn.com.cn,  |
+| shellsec:sources/animemusic/lx-animemusic.js | kw | flac24bit | kw:228908 | OK | OK | OK | OK 206 flac 4096B |
+| shellsec:sources/animemusic/lx-animemusic.js | kw | flac24bit | kw:5886682 | OK | OK | - | HTTP 206 ct=audio/x-flac magic=flac quality mismatch |
+| shellsec:sources/animemusic/lx-animemusic.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/animemusic/lx-animemusic.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/animemusic/lx-animemusic.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | - | - | HTTP 0 ct=- magic=- Hostname/IP does not match certificate's altnames: Host: fsdg360.tx.kugou.com. is not in the cert's altnames: DNS:*.cdn.myqcloud.com, DNS:*.2144.cn, DNS:*.2144.com, DNS:*.4399.com, DNS:*.5054399.com, DNS:*.58cdn.com.cn,  |
+| shellsec:sources/animemusic/lx-animemusic.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/animemusic/lx-animemusic.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/animemusic/lx-animemusic.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | - | - | HTTP 0 ct=- magic=- Hostname/IP does not match certificate's altnames: Host: fsdg360.tx.kugou.com. is not in the cert's altnames: DNS:*.cdn.myqcloud.com, DNS:*.2144.cn, DNS:*.2144.com, DNS:*.4399.com, DNS:*.5054399.com, DNS:*.58cdn.com.cn,  |
+| shellsec:sources/animemusic/lx-animemusic.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/animemusic/lx-animemusic.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/animemusic/lx-animemusic.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/animemusic/lx-animemusic.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 flac 4096B |
@@ -1648,11 +1648,11 @@
 | shellsec:sources/appx64/Appx64 Clear Music.js | wy | flac24bit | wy:2652820720 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/appx64/Appx64 Clear Music.js | wy | flac24bit | wy:1357375695 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/appx64/Appx64 Clear Music.js | tx | 320k | tx:0039MnYb0qxYhV | - | - | - | L1 No verified tx/320k stream. qqOfficial: QQ official returned no permitted stream; xinghai: HTTP 403; vkeys: Returned bitrate is below the requested quality |
-| shellsec:sources/appx64/Appx64 Clear Music.js | tx | 320k | tx:001yS0N33yPm1B | - | - | - | L1 No verified tx/320k stream. qqOfficial: QQ official returned no permitted stream; xinghai: HTTP 403; vkeys: HTTP 404 |
+| shellsec:sources/appx64/Appx64 Clear Music.js | tx | 320k | tx:001yS0N33yPm1B | - | - | - | L1 No verified tx/320k stream. qqOfficial: QQ official returned no permitted stream; xinghai: HTTP 403; vkeys: No playback URL |
 | shellsec:sources/appx64/Appx64 Clear Music.js | tx | 128k | tx:0039MnYb0qxYhV | - | - | - | L1 No verified tx/128k stream. qqOfficial: QQ official returned no permitted stream; xinghai: HTTP 403; vkeys: Audio duration differs from the selected song |
-| shellsec:sources/appx64/Appx64 Clear Music.js | tx | 128k | tx:001yS0N33yPm1B | - | - | - | L1 No verified tx/128k stream. qqOfficial: QQ official returned no permitted stream; xinghai: HTTP 403; vkeys: HTTP 404 |
+| shellsec:sources/appx64/Appx64 Clear Music.js | tx | 128k | tx:001yS0N33yPm1B | - | - | - | L1 No verified tx/128k stream. qqOfficial: QQ official returned no permitted stream; xinghai: HTTP 403; vkeys: No playback URL |
 | shellsec:sources/appx64/Appx64 Clear Music.js | tx | flac | tx:0039MnYb0qxYhV | - | - | - | L1 No verified tx/flac stream. qqOfficial: QQ official returned no permitted stream; xinghai: HTTP 403; vkeys: Requested lossless but received lossy audio |
-| shellsec:sources/appx64/Appx64 Clear Music.js | tx | flac | tx:001yS0N33yPm1B | - | - | - | L1 No verified tx/flac stream. qqOfficial: QQ official returned no permitted stream; xinghai: HTTP 403; vkeys: HTTP 404 |
+| shellsec:sources/appx64/Appx64 Clear Music.js | tx | flac | tx:001yS0N33yPm1B | - | - | - | L1 No verified tx/flac stream. qqOfficial: QQ official returned no permitted stream; xinghai: HTTP 403; vkeys: No playback URL |
 | shellsec:sources/appx64/Appx64 Clear Music.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | Platform or quality not declared |
 | shellsec:sources/appx64/Appx64 Clear Music.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | Platform or quality not declared |
 | shellsec:sources/appx64/Appx64 Clear Music.js | kw | 320k | kw:228908 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -1730,7 +1730,7 @@
 | shellsec:sources/doubao/豆包定制[聚合音源].js | tx | 320k | tx:0039MnYb0qxYhV | - | - | - | L1 LINK_EXPIRED: 所有源均失败 [[320k] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播 \| [128k] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播] |
 | shellsec:sources/doubao/豆包定制[聚合音源].js | tx | 320k | tx:001yS0N33yPm1B | - | - | - | L1 Invalid HTTP URL |
 | shellsec:sources/doubao/豆包定制[聚合音源].js | tx | 128k | tx:0039MnYb0qxYhV | - | - | - | L1 LINK_EXPIRED: 所有源均失败 [[128k] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播] |
-| shellsec:sources/doubao/豆包定制[聚合音源].js | tx | 128k | tx:001yS0N33yPm1B | - | - | - | L1 NOT_FOUND: 所有源均失败 [[128k] 溯音酷我: NOT_FOUND: 溯音酷我未找到链接] |
+| shellsec:sources/doubao/豆包定制[聚合音源].js | tx | 128k | tx:001yS0N33yPm1B | - | - | - | L1 Invalid HTTP URL |
 | shellsec:sources/doubao/豆包定制[聚合音源].js | tx | flac | tx:0039MnYb0qxYhV | - | - | - | L1 LINK_EXPIRED: 所有源均失败 [[flac] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播 \| [320k] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播 \| [128k] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播] |
 | shellsec:sources/doubao/豆包定制[聚合音源].js | tx | flac | tx:001yS0N33yPm1B | - | - | - | L1 Invalid HTTP URL |
 | shellsec:sources/doubao/豆包定制[聚合音源].js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | Platform or quality not declared |
@@ -1746,7 +1746,7 @@
 | shellsec:sources/doubao/豆包定制[聚合音源].js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 LINK_EXPIRED: 所有源均失败 [[320k] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播 \| [128k] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播] |
 | shellsec:sources/doubao/豆包定制[聚合音源].js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 Invalid HTTP URL |
 | shellsec:sources/doubao/豆包定制[聚合音源].js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 LINK_EXPIRED: 所有源均失败 [[128k] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播] |
-| shellsec:sources/doubao/豆包定制[聚合音源].js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 NOT_FOUND: 所有源均失败 [[128k] 溯音酷我: NOT_FOUND: 溯音酷我未找到链接] |
+| shellsec:sources/doubao/豆包定制[聚合音源].js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 Invalid HTTP URL |
 | shellsec:sources/doubao/豆包定制[聚合音源].js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 LINK_EXPIRED: 所有源均失败 [[flac] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播 \| [320k] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播 \| [128k] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播] |
 | shellsec:sources/doubao/豆包定制[聚合音源].js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 Invalid HTTP URL |
 | shellsec:sources/doubao/豆包定制[聚合音源].js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | Platform or quality not declared |
@@ -1754,7 +1754,7 @@
 | shellsec:sources/doubao/豆包定制[聚合音源].js | mg | 320k | mg:3790007 | - | - | - | L1 LINK_EXPIRED: 所有源均失败 [[320k] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播 \| [128k] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播] |
 | shellsec:sources/doubao/豆包定制[聚合音源].js | mg | 320k | mg:1135162566 | - | - | - | L1 Invalid HTTP URL |
 | shellsec:sources/doubao/豆包定制[聚合音源].js | mg | 128k | mg:3790007 | - | - | - | L1 LINK_EXPIRED: 所有源均失败 [[128k] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播] |
-| shellsec:sources/doubao/豆包定制[聚合音源].js | mg | 128k | mg:1135162566 | - | - | - | L1 NOT_FOUND: 所有源均失败 [[128k] 溯音酷我: NOT_FOUND: 溯音酷我未找到链接] |
+| shellsec:sources/doubao/豆包定制[聚合音源].js | mg | 128k | mg:1135162566 | - | - | - | L1 Invalid HTTP URL |
 | shellsec:sources/doubao/豆包定制[聚合音源].js | mg | flac | mg:3790007 | - | - | - | L1 LINK_EXPIRED: 所有源均失败 [[flac] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播 \| [320k] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播 \| [128k] 溯音酷我: LINK_EXPIRED: 溯音酷我签名URL已过期(CDN 410)，不可播] |
 | shellsec:sources/doubao/豆包定制[聚合音源].js | mg | flac | mg:1135162566 | - | - | - | L1 Invalid HTTP URL |
 | shellsec:sources/doubao/豆包定制[聚合音源].js | mg | flac24bit | mg:3790007 | - | - | - | Platform or quality not declared |
@@ -1776,7 +1776,7 @@
 | shellsec:sources/feichangdao/非常刀.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | L1 所有音源均失败 |
 | shellsec:sources/feichangdao/非常刀.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | L1 所有音源均失败 |
 | shellsec:sources/feichangdao/非常刀.js | kw | 320k | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- |
-| shellsec:sources/feichangdao/非常刀.js | kw | 320k | kw:5886682 | OK | OK | OK | OK 206 m4a 4096B |
+| shellsec:sources/feichangdao/非常刀.js | kw | 320k | kw:5886682 | OK | - | - | HTTP 410 ct=- magic=- |
 | shellsec:sources/feichangdao/非常刀.js | kw | 128k | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- |
 | shellsec:sources/feichangdao/非常刀.js | kw | 128k | kw:5886682 | OK | - | - | HTTP 410 ct=- magic=- |
 | shellsec:sources/feichangdao/非常刀.js | kw | flac | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- quality mismatch |
@@ -1954,7 +1954,7 @@
 | shellsec:sources/hei/Hei Music聚合源.js | mg | 320k | mg:3790007 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hei/Hei Music聚合源.js | mg | 320k | mg:1135162566 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hei/Hei Music聚合源.js | mg | 128k | mg:3790007 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/hei/Hei Music聚合源.js | mg | 128k | mg:1135162566 | OK | - | - | HTTP 404 ct=text/vnd.wap.wml magic=- |
+| shellsec:sources/hei/Hei Music聚合源.js | mg | 128k | mg:1135162566 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hei/Hei Music聚合源.js | mg | flac | mg:3790007 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/hei/Hei Music聚合源.js | mg | flac | mg:1135162566 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/hei/Hei Music聚合源.js | mg | flac24bit | mg:3790007 | OK | OK | - | HTTP 206 ct=audio/x-flac magic=flac quality mismatch |
@@ -1967,13 +1967,13 @@
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | wy | flac | wy:1357375695 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | wy | flac24bit | wy:2652820720 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | wy | flac24bit | wy:1357375695 | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | tx | 320k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
+| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | tx | 320k | tx:0039MnYb0qxYhV | - | - | - | L1 call timeout |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | tx | 320k | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
-| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | tx | 128k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 flac 4096B |
+| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | tx | 128k | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | tx | 128k | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
-| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/x-ogg magic=- quality mismatch |
+| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=m4a quality mismatch |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | tx | flac | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=audio/x-ogg magic=- quality mismatch |
-| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | L1 call timeout |
+| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | tx | flac24bit | tx:0039MnYb0qxYhV | OK | - | - | HTTP 403 ct=application/octet-stream magic=- quality mismatch |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | tx | flac24bit | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=mp3(ID3) quality mismatch |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kw | 320k | kw:228908 | - | - | - | L1 Invalid HTTP URL |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kw | 320k | kw:5886682 | - | - | - | L1 Invalid HTTP URL |
@@ -1987,7 +1987,7 @@
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
+| shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | Platform or quality not declared |
 | shellsec:sources/hello-world/𝖧౿ᥣᥣ𝗈 Ԝ𝗈𝗋ᥣᑯ.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | Platform or quality not declared |
@@ -2007,14 +2007,14 @@
 | shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | wy | flac | wy:1357375695 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | wy | flac24bit | wy:2652820720 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | wy | flac24bit | wy:1357375695 | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | tx | 320k | tx:0039MnYb0qxYhV | - | - | - | L1 call timeout |
-| shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | tx | 320k | tx:001yS0N33yPm1B | - | - | - | L1 call timeout |
+| shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | tx | 320k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
+| shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | tx | 320k | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 ogg 4096B |
 | shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | tx | 128k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
-| shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | tx | 128k | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- |
-| shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | tx | flac | tx:0039MnYb0qxYhV | - | - | - | L1 call timeout |
+| shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | tx | 128k | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | tx | flac | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | tx | flac24bit | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=flac quality mismatch |
-| shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | L1 call timeout |
+| shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | tx | flac24bit | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=flac quality mismatch |
 | shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | kw | 320k | kw:228908 | OK | - | - | HTTP 400 ct=application/json magic=- |
 | shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | kw | 320k | kw:5886682 | OK | - | - | HTTP 400 ct=application/json magic=- |
 | shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | kw | 128k | kw:228908 | OK | - | - | HTTP 400 ct=application/json magic=- |
@@ -2036,44 +2036,44 @@
 | shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | mg | 128k | mg:3790007 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | mg | 128k | mg:1135162566 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | mg | flac | mg:3790007 | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | mg | flac | mg:1135162566 | OK | OK | OK | OK 206 flac 4096B |
+| shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | mg | flac | mg:1135162566 | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | mg | flac24bit | mg:3790007 | - | - | - | Platform or quality not declared |
 | shellsec:sources/huibi/回避聚合 (HuiBi Aggregate).js | mg | flac24bit | mg:1135162566 | - | - | - | Platform or quality not declared |
-| shellsec:sources/hyw/HYWmusic_公益版.js | wy | 320k | wy:2652820720 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/hyw/HYWmusic_公益版.js | wy | 320k | wy:2652820720 | OK | OK | - | HTTP 200 ct=text/html;charset=utf8 magic=- |
 | shellsec:sources/hyw/HYWmusic_公益版.js | wy | 320k | wy:1357375695 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hyw/HYWmusic_公益版.js | wy | 128k | wy:2652820720 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hyw/HYWmusic_公益版.js | wy | 128k | wy:1357375695 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hyw/HYWmusic_公益版.js | wy | flac | wy:2652820720 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/hyw/HYWmusic_公益版.js | wy | flac | wy:1357375695 | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/hyw/HYWmusic_公益版.js | wy | flac24bit | wy:2652820720 | OK | OK | - | HTTP 206 ct=audio/mpeg; charset=utf-8 magic=mp3(ID3) quality mismatch |
+| shellsec:sources/hyw/HYWmusic_公益版.js | wy | flac24bit | wy:2652820720 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/hyw/HYWmusic_公益版.js | wy | flac24bit | wy:1357375695 | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/hyw/HYWmusic_公益版.js | tx | 320k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
+| shellsec:sources/hyw/HYWmusic_公益版.js | tx | 320k | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
 | shellsec:sources/hyw/HYWmusic_公益版.js | tx | 320k | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
 | shellsec:sources/hyw/HYWmusic_公益版.js | tx | 128k | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
 | shellsec:sources/hyw/HYWmusic_公益版.js | tx | 128k | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
-| shellsec:sources/hyw/HYWmusic_公益版.js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/x-ogg magic=- quality mismatch |
+| shellsec:sources/hyw/HYWmusic_公益版.js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=m4a quality mismatch |
 | shellsec:sources/hyw/HYWmusic_公益版.js | tx | flac | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=audio/x-ogg magic=- quality mismatch |
-| shellsec:sources/hyw/HYWmusic_公益版.js | tx | flac24bit | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=mp3(ID3) quality mismatch |
+| shellsec:sources/hyw/HYWmusic_公益版.js | tx | flac24bit | tx:0039MnYb0qxYhV | OK | - | - | HTTP 403 ct=application/octet-stream magic=- quality mismatch |
 | shellsec:sources/hyw/HYWmusic_公益版.js | tx | flac24bit | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=mp3(ID3) quality mismatch |
 | shellsec:sources/hyw/HYWmusic_公益版.js | kw | 320k | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- |
 | shellsec:sources/hyw/HYWmusic_公益版.js | kw | 320k | kw:5886682 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/hyw/HYWmusic_公益版.js | kw | 128k | kw:228908 | - | - | - | L1 酷我所有音源均获取失败 |
+| shellsec:sources/hyw/HYWmusic_公益版.js | kw | 128k | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- |
 | shellsec:sources/hyw/HYWmusic_公益版.js | kw | 128k | kw:5886682 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hyw/HYWmusic_公益版.js | kw | flac | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- quality mismatch |
 | shellsec:sources/hyw/HYWmusic_公益版.js | kw | flac | kw:5886682 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/hyw/HYWmusic_公益版.js | kw | flac24bit | kw:228908 | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/hyw/HYWmusic_公益版.js | kw | flac24bit | kw:5886682 | OK | - | - | HTTP 403 ct=application/json magic=- quality mismatch |
+| shellsec:sources/hyw/HYWmusic_公益版.js | kw | flac24bit | kw:5886682 | OK | OK | - | HTTP 206 ct=audio/x-flac magic=flac quality mismatch |
 | shellsec:sources/hyw/HYWmusic_公益版.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hyw/HYWmusic_公益版.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hyw/HYWmusic_公益版.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hyw/HYWmusic_公益版.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/hyw/HYWmusic_公益版.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
+| shellsec:sources/hyw/HYWmusic_公益版.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/hyw/HYWmusic_公益版.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/hyw/HYWmusic_公益版.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/hyw/HYWmusic_公益版.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | - | HTTP 206 ct=application/octet-stream magic=mp3(ID3) quality mismatch |
+| shellsec:sources/hyw/HYWmusic_公益版.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
+| shellsec:sources/hyw/HYWmusic_公益版.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | - | HTTP 206 ct=application/octet-stream magic=flac quality mismatch |
 | shellsec:sources/hyw/HYWmusic_公益版.js | mg | 320k | mg:3790007 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
 | shellsec:sources/hyw/HYWmusic_公益版.js | mg | 320k | mg:1135162566 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
-| shellsec:sources/hyw/HYWmusic_公益版.js | mg | 128k | mg:3790007 | - | - | - | L1 call timeout |
+| shellsec:sources/hyw/HYWmusic_公益版.js | mg | 128k | mg:3790007 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/hyw/HYWmusic_公益版.js | mg | 128k | mg:1135162566 | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
 | shellsec:sources/hyw/HYWmusic_公益版.js | mg | flac | mg:3790007 | - | - | - | Platform or quality not declared |
 | shellsec:sources/hyw/HYWmusic_公益版.js | mg | flac | mg:1135162566 | - | - | - | Platform or quality not declared |
@@ -2088,11 +2088,11 @@
 | shellsec:sources/jiexiang/杰翔聚合音源.js | wy | flac24bit | wy:2652820720 | - | - | - | Platform or quality not declared |
 | shellsec:sources/jiexiang/杰翔聚合音源.js | wy | flac24bit | wy:1357375695 | - | - | - | Platform or quality not declared |
 | shellsec:sources/jiexiang/杰翔聚合音源.js | tx | 320k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
-| shellsec:sources/jiexiang/杰翔聚合音源.js | tx | 320k | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| shellsec:sources/jiexiang/杰翔聚合音源.js | tx | 320k | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 ogg 4096B |
 | shellsec:sources/jiexiang/杰翔聚合音源.js | tx | 128k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
-| shellsec:sources/jiexiang/杰翔聚合音源.js | tx | 128k | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| shellsec:sources/jiexiang/杰翔聚合音源.js | tx | 128k | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/jiexiang/杰翔聚合音源.js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(frame) quality mismatch |
-| shellsec:sources/jiexiang/杰翔聚合音源.js | tx | flac | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- quality mismatch |
+| shellsec:sources/jiexiang/杰翔聚合音源.js | tx | flac | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/jiexiang/杰翔聚合音源.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | Platform or quality not declared |
 | shellsec:sources/jiexiang/杰翔聚合音源.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | Platform or quality not declared |
 | shellsec:sources/jiexiang/杰翔聚合音源.js | kw | 320k | kw:228908 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -2128,13 +2128,13 @@
 | shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | wy | flac24bit | wy:2652820720 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | wy | flac24bit | wy:1357375695 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | tx | 320k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
-| shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | tx | 320k | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | tx | 320k | tx:001yS0N33yPm1B | - | - | - | L1 所有接口均失败: ChKSz QQ: ChKSz未配置apikey; vkeys QQ: 系统运行错误！; 星海后端: 该音源仅对认证用户开放：请使用卡密、星海 App 或网页端访问; 星海后端(备): 星海后端获取失败(code:undefined) |
 | shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | tx | 128k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
-| shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | tx | 128k | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | tx | 128k | tx:001yS0N33yPm1B | - | - | - | L1 所有接口均失败: ChKSz QQ: ChKSz未配置apikey; vkeys QQ: 系统运行错误！; 星海后端: 该音源仅对认证用户开放：请使用卡密、星海 App 或网页端访问; 星海后端(备): 星海后端获取失败(code:undefined) |
 | shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(frame) quality mismatch |
-| shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | tx | flac | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- quality mismatch |
+| shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | tx | flac | tx:001yS0N33yPm1B | - | - | - | L1 所有接口均失败: ChKSz QQ: ChKSz未配置apikey; vkeys QQ: 系统运行错误！; 星海后端: 该音源仅对认证用户开放：请使用卡密、星海 App 或网页端访问; 星海后端(备): 星海后端获取失败(code:undefined) |
 | shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | tx | flac24bit | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(frame) quality mismatch |
-| shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | tx | flac24bit | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- quality mismatch |
+| shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | L1 所有接口均失败: ChKSz QQ: ChKSz未配置apikey; vkeys QQ: 系统运行错误！; 星海后端: 该音源仅对认证用户开放：请使用卡密、星海 App 或网页端访问; 星海后端(备): 星海后端获取失败(code:undefined) |
 | shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | kw | 320k | kw:228908 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | kw | 320k | kw:5886682 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | kw | 128k | kw:228908 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -2159,17 +2159,17 @@
 | shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | mg | flac | mg:1135162566 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | mg | flac24bit | mg:3790007 | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | shellsec:sources/kulao/👖裤佬SVIP音源(二改整合版).js | mg | flac24bit | mg:1135162566 | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
-| shellsec:sources/kxh/K×H测试.js | wy | 320k | wy:2652820720 | OK | OK | - | HTTP 200 ct=text/html;charset=utf8 magic=- |
+| shellsec:sources/kxh/K×H测试.js | wy | 320k | wy:2652820720 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/kxh/K×H测试.js | wy | 320k | wy:1357375695 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/kxh/K×H测试.js | wy | 128k | wy:2652820720 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/kxh/K×H测试.js | wy | 128k | wy:1357375695 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/kxh/K×H测试.js | wy | flac | wy:2652820720 | OK | OK | - | HTTP 200 ct=text/html;charset=utf8 magic=- quality mismatch |
-| shellsec:sources/kxh/K×H测试.js | wy | flac | wy:1357375695 | OK | OK | - | HTTP 206 ct=audio/mpeg; charset=utf-8 magic=mp3(ID3) quality mismatch |
+| shellsec:sources/kxh/K×H测试.js | wy | flac | wy:2652820720 | OK | OK | - | HTTP 206 ct=audio/mpeg; charset=utf-8 magic=mp3(ID3) quality mismatch |
+| shellsec:sources/kxh/K×H测试.js | wy | flac | wy:1357375695 | OK | OK | - | HTTP 200 ct=text/html;charset=utf8 magic=- quality mismatch |
 | shellsec:sources/kxh/K×H测试.js | wy | flac24bit | wy:2652820720 | OK | OK | - | HTTP 200 ct=text/html;charset=utf8 magic=- quality mismatch |
 | shellsec:sources/kxh/K×H测试.js | wy | flac24bit | wy:1357375695 | OK | OK | - | HTTP 200 ct=text/html;charset=utf8 magic=- quality mismatch |
 | shellsec:sources/kxh/K×H测试.js | tx | 320k | tx:0039MnYb0qxYhV | - | - | - | L1 call timeout |
 | shellsec:sources/kxh/K×H测试.js | tx | 320k | tx:001yS0N33yPm1B | - | - | - | L1 call timeout |
-| shellsec:sources/kxh/K×H测试.js | tx | 128k | tx:0039MnYb0qxYhV | - | - | - | L1 所有API均失败 (v1.7.1 已尝试音质降级) |
+| shellsec:sources/kxh/K×H测试.js | tx | 128k | tx:0039MnYb0qxYhV | - | - | - | L1 call timeout |
 | shellsec:sources/kxh/K×H测试.js | tx | 128k | tx:001yS0N33yPm1B | - | - | - | L1 call timeout |
 | shellsec:sources/kxh/K×H测试.js | tx | flac | tx:0039MnYb0qxYhV | - | - | - | L1 call timeout |
 | shellsec:sources/kxh/K×H测试.js | tx | flac | tx:001yS0N33yPm1B | - | - | - | L1 call timeout |
@@ -2178,11 +2178,11 @@
 | shellsec:sources/kxh/K×H测试.js | kw | 320k | kw:228908 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/kxh/K×H测试.js | kw | 320k | kw:5886682 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/kxh/K×H测试.js | kw | 128k | kw:228908 | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/kxh/K×H测试.js | kw | 128k | kw:5886682 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/kxh/K×H测试.js | kw | 128k | kw:5886682 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/kxh/K×H测试.js | kw | flac | kw:228908 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/kxh/K×H测试.js | kw | flac | kw:5886682 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/kxh/K×H测试.js | kw | flac24bit | kw:228908 | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/kxh/K×H测试.js | kw | flac24bit | kw:5886682 | OK | OK | OK | OK 206 flac 4096B |
+| shellsec:sources/kxh/K×H测试.js | kw | flac24bit | kw:5886682 | OK | OK | - | HTTP 206 ct=audio/x-flac magic=flac quality mismatch |
 | shellsec:sources/kxh/K×H测试.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/kxh/K×H测试.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/kxh/K×H测试.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -2199,46 +2199,46 @@
 | shellsec:sources/kxh/K×H测试.js | mg | flac | mg:1135162566 | - | - | - | L1 咪咕所有API均失败 (v1.7.1 快速模式) |
 | shellsec:sources/kxh/K×H测试.js | mg | flac24bit | mg:3790007 | - | - | - | L1 咪咕所有API均失败 (v1.7.1 快速模式) |
 | shellsec:sources/kxh/K×H测试.js | mg | flac24bit | mg:1135162566 | - | - | - | L1 咪咕所有API均失败 (v1.7.1 快速模式) |
-| shellsec:sources/lx/独家音源.js | wy | 320k | wy:2652820720 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | wy | 320k | wy:1357375695 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | wy | 128k | wy:2652820720 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | wy | 128k | wy:1357375695 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | wy | flac | wy:2652820720 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | wy | flac | wy:1357375695 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | wy | flac24bit | wy:2652820720 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | wy | flac24bit | wy:1357375695 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | tx | 320k | tx:0039MnYb0qxYhV | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | tx | 320k | tx:001yS0N33yPm1B | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | tx | 128k | tx:0039MnYb0qxYhV | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | tx | 128k | tx:001yS0N33yPm1B | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | tx | flac | tx:0039MnYb0qxYhV | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | tx | flac | tx:001yS0N33yPm1B | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | kw | 320k | kw:228908 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | kw | 320k | kw:5886682 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | kw | 128k | kw:228908 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | kw | 128k | kw:5886682 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | kw | flac | kw:228908 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | kw | flac | kw:5886682 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | kw | flac24bit | kw:228908 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | kw | flac24bit | kw:5886682 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | mg | 320k | mg:3790007 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | mg | 320k | mg:1135162566 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | mg | 128k | mg:3790007 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | mg | 128k | mg:1135162566 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | mg | flac | mg:3790007 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | mg | flac | mg:1135162566 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | mg | flac24bit | mg:3790007 | - | - | - | L1 certificate has expired |
-| shellsec:sources/lx/独家音源.js | mg | flac24bit | mg:1135162566 | - | - | - | L1 certificate has expired |
+| shellsec:sources/lx/独家音源.js | wy | 320k | wy:2652820720 | - | - | - | L1 unknow error |
+| shellsec:sources/lx/独家音源.js | wy | 320k | wy:1357375695 | - | - | - | L1 unknow error |
+| shellsec:sources/lx/独家音源.js | wy | 128k | wy:2652820720 | - | - | - | L1 unknow error |
+| shellsec:sources/lx/独家音源.js | wy | 128k | wy:1357375695 | - | - | - | L1 unknow error |
+| shellsec:sources/lx/独家音源.js | wy | flac | wy:2652820720 | - | - | - | L1 unknow error |
+| shellsec:sources/lx/独家音源.js | wy | flac | wy:1357375695 | - | - | - | L1 unknow error |
+| shellsec:sources/lx/独家音源.js | wy | flac24bit | wy:2652820720 | - | - | - | L1 unknow error |
+| shellsec:sources/lx/独家音源.js | wy | flac24bit | wy:1357375695 | - | - | - | L1 unknow error |
+| shellsec:sources/lx/独家音源.js | tx | 320k | tx:0039MnYb0qxYhV | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | tx | 320k | tx:001yS0N33yPm1B | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | tx | 128k | tx:0039MnYb0qxYhV | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | tx | 128k | tx:001yS0N33yPm1B | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | tx | flac | tx:0039MnYb0qxYhV | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | tx | flac | tx:001yS0N33yPm1B | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | kw | 320k | kw:228908 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/lx/独家音源.js | kw | 320k | kw:5886682 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/lx/独家音源.js | kw | 128k | kw:228908 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/lx/独家音源.js | kw | 128k | kw:5886682 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/lx/独家音源.js | kw | flac | kw:228908 | OK | OK | OK | OK 206 flac 4096B |
+| shellsec:sources/lx/独家音源.js | kw | flac | kw:5886682 | OK | OK | OK | OK 206 flac 4096B |
+| shellsec:sources/lx/独家音源.js | kw | flac24bit | kw:228908 | - | - | - | L1 unknow error |
+| shellsec:sources/lx/独家音源.js | kw | flac24bit | kw:5886682 | - | - | - | L1 unknow error |
+| shellsec:sources/lx/独家音源.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | mg | 320k | mg:3790007 | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | mg | 320k | mg:1135162566 | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | mg | 128k | mg:3790007 | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | mg | 128k | mg:1135162566 | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | mg | flac | mg:3790007 | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | mg | flac | mg:1135162566 | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | mg | flac24bit | mg:3790007 | - | - | - | L1 get music url failed |
+| shellsec:sources/lx/独家音源.js | mg | flac24bit | mg:1135162566 | - | - | - | L1 get music url failed |
 | shellsec:sources/molan/墨澜聚合音源.js | wy | 320k | wy:2652820720 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/molan/墨澜聚合音源.js | wy | 320k | wy:1357375695 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/molan/墨澜聚合音源.js | wy | 128k | wy:2652820720 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -2247,14 +2247,14 @@
 | shellsec:sources/molan/墨澜聚合音源.js | wy | flac | wy:1357375695 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/molan/墨澜聚合音源.js | wy | flac24bit | wy:2652820720 | - | - | - | Platform or quality not declared |
 | shellsec:sources/molan/墨澜聚合音源.js | wy | flac24bit | wy:1357375695 | - | - | - | Platform or quality not declared |
-| shellsec:sources/molan/墨澜聚合音源.js | tx | 320k | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
-| shellsec:sources/molan/墨澜聚合音源.js | tx | 320k | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
-| shellsec:sources/molan/墨澜聚合音源.js | tx | 128k | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
-| shellsec:sources/molan/墨澜聚合音源.js | tx | 128k | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- |
-| shellsec:sources/molan/墨澜聚合音源.js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/x-ogg magic=- quality mismatch |
+| shellsec:sources/molan/墨澜聚合音源.js | tx | 320k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/molan/墨澜聚合音源.js | tx | 320k | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/molan/墨澜聚合音源.js | tx | 128k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/molan/墨澜聚合音源.js | tx | 128k | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| shellsec:sources/molan/墨澜聚合音源.js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/molan/墨澜聚合音源.js | tx | flac | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/molan/墨澜聚合音源.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | L1 所有后端均失败（共7个） 落月v2: 落月v2: 该曲仅返回试听片段 落月v3: 落月v3: cookie异常：账号被风控无法获取 落月v2·全景声降级: 仅用于 Atmos+ 降级 落月v3·全景声降级: 仅用于 Atmos+ 降级 云记QQ(海堂): [URL redacted] -> 当前版本已停止服务，请升级到最新版本后重试 \| [URL redacted] -> 当前版本已停止服务，请升级到最新版本后重试 baimusic QQ: baimusic QQ: 该 |
-| shellsec:sources/molan/墨澜聚合音源.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | L1 所有后端均失败（共7个） 落月v2: 落月v2: 该曲仅返回试听片段 落月v3: 落月v3: cookie异常：账号被风控无法获取 落月v2·全景声降级: 仅用于 Atmos+ 降级 落月v3·全景声降级: 仅用于 Atmos+ 降级 云记QQ(海堂): [URL redacted] -> 当前版本已停止服务，请升级到最新版本后重试 \| [URL redacted] -> 当前版本已停止服务，请升级到最新版本后重试 baimusic QQ: baimusic QQ: 该 |
+| shellsec:sources/molan/墨澜聚合音源.js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | L1 所有后端均失败（共7个） 落月v2: 落月v2: 该曲仅返回试听片段 落月v3: 落月v3: 该曲仅返回试听片段 落月v2·全景声降级: 仅用于 Atmos+ 降级 落月v3·全景声降级: 仅用于 Atmos+ 降级 云记QQ(海堂): [URL redacted] -> 当前版本已停止服务，请升级到最新版本后重试 \| [URL redacted] -> 当前版本已停止服务，请升级到最新版本后重试 baimusic QQ: baimusic QQ: 该歌曲无此音质 落月 |
+| shellsec:sources/molan/墨澜聚合音源.js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | L1 所有后端均失败（共7个） 落月v2: 落月v2: 系统运行错误！ 落月v3: 落月v3: 该曲仅返回试听片段 落月v2·全景声降级: 仅用于 Atmos+ 降级 落月v3·全景声降级: 仅用于 Atmos+ 降级 云记QQ(海堂): [URL redacted] -> 当前版本已停止服务，请升级到最新版本后重试 \| [URL redacted] -> 当前版本已停止服务，请升级到最新版本后重试 baimusic QQ: baimusic QQ: 该歌曲无此音质 落月v2 |
 | shellsec:sources/molan/墨澜聚合音源.js | kw | 320k | kw:228908 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/molan/墨澜聚合音源.js | kw | 320k | kw:5886682 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/molan/墨澜聚合音源.js | kw | 128k | kw:228908 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -2278,7 +2278,7 @@
 | shellsec:sources/molan/墨澜聚合音源.js | mg | flac | mg:3790007 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/molan/墨澜聚合音源.js | mg | flac | mg:1135162566 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/molan/墨澜聚合音源.js | mg | flac24bit | mg:3790007 | OK | OK | - | HTTP 206 ct=audio/x-flac magic=flac quality mismatch |
-| shellsec:sources/molan/墨澜聚合音源.js | mg | flac24bit | mg:1135162566 | OK | OK | - | HTTP 206 ct=audio/x-flac magic=flac quality mismatch |
+| shellsec:sources/molan/墨澜聚合音源.js | mg | flac24bit | mg:1135162566 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/nianxin/念心音源.js | wy | 320k | wy:2652820720 | OK | - | - | HTTP 403 ct=application/json; charset=utf-8 magic=- |
 | shellsec:sources/nianxin/念心音源.js | wy | 320k | wy:1357375695 | OK | - | - | HTTP 403 ct=application/json; charset=utf-8 magic=- |
 | shellsec:sources/nianxin/念心音源.js | wy | 128k | wy:2652820720 | OK | - | - | HTTP 403 ct=application/json; charset=utf-8 magic=- |
@@ -2288,7 +2288,7 @@
 | shellsec:sources/nianxin/念心音源.js | wy | flac24bit | wy:2652820720 | - | - | - | Platform or quality not declared |
 | shellsec:sources/nianxin/念心音源.js | wy | flac24bit | wy:1357375695 | - | - | - | Platform or quality not declared |
 | shellsec:sources/nianxin/念心音源.js | tx | 320k | tx:0039MnYb0qxYhV | OK | - | - | HTTP 520 ct=- magic=- |
-| shellsec:sources/nianxin/念心音源.js | tx | 320k | tx:001yS0N33yPm1B | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| shellsec:sources/nianxin/念心音源.js | tx | 320k | tx:001yS0N33yPm1B | OK | - | - | HTTP 520 ct=- magic=- |
 | shellsec:sources/nianxin/念心音源.js | tx | 128k | tx:0039MnYb0qxYhV | OK | - | - | HTTP 520 ct=- magic=- |
 | shellsec:sources/nianxin/念心音源.js | tx | 128k | tx:001yS0N33yPm1B | OK | - | - | HTTP 520 ct=- magic=- |
 | shellsec:sources/nianxin/念心音源.js | tx | flac | tx:0039MnYb0qxYhV | OK | - | - | HTTP 520 ct=- magic=- quality mismatch |
@@ -2306,7 +2306,7 @@
 | shellsec:sources/nianxin/念心音源.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | - | - | HTTP 520 ct=- magic=- |
 | shellsec:sources/nianxin/念心音源.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | OK | - | - | HTTP 520 ct=- magic=- |
 | shellsec:sources/nianxin/念心音源.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | - | - | HTTP 520 ct=- magic=- |
-| shellsec:sources/nianxin/念心音源.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | OK | - | - | HTTP 520 ct=- magic=- |
+| shellsec:sources/nianxin/念心音源.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | OK | - | - | HTTP 503 ct=text/html magic=- |
 | shellsec:sources/nianxin/念心音源.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | - | - | HTTP 520 ct=- magic=- quality mismatch |
 | shellsec:sources/nianxin/念心音源.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | OK | - | - | HTTP 520 ct=- magic=- quality mismatch |
 | shellsec:sources/nianxin/念心音源.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | Platform or quality not declared |
@@ -2328,7 +2328,7 @@
 | shellsec:sources/qdy/全豆要[聚合音源].js | wy | flac24bit | wy:2652820720 | - | - | - | Platform or quality not declared |
 | shellsec:sources/qdy/全豆要[聚合音源].js | wy | flac24bit | wy:1357375695 | - | - | - | Platform or quality not declared |
 | shellsec:sources/qdy/全豆要[聚合音源].js | tx | 320k | tx:0039MnYb0qxYhV | OK | - | - | HTTP 403 ct=application/octet-stream magic=- |
-| shellsec:sources/qdy/全豆要[聚合音源].js | tx | 320k | tx:001yS0N33yPm1B | OK | - | - | HTTP 0 ct=- magic=- HTTP deadline exceeded |
+| shellsec:sources/qdy/全豆要[聚合音源].js | tx | 320k | tx:001yS0N33yPm1B | OK | - | - | HTTP 403 ct=application/octet-stream magic=- |
 | shellsec:sources/qdy/全豆要[聚合音源].js | tx | 128k | tx:0039MnYb0qxYhV | OK | - | - | HTTP 403 ct=application/octet-stream magic=- |
 | shellsec:sources/qdy/全豆要[聚合音源].js | tx | 128k | tx:001yS0N33yPm1B | OK | - | - | HTTP 403 ct=application/octet-stream magic=- |
 | shellsec:sources/qdy/全豆要[聚合音源].js | tx | flac | tx:0039MnYb0qxYhV | OK | - | - | HTTP 403 ct=application/octet-stream magic=- quality mismatch |
@@ -2336,7 +2336,7 @@
 | shellsec:sources/qdy/全豆要[聚合音源].js | tx | flac24bit | tx:0039MnYb0qxYhV | - | - | - | Platform or quality not declared |
 | shellsec:sources/qdy/全豆要[聚合音源].js | tx | flac24bit | tx:001yS0N33yPm1B | - | - | - | Platform or quality not declared |
 | shellsec:sources/qdy/全豆要[聚合音源].js | kw | 320k | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- |
-| shellsec:sources/qdy/全豆要[聚合音源].js | kw | 320k | kw:5886682 | OK | OK | OK | OK 206 m4a 4096B |
+| shellsec:sources/qdy/全豆要[聚合音源].js | kw | 320k | kw:5886682 | OK | - | - | HTTP 410 ct=- magic=- |
 | shellsec:sources/qdy/全豆要[聚合音源].js | kw | 128k | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- |
 | shellsec:sources/qdy/全豆要[聚合音源].js | kw | 128k | kw:5886682 | OK | - | - | HTTP 410 ct=- magic=- |
 | shellsec:sources/qdy/全豆要[聚合音源].js | kw | flac | kw:228908 | OK | - | - | HTTP 410 ct=- magic=- quality mismatch |
@@ -2368,13 +2368,13 @@
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | wy | flac24bit | wy:2652820720 | - | - | - | Platform or quality not declared |
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | wy | flac24bit | wy:1357375695 | - | - | - | Platform or quality not declared |
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | tx | 320k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
-| shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | tx | 320k | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | tx | 320k | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | tx | 128k | tx:0039MnYb0qxYhV | OK | OK | OK | OK 206 mp3(frame) 4096B |
-| shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | tx | 128k | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- |
+| shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | tx | 128k | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | tx | flac | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(frame) quality mismatch |
-| shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | tx | flac | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- quality mismatch |
+| shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | tx | flac | tx:001yS0N33yPm1B | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | tx | flac24bit | tx:0039MnYb0qxYhV | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(frame) quality mismatch |
-| shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | tx | flac24bit | tx:001yS0N33yPm1B | OK | - | - | HTTP 404 ct=text/octet magic=- quality mismatch |
+| shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | tx | flac24bit | tx:001yS0N33yPm1B | OK | OK | - | HTTP 206 ct=application/x-www-form-urlencoded magic=flac quality mismatch |
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | kw | 320k | kw:228908 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | kw | 320k | kw:5886682 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | kw | 128k | kw:228908 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -2382,12 +2382,12 @@
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | kw | flac | kw:228908 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | kw | flac | kw:5886682 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | kw | flac24bit | kw:228908 | OK | OK | OK | OK 206 flac 4096B |
-| shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | kw | flac24bit | kw:5886682 | OK | OK | - | HTTP 206 ct=audio/x-flac magic=flac quality mismatch |
+| shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | kw | flac24bit | kw:5886682 | OK | OK | - | HTTP 206 ct=application/octet-stream magic=- quality mismatch |
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
+| shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | Platform or quality not declared |
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | Platform or quality not declared |
@@ -2401,7 +2401,7 @@
 | shellsec:sources/stellarwave/星澜聚合音源 (StellarWave).js | mg | flac24bit | mg:1135162566 | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | shellsec:sources/xinghai/星海音乐源.js | wy | 320k | wy:2652820720 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/xinghai/星海音乐源.js | wy | 320k | wy:1357375695 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| shellsec:sources/xinghai/星海音乐源.js | wy | 128k | wy:2652820720 | OK | - | - | HTTP 403 ct=audio/mpeg magic=- |
+| shellsec:sources/xinghai/星海音乐源.js | wy | 128k | wy:2652820720 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/xinghai/星海音乐源.js | wy | 128k | wy:1357375695 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | shellsec:sources/xinghai/星海音乐源.js | wy | flac | wy:2652820720 | OK | OK | OK | OK 206 flac 4096B |
 | shellsec:sources/xinghai/星海音乐源.js | wy | flac | wy:1357375695 | OK | OK | OK | OK 206 flac 4096B |
@@ -2545,9 +2545,9 @@
 | lingeng:1010-mobile.js | kw | flac24bit | kw:5886682 | - | - | - | Platform or quality not declared |
 | lingeng:1010-mobile.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lingeng:1010-mobile.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010-mobile.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010-mobile.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 全部链路失败 → HYW:HTTP 500 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010-mobile.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010-mobile.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
+| lingeng:1010-mobile.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 全部链路失败 → HYW:HTTP 500 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010-mobile.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 flac 4096B |
 | lingeng:1010-mobile.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | Platform or quality not declared |
 | lingeng:1010-mobile.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | Platform or quality not declared |
@@ -2585,9 +2585,9 @@
 | lingeng:1010.js | kw | flac24bit | kw:5886682 | - | - | - | Platform or quality not declared |
 | lingeng:1010.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lingeng:1010.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 全部链路失败 → HYW:HTTP 500 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
+| lingeng:1010.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 全部链路失败 → HYW:HTTP 500 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 flac 4096B |
 | lingeng:1010.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | Platform or quality not declared |
 | lingeng:1010.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | Platform or quality not declared |
@@ -2625,9 +2625,9 @@
 | lingeng:1010音源-手机版.js | kw | flac24bit | kw:5886682 | - | - | - | Platform or quality not declared |
 | lingeng:1010音源-手机版.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lingeng:1010音源-手机版.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010音源-手机版.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010音源-手机版.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 全部链路失败 → HYW:HTTP 500 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010音源-手机版.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010音源-手机版.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
+| lingeng:1010音源-手机版.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 全部链路失败 → HYW:HTTP 500 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010音源-手机版.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 flac 4096B |
 | lingeng:1010音源-手机版.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | Platform or quality not declared |
 | lingeng:1010音源-手机版.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | Platform or quality not declared |
@@ -2665,9 +2665,9 @@
 | lingeng:1010音源.js | kw | flac24bit | kw:5886682 | - | - | - | Platform or quality not declared |
 | lingeng:1010音源.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lingeng:1010音源.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010音源.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010音源.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 全部链路失败 → HYW:HTTP 500 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010音源.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010音源.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
+| lingeng:1010音源.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 全部链路失败 → HYW:HTTP 500 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010音源.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 flac 4096B |
 | lingeng:1010音源.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | Platform or quality not declared |
 | lingeng:1010音源.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | Platform or quality not declared |
@@ -2705,10 +2705,10 @@
 | lingeng:1010🎵音源-手机版.js | kw | flac24bit | kw:5886682 | - | - | - | Platform or quality not declared |
 | lingeng:1010🎵音源-手机版.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
 | lingeng:1010🎵音源-手机版.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010🎵音源-手机版.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010🎵音源-手机版.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010🎵音源-手机版.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
-| lingeng:1010🎵音源-手机版.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 flac 4096B |
+| lingeng:1010🎵音源-手机版.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 全部链路失败 → HYW:请求失败:HTTP deadline exceeded \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
+| lingeng:1010🎵音源-手机版.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 全部链路失败 → HYW:请求失败:HTTP deadline exceeded \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
+| lingeng:1010🎵音源-手机版.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 全部链路失败 → HYW:HTTP 500 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
+| lingeng:1010🎵音源-手机版.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | L1 全部链路失败 → HYW:请求失败:HTTP deadline exceeded \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010🎵音源-手机版.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | Platform or quality not declared |
 | lingeng:1010🎵音源-手机版.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | Platform or quality not declared |
 | lingeng:1010🎵音源-手机版.js | mg | 320k | mg:3790007 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
@@ -2743,11 +2743,11 @@
 | lingeng:1010🎵音源.js | kw | flac | kw:5886682 | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
 | lingeng:1010🎵音源.js | kw | flac24bit | kw:228908 | - | - | - | Platform or quality not declared |
 | lingeng:1010🎵音源.js | kw | flac24bit | kw:5886682 | - | - | - | Platform or quality not declared |
-| lingeng:1010🎵音源.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010🎵音源.js | kg | 320k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 全部链路失败 → HYW:请求失败:HTTP deadline exceeded \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010🎵音源.js | kg | 320k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010🎵音源.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
+| lingeng:1010🎵音源.js | kg | 128k | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 全部链路失败 → HYW:HTTP 500 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010🎵音源.js | kg | 128k | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 mp3(ID3) 4096B |
-| lingeng:1010🎵音源.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | OK | OK | - | HTTP 206 ct=audio/mpeg magic=mp3(ID3) quality mismatch |
+| lingeng:1010🎵音源.js | kg | flac | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | L1 全部链路失败 → HYW:HTTP 500 \| 海棠备用:未取到直链 \| 念心备用:HTTP 404 |
 | lingeng:1010🎵音源.js | kg | flac | kg:C41E80A18D1448FA47086372999C7F43 | OK | OK | OK | OK 206 flac 4096B |
 | lingeng:1010🎵音源.js | kg | flac24bit | kg:B3A52A7A958BF0AED0EBFBA2E9A818B7 | - | - | - | Platform or quality not declared |
 | lingeng:1010🎵音源.js | kg | flac24bit | kg:C41E80A18D1448FA47086372999C7F43 | - | - | - | Platform or quality not declared |
