@@ -73,7 +73,7 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y bubblewrap util-linux
           # Ubuntu runner AppArmor can prevent unprivileged user namespaces.
-          # This is an ephemeral, secret-free runner; the source sandbox itself is still mandatory.
+          # This is an ephemeral runner; the source sandbox itself is still mandatory.
           if [ -e /proc/sys/kernel/apparmor_restrict_unprivileged_userns ]; then
             sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
           fi
@@ -87,6 +87,8 @@ jobs:
             source-state-${{ github.ref_name }}-
 
       - name: fetch upstream
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: node scripts/fetch-upstream.mjs
 
       - name: test sources (L1/L2/L3)

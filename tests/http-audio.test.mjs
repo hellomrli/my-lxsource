@@ -77,6 +77,31 @@ test('every redirect destination is rechecked and denied before a private connec
   assert.equal(requests, 1)
 })
 
+test('authorization survives same-origin redirects and is stripped across origins', async t => {
+  const calls = [], token = 'Bearer fixture-github-token'
+  let origin
+  const target = await server(t, (req, res) => {
+    calls.push({ path: 'target', authorization: req.headers.authorization })
+    res.writeHead(302, { Location: origin + '/done' })
+    res.end()
+  })
+  origin = await server(t, (req, res) => {
+    calls.push({ path: req.url, authorization: req.headers.authorization })
+    if (req.url !== '/done') res.writeHead(302, { Location: req.url === '/start' ? '/same' : target })
+    res.end('ok')
+  })
+  const response = await requestBytes(origin + '/start', {
+    headers: { Authorization: token }, allowPrivateNetwork: true,
+  })
+  assert.equal(response.statusCode, 200)
+  assert.deepEqual(calls, [
+    { path: '/start', authorization: token },
+    { path: '/same', authorization: token },
+    { path: 'target', authorization: undefined },
+    { path: '/done', authorization: undefined },
+  ])
+})
+
 test('WAV and AAC detection is correct; video containers are not misclassified as audio', () => {
   assert.equal(sniffAudio(Buffer.from('RIFF1234WAVE')), 'wav')
   assert.equal(sniffAudio(Buffer.from('RIFF1234AVI ')), null)

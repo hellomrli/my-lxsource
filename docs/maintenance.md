@@ -38,6 +38,10 @@ npm run build
 
 巡检 job 的仓库权限是只读；发布 job 只复制和提交健康报告、播放报告与整合脚本。`diagnostics` 附件保留 7 天，包含完整 JSON 和中间快照。状态缓存未命中时重新发现上游。
 
+抓取步骤使用 Actions 自动提供的临时 `GITHUB_TOKEN` 访问 GitHub API，避免共享 runner 的匿名请求额度耗尽。
+认证头只发送给 `api.github.com`，不用于源码下载，也不写入缓存、快照或报告；后续巡检步骤不继承该环境变量。
+本地也可为 `npm run fetch` 单独设置 `GITHUB_TOKEN`；未设置时使用匿名请求额度。
+
 查看失败时先定位步骤，再对应处理：
 
 | 错误或步骤 | 处理 |
