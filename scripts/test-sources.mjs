@@ -3,9 +3,10 @@ import { parseHttpUrl, boundedNumber } from './http.mjs'
 import { PLATFORMS, QUALITIES, readJson, readSnapshot, pool, atomicWrite, isMain } from './source-state.mjs'
 import { PROBES, normalizeProbes } from './probes.mjs'
 import { playbackPolicy } from './playback-policy.mjs'
+import { AvailabilityError, UNAVAILABLE_EXIT_CODE } from './availability.mjs'
 export { PROBES }
 
-const safeDetail = value => String(value).replace(/https?:\/\/[^\s"'<>]+/gi, '[URL redacted]').slice(0, 240)
+export const safeDetail = value => String(value).replace(/https?:\/\/[^\s"'<>]+/gi, '[URL redacted]').slice(0, 240)
 
 export async function testOne(rt, { id, sha256 }, platform, quality, probe, verify = verifyAudioUrl, verifyOptions = {}) {
   const result = { source: id, sha256, platform, quality, probeId: probe.id || `${platform}:${probe.musicInfo.songmid}`,
@@ -87,10 +88,10 @@ export async function runHealth({ statePath = 'state.json', reportPath = 'report
   const declarations = {}, sourceHashes = {}
   const outputs = await pool(Object.entries(state.sources), concurrency, async ([id, entry]) => {
     sourceHashes[id] = entry.sha256
-    let code, rt
+    const code = await readSnapshot(entry, { cacheDir })
+    let rt
     const results = []
     try {
-      code = await readSnapshot(entry, { cacheDir })
       rt = await load(code, runtimeOptions)
       if (!rt.error) declarations[id] = rt.sources
     } catch (error) { rt = { error: error.message, sources: {}, dispose() {} } }
@@ -111,11 +112,11 @@ export async function runHealth({ statePath = 'state.json', reportPath = 'report
     qualities: QUALITIES, probes: selectedProbes, sourceHashes, declarations, results, summary: summarize(results) }
   await atomicWrite(reportPath, JSON.stringify(report, null, 2) + '\n')
   await atomicWrite(markdownPath, healthMarkdown(report))
-  if (!results.some(r => r.l3)) throw new Error('No healthy sources; preserving previous published artifact')
+  if (!results.some(r => r.l3)) throw new AvailabilityError('health', 'No healthy sources; preserving previous published artifact')
   return report
 }
 
 if (isMain(import.meta.url)) {
   try { await runHealth() }
-  catch (error) { console.error(error.message); process.exitCode = 1 }
+  catch (error) { console.error(error.message); process.exitCode = error instanceof AvailabilityError ? UNAVAILABLE_EXIT_CODE : 1 }
 }

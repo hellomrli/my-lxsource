@@ -59,7 +59,26 @@ export async function loadSource(script, { timeoutMs = 30000, callTimeoutMs = ti
     child = spawn(command, args, { env: { PATH: '/usr/bin:/bin' }, stdio: ['pipe', 'pipe', 'pipe'] })
   } catch (error) { return { meta, sources: {}, error: error.message, callMusicUrl: null, dispose() {} } }
 
-  const pending = new Map(), requests = new Map()
+  const pending = new Map(), requests = new Map(), httpQueue = []
+  let activeHttp = 0
+  const acquireHttpSlot = signal => new Promise((resolve, reject) => {
+    if (signal.aborted) { reject(signal.reason); return }
+    if (activeHttp < 16) { activeHttp++; resolve(); return }
+    const waiting = {
+      start() { signal.removeEventListener('abort', abort); activeHttp++; resolve() },
+    }
+    const abort = () => {
+      const index = httpQueue.indexOf(waiting)
+      if (index !== -1) httpQueue.splice(index, 1)
+      reject(signal.reason)
+    }
+    signal.addEventListener('abort', abort, { once: true })
+    httpQueue.push(waiting)
+  })
+  const releaseHttpSlot = () => {
+    activeHttp--
+    if (httpQueue.length) httpQueue.shift().start()
+  }
   child.stdout.setEncoding('utf8')
   child.stderr.setEncoding('utf8')
   let closed = false, counter = 0, output = '', stderr = '', messageCount = 0, started = false
@@ -88,23 +107,34 @@ export async function loadSource(script, { timeoutMs = 30000, callTimeoutMs = ti
   })
   async function broker(message) {
     const id = message.id
-    if (!Number.isSafeInteger(id) || id < 1 || requests.has(id) || requests.size >= 16) {
-      send({ type: 'httpResult', id, error: 'Too many concurrent HTTP requests' })
+    // Source backends can leave requests in flight after returning a fast URL.
+    // Bound the burst to 16 active connections plus 48 waiting requests instead
+    // of immediately failing the next song's otherwise valid API request.
+    if (!Number.isSafeInteger(id) || id < 1 || requests.has(id) || requests.size >= 64) {
+      send({ type: 'httpResult', id, error: 'Too many pending HTTP requests' })
       return
     }
     const controller = new AbortController()
     requests.set(id, controller)
+    const options = message.options || {}
+    const deadline = Date.now() + boundedNumber(options.timeout, 20000, 1, 20000)
+    const timer = setTimeout(() => controller.abort(new Error('HTTP deadline exceeded')), deadline - Date.now())
+    let acquired = false
     try {
-      const options = message.options || {}
       const probe = message.type === 'audioProbe'
       if (probe && !audioProbe) throw new Error('Audio probe unavailable on this host')
       const maxBytes = probe ? boundedNumber(options.maxBytes, 4096, 1, 4096) : 1048576
       const headers = probe ? { 'User-Agent': 'Mozilla/5.0', 'Accept-Encoding': 'identity',
         Range: `bytes=0-${maxBytes - 1}` } : { ...options.headers }
       const body = probe ? undefined : encodeBody(options, headers)
+      await acquireHttpSlot(controller.signal)
+      acquired = true
+      const remaining = deadline - Date.now()
+      if (controller.signal.aborted) throw controller.signal.reason
+      if (remaining <= 0) throw new Error('HTTP deadline exceeded')
       const response = await request(message.url, {
         method: probe ? 'GET' : options.method || 'GET', headers, body, signal: controller.signal,
-        timeoutMs: boundedNumber(options.timeout, 20000, 1, 20000),
+        timeoutMs: remaining,
         maxBytes, prefix: probe, allowPrivateNetwork,
       })
       send({ type: 'httpResult', id, response: {
@@ -116,7 +146,11 @@ export async function loadSource(script, { timeoutMs = 30000, callTimeoutMs = ti
       const detail = error?.message || error?.code || (typeof error === 'string' && error) || 'HTTP request failed'
       send({ type: 'httpResult', id, error: String(detail) })
     }
-    finally { requests.delete(id) }
+    finally {
+      clearTimeout(timer)
+      requests.delete(id)
+      if (acquired) releaseHttpSlot()
+    }
   }
   child.stderr.on('data', chunk => { stderr = (stderr + chunk).slice(0, 2048) })
   child.once('error', error => stop(new Error(`OS sandbox unavailable: ${error.message}`)))

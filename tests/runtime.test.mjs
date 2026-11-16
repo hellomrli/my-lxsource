@@ -78,6 +78,87 @@ test('broker timeout includes the API response body', async t => {
   assert.match(await rt.callMusicUrl('wy', {}, '320k'), /deadline/i)
 })
 
+test('bursts of source HTTP requests wait for capacity without exceeding 16 active requests', async t => {
+  let active = 0, peak = 0, calls = 0
+  const rt = await loadSource(sourceCode(`
+    const values = await Promise.all(Array.from({length:24}, (_, i) => new Promise((resolve, reject) =>
+      lx.request('https://example.test/api/' + i, {timeout:500}, (error, response) =>
+        error ? reject(error) : resolve(response.statusCode)) )));
+    return JSON.stringify(values);
+  `), { timeoutMs: 1000, request: async url => {
+    calls++
+    peak = Math.max(peak, ++active)
+    await new Promise(resolve => setTimeout(resolve, 40))
+    active--
+    return { statusCode: 200, headers: {}, raw: Buffer.from('ok'), url }
+  } })
+  t.after(() => rt.dispose())
+  assert.equal(rt.error, null)
+  const values = JSON.parse(await rt.callMusicUrl('wy', {}, '320k'))
+  assert.equal(values.length, 24)
+  assert.ok(values.every(value => value === 200))
+  assert.equal(calls, 24)
+  assert.ok(peak <= 16)
+})
+
+test('HTTP queue waiting counts toward the deadline and expired requests never open a connection', async t => {
+  let calls = 0
+  const rt = await loadSource(sourceCode(`
+    for (let i=0; i<16; i++) lx.request('https://example.test/stall/' + i, {}, () => {});
+    return await new Promise(resolve => lx.request('https://example.test/queued', {timeout:40},
+      error => resolve(error ? error.message : 'UNEXPECTED_SUCCESS')));
+  `), { timeoutMs: 1000, request: async (url, { signal }) => {
+    calls++
+    return await new Promise((resolve, reject) => signal.addEventListener('abort', () => reject(signal.reason), { once: true }))
+  } })
+  t.after(() => rt.dispose())
+  assert.match(await rt.callMusicUrl('wy', {}, '320k'), /deadline/i)
+  assert.equal(calls, 16)
+})
+
+test('cancelled queued requests do not open a connection or deliver a late callback', async t => {
+  const calls = []
+  const rt = await loadSource(sourceCode(`
+    let cancelledCallback = false;
+    const values = Array.from({length:16}, (_, i) => new Promise((resolve, reject) =>
+      lx.request('https://example.test/api/' + i, {}, (error, response) =>
+        error ? reject(error) : resolve(response.statusCode))));
+    const cancel = lx.request('https://example.test/cancelled', {}, () => { cancelledCallback = true });
+    setTimeout(cancel, 10);
+    await Promise.all(values);
+    return JSON.stringify({cancelledCallback});
+  `), { timeoutMs: 1000, request: async url => {
+    calls.push(url)
+    await new Promise(resolve => setTimeout(resolve, 40))
+    return { statusCode: 200, headers: {}, raw: Buffer.from('ok'), url }
+  } })
+  t.after(() => rt.dispose())
+  assert.deepEqual(JSON.parse(await rt.callMusicUrl('wy', {}, '320k')), { cancelledCallback: false })
+  assert.equal(calls.length, 16)
+  assert.ok(!calls.some(url => url.endsWith('/cancelled')))
+})
+
+test('excessive source HTTP bursts cannot create an unbounded queue', async t => {
+  let calls = 0, active = 0, peak = 0
+  const rt = await loadSource(sourceCode(`
+    return JSON.stringify(await Promise.all(Array.from({length:80}, (_, i) => new Promise(resolve =>
+      lx.request('https://example.test/api/' + i, {timeout:800}, (error, response) =>
+        resolve(error ? error.message : response.statusCode)) ))));
+  `), { timeoutMs: 1500, request: async url => {
+    calls++
+    peak = Math.max(peak, ++active)
+    await new Promise(resolve => setTimeout(resolve, 30))
+    active--
+    return { statusCode: 200, headers: {}, raw: Buffer.from('ok'), url }
+  } })
+  t.after(() => rt.dispose())
+  const values = JSON.parse(await rt.callMusicUrl('wy', {}, '320k'))
+  assert.equal(values.filter(value => value === 200).length, 64)
+  assert.ok(values.filter(value => value !== 200).every(value => /Too many/.test(value)))
+  assert.equal(calls, 64)
+  assert.ok(peak <= 16)
+})
+
 test('network errors with empty messages do not close the source sandbox', async t => {
   for (const api of ['lx.request', 'lx.utils.audioProbe']) await t.test(api, async t => {
     const failures = [

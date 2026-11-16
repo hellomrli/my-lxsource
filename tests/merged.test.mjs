@@ -310,9 +310,10 @@ test('callback errors after initialization do not permanently disable a source',
   assert.equal(await h.call(), 'https://example.test/good.mp3')
 })
 
-test('binary MIME and unsupported HEAD are inconclusive for ordinary audio, not dead links', async t => {
+test('binary and mislabeled CDN MIME and unsupported HEAD are inconclusive for ordinary audio', async t => {
   for (const response of [
     { statusCode: 206, headers: { 'content-type': 'application/octet-stream' } },
+    { statusCode: 200, headers: { 'content-type': 'application/x-www-form-urlencoded; charset=utf-8' } },
     { statusCode: 200, headers: {} }, { statusCode: 405 }, { statusCode: 501 },
   ]) {
     const h = await mergedHarness(t, [sub('good', sourceCode("return 'https://example.test/good';"))], {
@@ -323,6 +324,18 @@ test('binary MIME and unsupported HEAD are inconclusive for ordinary audio, not 
       },
     })
     assert.equal(await h.call(), 'https://example.test/good')
+  }
+})
+
+test('HEAD errors retain the content type and reject documents and video before fallback', async t => {
+  for (const contentType of ['text/html', 'application/json', 'application/problem+json', 'application/xml', 'video/mp4', 'application/pdf']) {
+    const h = await mergedHarness(t, [sub('bad', sourceCode("return 'https://example.test/bad';"))], {
+      request: (url, options, callback) => {
+        queueMicrotask(() => callback(null, { statusCode: 200, headers: { 'content-type': contentType } }))
+        return () => {}
+      },
+    })
+    await assert.rejects(h.call(), error => error.message.includes('Playback content type is not audio: ' + contentType))
   }
 })
 

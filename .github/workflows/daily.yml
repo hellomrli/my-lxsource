@@ -57,6 +57,8 @@ jobs:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
     timeout-minutes: 60
+    outputs:
+      ready: ${{ steps.daily.outputs.ready }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -86,16 +88,11 @@ jobs:
           restore-keys: |
             source-state-${{ github.ref_name }}-
 
-      - name: fetch upstream
+      - name: daily check with bounded retries
+        id: daily
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: node scripts/fetch-upstream.mjs
-
-      - name: test sources (L1/L2/L3)
-        run: node scripts/test-sources.mjs
-
-      - name: build merged source
-        run: node scripts/build-source.mjs
+        run: npm run daily
 
       - name: upload diagnostics
         if: always()
@@ -104,14 +101,15 @@ jobs:
           name: diagnostics
           path: |
             state.json
+            reports/daily.json
+            reports/daily.md
             reports/health.json
-            reports/health.md
             reports/playback.json
-            reports/playback.md
           retention-days: 7
           if-no-files-found: warn
 
       - name: upload publication
+        if: steps.daily.outputs.ready == 'true'
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: publication
@@ -124,7 +122,7 @@ jobs:
 
   publish:
     needs: check
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master' && needs.check.outputs.ready == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     permissions:
@@ -147,8 +145,9 @@ jobs:
           # Do not overwrite newer source or configuration changes with stale results.
           git fetch -q origin master
           if [ "$(git rev-parse origin/master)" != "$CHECKED_SHA" ]; then
-            echo "::error::master advanced during the check; run a new check before publishing"
-            exit 1
+            echo "::notice::master advanced during the check; skipping stale publication"
+            echo "本轮巡检期间 master 已更新，跳过旧提交的发布，等待后续巡检。" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
           fi
           mkdir -p reports dist
           cp "$PUBLICATION_DIR/reports/health.md" reports/health.md

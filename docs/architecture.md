@@ -30,6 +30,8 @@ LX 自定义音源负责 `musicUrl`，将歌曲标识换成播放地址；搜索
 
 网络通过可信父进程的 HTTP 通道。DNS 地址在连接时固定并检查，私网、回环、保留地址、云元数据和重定向到这些地址被拒绝。请求时限覆盖 DNS、响应头和响应体；普通 API 最大 1 MiB，源码最大 2 MiB，音频只读取前缀。
 
+每个沙箱最多同时进行 16 个 HTTP 请求，短时峰值可有界排队，运行与排队总数最多 64。排队时间计入请求时限，取消或过期的排队请求不会打开连接。这样，上游多路请求在返回播放地址后仍未结束时，下一首歌可以等待空位。
+
 OS 沙箱仍依赖宿主内核，实际巡检适合不带敏感凭据的临时 runner。源码固定到 commit，并逐步核对 SHA256、runId 与报告时间。
 
 实现入口为 [merged-source.js 模板](../templates/merged-source.js)、[lx-runtime.mjs](../scripts/lx-runtime.mjs) 和 [lx-worker.mjs](../scripts/lx-worker.mjs)。返回[文档索引](index.md)。

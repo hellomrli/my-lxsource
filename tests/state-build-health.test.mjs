@@ -9,8 +9,9 @@ import { buildSource, validateReport, renderSource } from '../scripts/build-sour
 import { PROBES, testOne, runHealth, healthMarkdown } from '../scripts/test-sources.mjs'
 import { normalizeProbes } from '../scripts/probes.mjs'
 import { playbackPolicy } from '../scripts/playback-policy.mjs'
-import { loadSource } from '../scripts/lx-runtime.mjs'
-import { ROOT, tempDir, sourceCode, mp3 } from './helpers.mjs'
+import { loadSource, verifyAudioUrl } from '../scripts/lx-runtime.mjs'
+import { AvailabilityError } from '../scripts/availability.mjs'
+import { ROOT, tempDir, sourceCode, mp3, server } from './helpers.mjs'
 
 const successfulProbe = async () => ({ ok: true, connected: true, status: 206, magic: 'mp3(ID3)', bytes: 4096 })
 const runtimeStub = sources => ({ error: null, sources, dispose() {}, callMusicUrl: async () => 'https://example.test/audio.mp3' })
@@ -167,7 +168,11 @@ test('clean build uses exactly the tested snapshot and validates the merged arti
 test('build-time script failure is not embedded and does not overwrite the last good artifact', async t => {
   const f = await buildFixture(t, "throw new Error('broken source')")
   await fs.writeFile(f.outputPath, 'previous good artifact')
-  await assert.rejects(buildSource(f), /All candidate sources failed/)
+  await assert.rejects(buildSource(f), error => {
+    assert.ok(!(error instanceof AvailabilityError))
+    assert.match(error.message, /All candidate sources failed/)
+    return true
+  })
   assert.equal(await fs.readFile(f.outputPath, 'utf8'), 'previous good artifact')
 })
 
@@ -328,7 +333,12 @@ test('health does not count playback handlers that only work with dynamic code e
   await assert.rejects(runHealth({ statePath: f.statePath, reportPath: f.reportPath,
     markdownPath: path.join(f.dir, 'health.md'), cacheDir: f.cacheDir, config: {},
     verify: async () => { throw new Error('A blocked handler must not reach audio verification') },
-  }), /No healthy sources/)
+  }), error => {
+    assert.ok(error instanceof AvailabilityError)
+    assert.equal(error.stage, 'health')
+    assert.match(error.message, /No healthy sources/)
+    return true
+  })
   const report = JSON.parse(await fs.readFile(f.reportPath, 'utf8'))
   const result = report.results.find(r => r.platform === 'wy' && r.quality === '320k')
   assert.equal(result.l1, false)
@@ -384,11 +394,97 @@ test('partial song coverage is visible instead of being presented as full covera
 test('successful initialization with unplayable URLs cannot overwrite the last published artifact', async t => {
   const f = await buildFixture(t)
   await fs.writeFile(f.outputPath, 'previous good artifact')
+  await fs.writeFile(path.join(f.dir, 'playback.md'), 'previous successful report')
   const brokenRequest = async url => ({ statusCode: 404, headers: { 'content-type': 'text/html' }, raw: Buffer.from('gone'), url })
   await assert.rejects(buildSource({ ...f,
     load: (script, options) => loadSource(script, { ...options, request: brokenRequest }),
-  }), /Merged playback validation failed/)
+  }), error => {
+    assert.ok(error instanceof AvailabilityError)
+    assert.equal(error.stage, 'build')
+    assert.match(error.message, /Merged playback validation failed/)
+    return true
+  })
   assert.equal(await fs.readFile(f.outputPath, 'utf8'), 'previous good artifact')
+  const report = JSON.parse(await fs.readFile(path.join(f.dir, 'playback.json'), 'utf8'))
+  assert.equal(report.ok, false)
+  assert.deepEqual(report.profiles.map(p => p.profile), ['bytes', 'head'])
+  assert.ok(report.profiles.every(p => p.results.length === 2 && p.results.every(r => !r.l3)))
+  assert.equal(report.failures.length, 2)
+  const markdown = await fs.readFile(path.join(f.dir, 'playback.md'), 'utf8')
+  assert.match(markdown, /验收结果：失败/)
+  assert.match(markdown, /bytes \| wy \| 320k \| 0\/2/)
+  assert.match(markdown, /head \| wy \| 320k \| 0\/2/)
+  assert.match(markdown, /Playback HTTP 404/)
+  assert.ok(!markdown.includes('previous successful report'))
+})
+
+test('mislabeled CDN audio passes both merged host modes with independent byte verification', async t => {
+  const url = await server(t, (req, res) => {
+    res.writeHead(req.method === 'HEAD' ? 200 : 206, { 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8' })
+    res.end(mp3())
+  })
+  const f = await buildFixture(t, sourceCode(`return '${url}';`))
+  const result = await buildSource({ ...f,
+    load: (script, options) => loadSource(script, { ...options, allowPrivateNetwork: true }),
+    verify: (url, options) => verifyAudioUrl(url, { ...options, allowPrivateNetwork: true }),
+  })
+  assert.equal(result.validation.ok, true)
+  assert.ok(result.validation.profiles.every(p => p.results.length === 2 && p.results.every(r => r.l3)))
+})
+
+test('HEAD acceptance of mislabeled MIME still cannot publish a nonaudio body', async t => {
+  const url = await server(t, (req, res) => {
+    res.writeHead(req.method === 'HEAD' ? 200 : 206, { 'Content-Type': 'application/x-www-form-urlencoded' })
+    res.end(req.url === '/audio' ? mp3() : Buffer.from('{"error":"expired"}'))
+  })
+  const f = await buildFixture(t, sourceCode(`return lx.utils.audioProbe ? '${url}/audio' : '${url}/error';`))
+  await fs.writeFile(f.outputPath, 'previous good artifact')
+  await assert.rejects(buildSource({ ...f,
+    load: (script, options) => loadSource(script, { ...options, allowPrivateNetwork: true }),
+    verify: (url, options) => verifyAudioUrl(url, { ...options, allowPrivateNetwork: true }),
+  }), /Merged playback validation failed \(head wy\/320k\)/)
+  assert.equal(await fs.readFile(f.outputPath, 'utf8'), 'previous good artifact')
+  const report = JSON.parse(await fs.readFile(path.join(f.dir, 'playback.json'), 'utf8'))
+  assert.equal(report.ok, false)
+  assert.ok(report.profiles.find(p => p.profile === 'bytes').results.every(r => r.l3))
+  assert.ok(report.profiles.find(p => p.profile === 'head').results.every(r => r.l1 && r.l2 && !r.l3))
+  assert.equal(JSON.stringify(report).includes(url), false)
+})
+
+test('merged initialization failures are saved and do not skip the other host mode', async t => {
+  const f = await buildFixture(t)
+  await fs.writeFile(f.outputPath, 'previous good artifact')
+  await assert.rejects(buildSource({ ...f, load: (script, options) => {
+    if (options.audioProbe === true) return { error: 'unavailable https://example.test/?token=secret', sources: {}, dispose() {} }
+    return runtimeStub({ wy: { type: 'music', actions: ['musicUrl'], qualitys: ['320k'] } })
+  } }), error => {
+    assert.ok(!(error instanceof AvailabilityError))
+    assert.match(error.message, /Merged bytes initialization failed/)
+    return true
+  })
+  assert.equal(await fs.readFile(f.outputPath, 'utf8'), 'previous good artifact')
+  const report = JSON.parse(await fs.readFile(path.join(f.dir, 'playback.json'), 'utf8'))
+  assert.equal(report.ok, false)
+  assert.match(report.profiles[0].error, /URL redacted/)
+  assert.ok(report.profiles[1].results.every(r => r.l3))
+  assert.equal(JSON.stringify(report).includes('secret'), false)
+})
+
+test('corrupted snapshots stay fatal in health and build even when another source is usable', async t => {
+  for (const stage of ['health', 'build']) {
+    const f = await buildFixture(t)
+    await addBuildSource(f, 'z-good', sourceCode("return 'https://example.test/other.mp3';"))
+    await fs.writeFile(path.join(f.cacheDir, `${f.state.sources.fixture.sha256}.js`), 'changed code')
+    await fs.writeFile(f.outputPath, 'previous good artifact')
+    const options = { ...f, markdownPath: path.join(f.dir, 'health.md'),
+      load: async () => runtimeStub({ wy: { type: 'music', actions: ['musicUrl'], qualitys: ['320k'] } }) }
+    await assert.rejects(stage === 'health' ? runHealth(options) : buildSource(options), error => {
+      assert.ok(!(error instanceof AvailabilityError))
+      assert.match(error.message, /SHA256 mismatch/)
+      return true
+    })
+    assert.equal(await fs.readFile(f.outputPath, 'utf8'), 'previous good artifact')
+  }
 })
 
 test('merged HEAD validation falls back after a network error with an empty message', async t => {

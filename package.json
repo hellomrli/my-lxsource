@@ -9,6 +9,7 @@
     "test": "node --test --test-concurrency=1 tests/*.test.mjs",
     "health": "node scripts/test-sources.mjs",
     "build": "node scripts/build-source.mjs",
+    "daily": "node scripts/run-daily.mjs",
     "all": "node scripts/fetch-upstream.mjs && node scripts/test-sources.mjs && node scripts/build-source.mjs"
   },
   "dependencies": {},

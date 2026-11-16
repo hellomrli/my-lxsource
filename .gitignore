@@ -4,5 +4,6 @@ node_modules/
 config.local.json
 /state.json
 /reports/*.json
+/reports/daily.md
 /.cache/
 *.tmp

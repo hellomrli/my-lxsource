@@ -251,7 +251,8 @@ function verifyWithHostProbe(url, quality, timeoutMs, control) {
 
 // Limited LX hosts buffer lx.request bodies. HEAD is a connectivity check, not
 // evidence of a codec. Binary MIME or lack of HEAD support is inconclusive for
-// ordinary audio; only a byte-capable host advertises lossless qualities.
+// ordinary audio; some audio CDNs also label audio as form data. Only a
+// byte-capable host advertises lossless qualities.
 function verifyWithHead(url, quality, timeoutMs, control) {
   if (!canVerifyQuality(quality)) return Promise.reject(new Error('Lossless audio requires a bounded byte probe'))
   return new Promise((resolve, reject) => {
@@ -275,8 +276,8 @@ function verifyWithHead(url, quality, timeoutMs, control) {
         const ct = String(headers['content-type'] || headers['Content-Type'] || '').toLowerCase()
         if (status === 405 || status === 501) { finish(); return }
         if (status !== 200 && status !== 206) { finish(new Error('Playback HTTP ' + status)); return }
-        if (!audioContentTypeAllowed(ct) || (ct && !/^(?:audio\/|application\/(?:octet-stream|binary)(?:\s*;|$)|binary\/octet-stream(?:\s*;|$))/.test(ct))) {
-          finish(new Error('Playback content type is not audio')); return
+        if (!audioContentTypeAllowed(ct) || (ct && !/^(?:audio\/|application\/(?:octet-stream|binary|x-www-form-urlencoded)(?:\s*;|$)|binary\/octet-stream(?:\s*;|$))/.test(ct))) {
+          finish(new Error('Playback content type is not audio: ' + ct.slice(0, 120))); return
         }
         finish()
       })

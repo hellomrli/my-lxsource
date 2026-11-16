@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import { requestText } from './http.mjs'
 import { parseMeta, cacheScript, readJson, atomicWrite, isMain } from './source-state.mjs'
+import { AvailabilityError, UNAVAILABLE_EXIT_CODE, upstreamUnavailable } from './availability.mjs'
 
 export const UPSTREAMS = {
   pdone: { repo: 'pdone/lx-music-source', branch: 'main' },
@@ -43,15 +44,23 @@ export async function fetchUpstream({ upstreams = UPSTREAMS, download = requestT
   const githubHeaders = { 'User-Agent': 'my-lxsource', Accept: 'application/vnd.github+json' }
   if (githubToken) githubHeaders.Authorization = `Bearer ${githubToken}`
   const sources = {}, heads = {}, failures = []
+  let unavailable = true
   for (const [key, cfg] of Object.entries(upstreams)) {
     try {
       const result = await fetchRepo(key, cfg, { download, cacheDir, githubHeaders })
       Object.assign(sources, result.sources)
       heads[key] = result.head
-    } catch (error) { failures.push(`${key}: ${error.message}`) }
+    } catch (error) {
+      failures.push(`${key}: ${error.message}`)
+      if (!upstreamUnavailable(error)) unavailable = false
+    }
   }
   // A network failure is not evidence that upstream sources were deleted.
-  if (failures.length) throw new Error(`Incomplete upstream snapshot; previous state preserved\n${failures.join('\n')}`)
+  if (failures.length) {
+    const message = `Incomplete upstream snapshot; previous state preserved\n${failures.join('\n')}`
+    if (unavailable) throw new AvailabilityError('fetch', message)
+    throw new Error(message)
+  }
   if (!Object.keys(sources).length) throw new Error('No upstream sources discovered; previous state preserved')
   return { heads, sources, discovered: Object.keys(sources) }
 }
@@ -82,5 +91,5 @@ export async function runFetch(options = {}) {
 
 if (isMain(import.meta.url)) {
   try { await runFetch() }
-  catch (error) { console.error(error.message); process.exitCode = 1 }
+  catch (error) { console.error(error.message); process.exitCode = error instanceof AvailabilityError ? UNAVAILABLE_EXIT_CODE : 1 }
 }

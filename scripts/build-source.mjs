@@ -9,6 +9,7 @@ import { normalizeProbes } from './probes.mjs'
 import { validateMerged, playbackMarkdown } from './validate-merged.mjs'
 import { PLATFORMS, QUALITIES, sha256, readSnapshot, parseMeta, normalizeSources,
   readJson, atomicWrite, pool, isMain } from './source-state.mjs'
+import { AvailabilityError, UNAVAILABLE_EXIT_CODE } from './availability.mjs'
 
 const PLATFORM_NAMES = { wy: '网易云音乐', tx: 'QQ音乐', kw: '酷我音乐', kg: '酷狗音乐', mg: '咪咕音乐' }
 const safeJson = value => JSON.stringify(value, null, 2).replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029')
@@ -155,10 +156,10 @@ export async function buildSource({ statePath = 'state.json', reportPath = 'repo
   const maxSourceBytes = boundedNumber(cfg.embed?.maxSourceBytes, 0, 0, 8 * 1024 * 1024)
   if (!candidates.length) throw new Error('No L3-passing sources; previous artifact preserved')
   const loaded = await pool(candidates, 3, async candidate => {
+    const entry = state.sources[candidate.id]
+    const code = await readSnapshot(entry, { cacheDir })
     let rt
     try {
-      const entry = state.sources[candidate.id]
-      const code = await readSnapshot(entry, { cacheDir })
       rt = await load(code, { timeoutMs: boundedNumber(cfg.embed?.probeTimeoutMs, 15000), allowCodeGeneration: false })
       if (rt.error || rt.closed) throw new Error(`Build-time initialization failed: ${rt.error || 'sandbox closed'}`)
       const declared = normalizeSources(rt.sources)
@@ -208,9 +209,12 @@ export async function buildSource({ statePath = 'state.json', reportPath = 'repo
   const template = await fs.readFile(templatePath, 'utf8')
   const output = renderSource(template, subs, cfg, new Date(now).toISOString())
   // Validate the exact artifact on both supported host paths before publishing any output.
-  const validation = await validateMerged(output, buildDeclarations(subs), { probes: report.probes, config: cfg, load, verify })
-  await atomicWrite(path.join(path.dirname(reportPath), 'playback.json'), JSON.stringify(validation, null, 2) + '\n')
-  await atomicWrite(path.join(path.dirname(reportPath), 'playback.md'), playbackMarkdown(validation))
+  const validation = await validateMerged(output, buildDeclarations(subs), { probes: report.probes, config: cfg, load, verify,
+    onReport: async validation => {
+      await atomicWrite(path.join(path.dirname(reportPath), 'playback.json'), JSON.stringify(validation, null, 2) + '\n')
+      await atomicWrite(path.join(path.dirname(reportPath), 'playback.md'), playbackMarkdown(validation))
+    },
+  })
   await atomicWrite(outputPath, output)
   console.log(`Built ${subs.length} sources, ${Object.keys(buildDeclarations(subs)).length} verified platforms, ${Buffer.byteLength(output)} bytes`)
   return { subs, sources: buildDeclarations(subs), output, validation }
@@ -218,5 +222,5 @@ export async function buildSource({ statePath = 'state.json', reportPath = 'repo
 
 if (isMain(import.meta.url)) {
   try { await buildSource() }
-  catch (error) { console.error(error.message); process.exitCode = 1 }
+  catch (error) { console.error(error.message); process.exitCode = error instanceof AvailabilityError ? UNAVAILABLE_EXIT_CODE : 1 }
 }
