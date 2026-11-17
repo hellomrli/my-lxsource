@@ -1,4 +1,4 @@
-# 整合音源播放验收 2026-11-16T04:50:11.589Z
+# 整合音源播放验收 2026-11-17T03:08:46.322Z
 
 通过实际整合包的 musicUrl → 子源回退 → 播放校验，再独立 GET 检查音频字节。
 bytes 模式使用宿主有界字节探针；head 模式模拟普通受限客户端，仅提供普通音质。
@@ -6,7 +6,7 @@ HEAD 本身只检查连通性和明确的错误类型，不能证明音频格式
 
 验收结果：通过。
 
-产物 SHA256：`e2e4cbdc4e0e89a3ab387db37da4dbebdc06a337fed1bf9ab03581a6f4d523ca`
+产物 SHA256：`91c3da14b69306e27796a251a97c54184a6d8e265c0f82f85fbba2318276159d`
 
 | 宿主 | 平台 | 音质 | 通过/曲目数 |
 |---|---|---|---|
@@ -14,10 +14,9 @@ HEAD 本身只检查连通性和明确的错误类型，不能证明音频格式
 | bytes | wy | 320k | 2/2 |
 | bytes | wy | flac | 2/2 |
 | bytes | wy | flac24bit | 2/2 |
-| bytes | tx | 128k | 2/2 |
-| bytes | tx | 320k | 2/2 |
-| bytes | tx | flac | 2/2 |
-| bytes | tx | flac24bit | 1/2 |
+| bytes | tx | 128k | 1/2 |
+| bytes | tx | 320k | 1/2 |
+| bytes | tx | flac | 1/2 |
 | bytes | kw | 128k | 2/2 |
 | bytes | kw | 320k | 2/2 |
 | bytes | kw | flac | 2/2 |
@@ -31,8 +30,8 @@ HEAD 本身只检查连通性和明确的错误类型，不能证明音频格式
 | bytes | mg | flac | 2/2 |
 | head | wy | 128k | 2/2 |
 | head | wy | 320k | 2/2 |
-| head | tx | 128k | 2/2 |
-| head | tx | 320k | 2/2 |
+| head | tx | 128k | 1/2 |
+| head | tx | 320k | 1/2 |
 | head | kw | 128k | 2/2 |
 | head | kw | 320k | 2/2 |
 | head | kg | 128k | 2/2 |
